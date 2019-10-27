@@ -27,5 +27,5 @@ export const getQuietPaths = async (originCoords, targetCoords) => {
     const coordString = fromC[1].concat(',',fromC[0],'/',toC[1],',',toC[0])
     const response = await axios.get(baseurl.concat('quietpaths/', coordString))
     if (response.data.error) throw response.data.error
-    return response.data
+    return response.data.path_FC.features
 }
