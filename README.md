@@ -1,7 +1,9 @@
 # Quiet path UI
-A user interface (route planner) for quiet path route optimization application developed as part of my master's thesis -   [github.com/hellej/quiet-paths-msc](https://github.com/hellej/quiet-paths-msc). The goal of this project is to enable citizens to find better walking routes as alternatives to shortest paths. 
+A user interface (route planner) for [a quiet path route optimization application](https://github.com/DigitalGeographyLab/hope-green-path-server) developed as part of my master's thesis [(github.com/hellej/quiet-paths-msc)](https://github.com/hellej/quiet-paths-msc). The goal of this project is to enable citizens to find better walking routes as alternatives to shortest paths. 
 
-[Live demo](https://quietpath.web.app/)
+Further development of this project is moved to [github.com/DigitalGeographyLab/hope-green-path-ui](https://github.com/DigitalGeographyLab/hope-green-path-ui) and this repository is deprecated. 
+
+[Live demo](https://green-paths.web.app/)
 
 ## Built With
 * React, Redux & Thunk
