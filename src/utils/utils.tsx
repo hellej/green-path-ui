@@ -28,7 +28,7 @@ export const getDurationStringFromDist = (m: number, travelMode: TravelMode, sho
   return formattedDuration + ' ' + unit
 }
 
-export const getLayersFeaturesAroundClickE = (layers: string[], e: MapMouseEvent, tolerance: number, map: Map) => {
+export const getLayersFeaturesAroundClickE = (layers: string[] | undefined, e: MapMouseEvent, tolerance: number, map: Map) => {
   // tolerance: pixels around point
   const bbox: [PointLike, PointLike] = [[e.point.x - tolerance, e.point.y - tolerance], [e.point.x + tolerance, e.point.y + tolerance]]
   const features = map.queryRenderedFeatures(bbox, { layers })

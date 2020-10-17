@@ -5,6 +5,7 @@ export const extentFeat = hmaPoly.features[0] as PolygonFeature
 export enum Basemap {
   STREETS = 'mapbox://styles/joose/cjvbyzwuk31oe1fohk6s9ev4b',
   NOISE = 'mapbox://styles/joose/ckenvi8t83bbc19qqq3io2zvu',
+  AIR_QUALITY = 'mapbox://styles/joose/ckg3ie4ln1pqp19rzjfpjf5c1',
   SATELLITE = 'mapbox://styles/joose/ckf9du1ua28cj19mk96oidub3'
 }
 
@@ -15,7 +16,8 @@ export enum LayerId {
   GREEN_PATHS = 'pathsGreen',
   SELECTED_PATH = 'pathSelected',
   PATHS_EDGES = 'pathsEdges',
-  BASEMAP = 'baseMapLayer'
+  BASEMAP = 'baseMapLayer',
+  AQI_LAYER = 'aqistreetshma'
 }
 
 export enum TravelMode {
