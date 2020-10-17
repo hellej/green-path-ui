@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import {
   setLoadingData,
+  handleDataNotAvailable,
   setDataLoaded,
   resetAirQualityLayer,
   setDelayedStyleUpdate,
@@ -114,6 +115,8 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
       if (this.data) {
         this.props.setDataLoaded()
         this.props.setDelayedStyleUpdate(1000)
+      } else {
+        this.props.handleDataNotAvailable()
       }
     }
 
@@ -149,6 +152,7 @@ const mapStateToProps = (state: ReduxState) => ({
 
 const connector = connect(mapStateToProps, {
   setLoadingData,
+  handleDataNotAvailable,
   setDataLoaded,
   resetAirQualityLayer,
   setWaitingStyleUpdate,

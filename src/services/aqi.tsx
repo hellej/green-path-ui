@@ -10,9 +10,10 @@ if (process.env.NODE_ENV !== 'production') {
 export const getAqiLayerData = async (): Promise<Map<number, number> | undefined> => {
   const response = await axios.get(baseurl.concat('aqi-map-data'))
   if (response.data) {
-    return new Map(response.data.data as [number, number][])
     analytics.logEvent('aqi_map_data_loaded')
+    return new Map(response.data.data as [number, number][])
   } else {
+    analytics.logEvent('aqi_map_data_unavailable')
     console.error('No AQI map data available')
   }
 }

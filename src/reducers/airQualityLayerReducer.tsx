@@ -1,4 +1,5 @@
 import { Action } from 'redux'
+import { showNotification } from './notificationReducer'
 
 const initialAirQualityLayer: AirQualityLayerReducer = {
   hasData: false,
@@ -24,6 +25,9 @@ const airQualityLayerReducer = (
 
     case 'SET_LOADING_DATA':
       return { ...store, loadingData: action.loadingData }
+
+    case 'AQI_MAP_DATA_NOT_AVAILABLE':
+      return initialAirQualityLayer
 
     case 'SET_DATA_LOADED':
       return { ...store, hasData: true }
@@ -67,6 +71,13 @@ export const setDelayedStyleUpdate = (time: number) => {
   return (dispatch: any) => {
     dispatch({ type: 'SET_STYLE_UPDATE_DELAY' })
     setTimeout(() => dispatch({ type: 'FINISH_STYLE_UPDATE_DELAY' }), time)
+  }
+}
+
+export const handleDataNotAvailable = () => {
+  return (dispatch: any) => {
+    dispatch({ type: 'AQI_MAP_DATA_NOT_AVAILABLE' })
+    dispatch(showNotification('notif.error.no_aqi_map_data_available', 'error', 8))
   }
 }
 
