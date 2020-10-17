@@ -68,6 +68,18 @@ export const aqiColors = {
   5: '#FF270E',
 }
 
+export const aqiClassColors = {
+  2: '#00EC00',
+  3: '#00EC00',
+  4: '#C6F519',
+  5: '#C6F519',
+  6: '#FFD000',
+  7: '#FFD000',
+  8: '#FF6E1B',
+  9: '#FF6E1B',
+  10: '#FF270E'
+}
+
 export const menu = {
   lengthLimitSelector: 'length_limit_selector',
   pathList: 'path_list',

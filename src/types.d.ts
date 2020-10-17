@@ -1,6 +1,5 @@
-
 interface LngLat {
-  lng: number,
+  lng: number
   lat: number
 }
 
@@ -9,7 +8,7 @@ type Feature = import('@turf/helpers').Feature
 type GeoJSONType = 'FeatureCollection'
 
 interface FeatureCollection {
-  type: GeoJSONType,
+  type: GeoJSONType
   features: Feature[]
 }
 
@@ -40,35 +39,41 @@ type Properties = import('@turf/helpers').Properties
 
 enum TravelMode {
   WALK = 'walk',
-  BIKE = 'bike'
+  BIKE = 'bike',
 }
 
 enum ExposureMode {
   CLEAN = 'clean',
-  QUIET = 'quiet'
+  QUIET = 'quiet',
 }
 
 enum PathType {
   SHORT = 'short',
   CLEAN = 'clean',
-  QUIET = 'quiet'
+  QUIET = 'quiet',
 }
 
 enum StatsType {
   AQ = 'air quality',
-  NOISE = 'noise'
+  NOISE = 'noise',
 }
 
 interface LengthLimit {
-  limit: number,
-  count: number,
-  label: string,
+  limit: number
+  count: number
+  label: string
   cost_coeff: number
 }
 
 type OdCoords = [[number, number], [number, number]]
 
-enum AqiClass { 1 = 1, 2 = 2, 3 = 3, 4 = 4, 5 = 5 }
+enum AqiClass {
+  1 = 1,
+  2 = 2,
+  3 = 3,
+  4 = 4,
+  5 = 5,
+}
 
 enum DbClass {
   40 = 40,
@@ -78,7 +83,7 @@ enum DbClass {
   60 = 60,
   65 = 65,
   70 = 70,
-  75 = 75
+  75 = 75,
 }
 
 interface PathProperties extends Properties {
@@ -122,7 +127,7 @@ interface PathFeatureCollection extends FeatureCollection {
 
 interface EdgeFeature extends Feature {
   geometry: import('@turf/helpers').Geometry
-  properties: { value: number, p_length: number }
+  properties: { value: number; p_length: number }
 }
 
 interface EdgeFeatureCollection extends FeatureCollection {
@@ -130,139 +135,147 @@ interface EdgeFeatureCollection extends FeatureCollection {
 }
 
 interface PathDataResponse {
-  edge_FC: FeatureCollection,
+  edge_FC: FeatureCollection
   path_FC: PathFeatureCollection
 }
 
 interface MapReducer {
-  initialized: boolean,
-  zoomToBbox: [number, number, number, number],
-  basemap: import('./constants').Basemap,
-  basemapChangeId: number,
+  initialized: boolean
+  zoomToBbox: [number, number, number, number]
+  basemap: import('./constants').Basemap
+  basemapChangeId: number
   loadedLayers: import('./constants').LayerId[]
-  center: LngLat | {},
+  center: LngLat | {}
   zoom: number
 }
 
+interface AirQualityLayerReducer {
+  hasData: boolean
+  waiting: boolean
+  loading: boolean
+  waitingLoadsCount: number
+}
+
 interface UserLocationReducer {
-  watchId: number,
-  expireTime: string,
-  error: string | null,
-  lngLat: LngLat | null,
-  userLocFC: PointFeatureCollection,
-  userLocHistory: [number, number][],
+  watchId: number
+  expireTime: string
+  error: string | null
+  lngLat: LngLat | null
+  userLocFC: PointFeatureCollection
+  userLocHistory: [number, number][]
 }
 
 interface NotificationReducer {
-  text: string | null,
+  text: string | null
   look: string | null
 }
 
 interface PathDataCache {
-  od: OdCoords,
-  data: PathDataResponse,
+  od: OdCoords
+  data: PathDataResponse
   travelMode: TravelMode
 }
 
 interface PathsReducer {
-  cleanPathsAvailable: boolean,
-  selectedTravelMode: TravelMode,
-  showingPathsOfTravelMode: TravelMode | null,
-  showingPathsOfExposureMode: ExposureMode | null,
-  showingStatsType: StatsType | null,
-  selPathFC: PathFeatureCollection,
-  shortPathFC: PathFeatureCollection,
-  quietPathFC: PathFeatureCollection,
-  cleanPathFC: PathFeatureCollection,
-  quietEdgeFC: EdgeFeatureCollection,
-  cleanEdgeFC: EdgeFeatureCollection,
-  openedPath: PathFeature | null,
-  lengthLimit: LengthLimit,
-  lengthLimits: LengthLimit[],
-  waitingPaths: boolean,
-  showingPaths: boolean,
+  cleanPathsAvailable: boolean
+  selectedTravelMode: TravelMode
+  showingPathsOfTravelMode: TravelMode | null
+  showingPathsOfExposureMode: ExposureMode | null
+  showingStatsType: StatsType | null
+  selPathFC: PathFeatureCollection
+  shortPathFC: PathFeatureCollection
+  quietPathFC: PathFeatureCollection
+  cleanPathFC: PathFeatureCollection
+  quietEdgeFC: EdgeFeatureCollection
+  cleanEdgeFC: EdgeFeatureCollection
+  openedPath: PathFeature | null
+  lengthLimit: LengthLimit
+  lengthLimits: LengthLimit[]
+  waitingPaths: boolean
+  showingPaths: boolean
   routingId: number
 }
 
 interface PathListReducer {
-  scrollToPath: string,
-  routingId: number,
+  scrollToPath: string
+  routingId: number
 }
 
 interface GeocodingProps {
-  gid: string,
-  layer: string,
-  source: string,
-  name: string,
-  label: string,
-  neighbourhood: string,
-  confidence: number,
-  distance: number,
-  locality: string,
+  gid: string
+  layer: string
+  source: string
+  name: string
+  label: string
+  neighbourhood: string
+  confidence: number
+  distance: number
+  locality: string
   lngLat: LngLat
 }
 
 interface GeocodingResult {
-  geometry: { type: 'Point', coordinates: [number, number] },
-  properties: GeocodingProps,
+  geometry: { type: 'Point'; coordinates: [number, number] }
+  properties: GeocodingProps
   type: 'Feature'
 }
 
 interface OdPlace {
-  geometry: { type: 'Point', coordinates: [number, number] },
+  geometry: { type: 'Point'; coordinates: [number, number] }
   properties: {
-    label: string,
-    name: string,
-    locationType: import('./reducers/originReducer').LocationType,
+    label: string
+    name: string
+    locationType: import('./reducers/originReducer').LocationType
     odType: import('./reducers/originReducer').OdType
-  },
+  }
   type: 'Feature'
 }
 
 interface OriginReducer {
-  error: string | null,
-  originInputText: string,
-  originOptions: GeocodingResult[],
-  originOptionsVisible: boolean,
-  waitingUserLocOrigin: boolean,
-  originObject: OdPlace | null,
+  error: string | null
+  originInputText: string
+  originOptions: GeocodingResult[]
+  originOptionsVisible: boolean
+  waitingUserLocOrigin: boolean
+  originObject: OdPlace | null
 }
 
 interface DestinationReducer {
-  error: string | null,
-  destInputText: string,
-  destOptions: GeocodingResult[],
-  destOptionsVisible: boolean,
+  error: string | null
+  destInputText: string
+  destOptions: GeocodingResult[]
+  destOptionsVisible: boolean
   destObject: OdPlace | null
 }
 
 interface MapPopupReducer {
-  visible: boolean,
+  visible: boolean
   lngLat: LngLat | {}
 }
 
 interface VisitorReducer {
-  visitedBefore: boolean,
-  usedOds: OdPlace[],
+  visitedBefore: boolean
+  usedOds: OdPlace[]
   gaDisabled: boolean
 }
 
 interface UiReducer {
   lang: import('./reducers/uiReducer').Lang
-  info: boolean,
-  pathPanel: boolean,
-  pathPanelContent: string | null,
+  info: boolean
+  pathPanel: boolean
+  pathPanelContent: string | null
 }
 
 interface ReduxState {
-  map: MapReducer,
-  userLocation: UserLocationReducer,
-  notification: NotificationReducer,
-  paths: PathsReducer,
-  pathList: PathListReducer,
-  origin: OriginReducer,
-  destination: DestinationReducer,
-  mapPopup: MapPopupReducer,
-  visitor: VisitorReducer,
+  map: MapReducer
+  airQualityLayer: AirQualityLayerReducer
+  userLocation: UserLocationReducer
+  notification: NotificationReducer
+  paths: PathsReducer
+  pathList: PathListReducer
+  origin: OriginReducer
+  destination: DestinationReducer
+  mapPopup: MapPopupReducer
+  visitor: VisitorReducer
   ui: UiReducer
 }

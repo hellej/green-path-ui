@@ -1,14 +1,19 @@
 import { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import { setSelectedPath } from '../../reducers/pathsReducer'
-import { setLayerLoaded } from './../../reducers/mapReducer'
-import { aqiColors, Basemap, LayerId } from '../../constants'
+import {
+  setDataLoaded,
+  resetAirQualityLayer,
+  setDelayedStyleUpdate,
+  setWaiting,
+  setLoading,
+} from './../../reducers/airQualityLayerReducer'
+import { aqiClassColors, Basemap, LayerId } from '../../constants'
 import * as aqi from '../../services/aqi'
 
 const getUniqueFeatureIds = (features: any[]) => {
   const existingFeatureKeys: Map<number, boolean> = new Map()
   return features
-    .map(feat => feat.id)
+    .map((feat) => feat.id)
     .filter((id) => {
       if (existingFeatureKeys.has(id)) {
         return false
@@ -19,19 +24,19 @@ const getUniqueFeatureIds = (features: any[]) => {
     })
 }
 
+// prettier-ignore
 const aqiLineColors = [
   'match',
   ['feature-state', 'aqi'],
-  2, aqiColors[1],
-  3, aqiColors[2],
-  4, aqiColors[3],
-  5, aqiColors[4],
-  6, aqiColors[5],
-  7, aqiColors[5],
-  8, aqiColors[5],
-  9, aqiColors[5],
-  10, aqiColors[5],
-  11, aqiColors[5],
+  2, aqiClassColors[2],
+  3, aqiClassColors[3],
+  4, aqiClassColors[4],
+  5, aqiClassColors[5],
+  6, aqiClassColors[6],
+  7, aqiClassColors[7],
+  8, aqiClassColors[8],
+  9, aqiClassColors[9],
+  10, aqiClassColors[10],
   /* other */ '#3d3d3d'
 ]
 
@@ -42,45 +47,85 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
   data = undefined as Map<number, number> | undefined
 
   updateAqiState = (map: any) => {
-    console.log('Updating AQI to map...')
-
     this.props.map!.setPaintProperty(this.layerId, 'line-color', aqiLineColors)
-
-    const features = map!.queryRenderedFeatures(undefined, { layers: [this.layerId] })
+    const features = map!.queryRenderedFeatures(undefined, {
+      layers: [this.layerId],
+    })
     const uniqIds = getUniqueFeatureIds(features)
 
-    // update feature states with aqi
+    // update feature states with new AQI values
     uniqIds.forEach((id) => {
       const aqi = this.data!.get(id)
       if (aqi) {
-        map.setFeatureState({
-          source: this.source,
-          sourceLayer: this.sourceLayer,
-          id: id,
-        }, { aqi })
+        map.setFeatureState(
+          {
+            source: this.source,
+            sourceLayer: this.sourceLayer,
+            id: id,
+          },
+          { aqi },
+        )
       } else {
-        console.log('missing id')
+        console.log('Missing id for AQ feature')
       }
     })
-    console.log('Updated AQIs to feature states');
+    console.log('Updated AQIs to feature states')
+    this.props.setLoading(false)
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     const { map } = this.props
-    this.data = aqi.getAqiLayerData()
+    this.data = await aqi.getAqiLayerData()
+    this.props.setDataLoaded()
 
     map!.on('sourcedata', (e) => {
-      if (e.isSourceLoaded && this.props.basemap === Basemap.AIR_QUALITY) {
-        if (map && this.data) {
-          this.updateAqiState(map)
+      if (
+        e.sourceId === this.source &&
+        e.isSourceLoaded &&
+        this.props.basemap === Basemap.AIR_QUALITY
+      ) {
+        this.props.setDelayedStyleUpdate(1000)
+        if (!this.props.layer.waiting) {
+          this.props.setWaiting(true)
         }
       }
     })
   }
 
+  /**
+   * Let's update AQI features' states only after a short delay after either changed map view or new
+   * source data download. This way we can avoid unnecessarily updating the feature states multiple
+   * times due to single change in map view.
+   */
   componentDidUpdate = (prevProps: PropsFromRedux) => {
-    if (this.props.basemap !== prevProps.basemap && this.props.basemap === Basemap.AIR_QUALITY) {
-      console.log('Changed basemap to AIR QUALITY');
+    if (this.props.basemap !== Basemap.AIR_QUALITY) return
+
+    // add delayed AQI map update to "queue" if basemap changes
+    if (prevProps.basemap !== Basemap.AIR_QUALITY) {
+      console.log('Changed basemap to AIR QUALITY')
+      this.props.resetAirQualityLayer()
+      this.props.setWaiting(true)
+      this.props.setDelayedStyleUpdate(1000)
+    }
+
+    // add delayed AQI map update to "queue" if map center changes
+    if (JSON.stringify(prevProps.mapCenter) !== JSON.stringify(this.props.mapCenter)) {
+      this.props.resetAirQualityLayer()
+      this.props.setWaiting(true)
+      this.props.setDelayedStyleUpdate(1000)
+    }
+
+    // implement the AQI style update only after all update delays have passed
+    if (
+      this.props.layer.waiting &&
+      this.props.layer.waitingLoadsCount === 0 &&
+      prevProps.layer.waitingLoadsCount > 0 &&
+      this.props.map
+    ) {
+      // trigger AQI map style update if necessary
+      this.props.setWaiting(false)
+      this.props.setLoading(true)
+      this.updateAqiState(this.props.map)
     }
   }
 
@@ -91,8 +136,16 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
 
 const mapStateToProps = (state: ReduxState) => ({
   basemap: state.map.basemap,
+  layer: state.airQualityLayer,
+  mapCenter: state.map.center,
 })
 
-const connector = connect(mapStateToProps, { setSelectedPath, setLayerLoaded })
+const connector = connect(mapStateToProps, {
+  setDataLoaded,
+  resetAirQualityLayer,
+  setWaiting,
+  setLoading,
+  setDelayedStyleUpdate,
+})
 type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(AirQuality)
