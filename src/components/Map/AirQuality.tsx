@@ -1,28 +1,15 @@
 import { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import {
+  setLoadingData,
   setDataLoaded,
   resetAirQualityLayer,
   setDelayedStyleUpdate,
-  setWaiting,
-  setLoading,
+  setWaitingStyleUpdate,
+  setUpdatingStyle,
 } from './../../reducers/airQualityLayerReducer'
 import { aqiClassColors, Basemap, LayerId } from '../../constants'
 import * as aqi from '../../services/aqi'
-
-const getUniqueFeatureIds = (features: any[]) => {
-  const existingFeatureKeys: Map<number, boolean> = new Map()
-  return features
-    .map((feat) => feat.id)
-    .filter((id) => {
-      if (existingFeatureKeys.has(id)) {
-        return false
-      } else {
-        existingFeatureKeys.set(id, true)
-        return true
-      }
-    })
-}
 
 // prettier-ignore
 const aqiLineColors = [
@@ -40,6 +27,20 @@ const aqiLineColors = [
   /* other */ '#3d3d3d'
 ]
 
+const getUniqueFeatureIds = (features: any[]) => {
+  const existingFeatureKeys: Map<number, boolean> = new Map()
+  return features
+    .map((feat) => feat.id)
+    .filter((id) => {
+      if (existingFeatureKeys.has(id)) {
+        return false
+      } else {
+        existingFeatureKeys.set(id, true)
+        return true
+      }
+    })
+}
+
 class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
   layerId = LayerId.AQI_LAYER
   sourceLayer = LayerId.AQI_LAYER
@@ -47,6 +48,9 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
   data = undefined as Map<number, number> | undefined
 
   updateAqiState = (map: any) => {
+    this.props.setUpdatingStyle(true)
+    this.props.setWaitingStyleUpdate(false)
+
     this.props.map!.setPaintProperty(this.layerId, 'line-color', aqiLineColors)
     const features = map!.queryRenderedFeatures(undefined, {
       layers: [this.layerId],
@@ -70,23 +74,20 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
       }
     })
     console.log('Updated AQIs to feature states')
-    this.props.setLoading(false)
+    this.props.setUpdatingStyle(false)
   }
 
   componentDidMount = async () => {
-    const { map } = this.props
-    this.data = await aqi.getAqiLayerData()
-    this.props.setDataLoaded()
-
-    map!.on('sourcedata', (e) => {
+    this.props.map!.on('sourcedata', (e) => {
       if (
-        e.sourceId === this.source &&
         e.isSourceLoaded &&
-        this.props.basemap === Basemap.AIR_QUALITY
+        e.sourceId === this.source &&
+        this.props.basemap === Basemap.AIR_QUALITY &&
+        this.data
       ) {
-        this.props.setDelayedStyleUpdate(1000)
-        if (!this.props.layer.waiting) {
-          this.props.setWaiting(true)
+        this.props.setDelayedStyleUpdate(500)
+        if (!this.props.layer.waitingStyleUpdate) {
+          this.props.setWaitingStyleUpdate(true)
         }
       }
     })
@@ -97,34 +98,40 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
    * source data download. This way we can avoid unnecessarily updating the feature states multiple
    * times due to single change in map view.
    */
-  componentDidUpdate = (prevProps: PropsFromRedux) => {
+  componentDidUpdate = async (prevProps: PropsFromRedux) => {
     if (this.props.basemap !== Basemap.AIR_QUALITY) return
 
     // add delayed AQI map update to "queue" if basemap changes
     if (prevProps.basemap !== Basemap.AIR_QUALITY) {
       console.log('Changed basemap to AIR QUALITY')
       this.props.resetAirQualityLayer()
-      this.props.setWaiting(true)
-      this.props.setDelayedStyleUpdate(1000)
+      this.props.setWaitingStyleUpdate(true)
+      if (!this.data) {
+        this.props.setLoadingData(true)
+        this.data = await aqi.getAqiLayerData()
+        this.props.setLoadingData(false)
+      }
+      if (this.data) {
+        this.props.setDataLoaded()
+        this.props.setDelayedStyleUpdate(1000)
+      }
     }
 
     // add delayed AQI map update to "queue" if map center changes
-    if (JSON.stringify(prevProps.mapCenter) !== JSON.stringify(this.props.mapCenter)) {
-      this.props.resetAirQualityLayer()
-      this.props.setWaiting(true)
+    if (JSON.stringify(prevProps.mapCenter) !== JSON.stringify(this.props.mapCenter) && this.data) {
+      this.props.setWaitingStyleUpdate(true)
       this.props.setDelayedStyleUpdate(1000)
     }
 
-    // implement the AQI style update only after all update delays have passed
+    // implement the AQI style update if and only after all update delays have passed
     if (
-      this.props.layer.waiting &&
-      this.props.layer.waitingLoadsCount === 0 &&
-      prevProps.layer.waitingLoadsCount > 0 &&
-      this.props.map
+      this.props.layer.waitingStyleUpdate &&
+      this.props.layer.styleUpdateDelays === 0 &&
+      prevProps.layer.styleUpdateDelays > 0 &&
+      this.props.map &&
+      this.data
     ) {
       // trigger AQI map style update if necessary
-      this.props.setWaiting(false)
-      this.props.setLoading(true)
       this.updateAqiState(this.props.map)
     }
   }
@@ -141,10 +148,11 @@ const mapStateToProps = (state: ReduxState) => ({
 })
 
 const connector = connect(mapStateToProps, {
+  setLoadingData,
   setDataLoaded,
   resetAirQualityLayer,
-  setWaiting,
-  setLoading,
+  setWaitingStyleUpdate,
+  setUpdatingStyle,
   setDelayedStyleUpdate,
 })
 type PropsFromRedux = ConnectedProps<typeof connector>

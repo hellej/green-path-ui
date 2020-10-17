@@ -2,14 +2,16 @@ import { Action } from 'redux'
 
 const initialAirQualityLayer: AirQualityLayerReducer = {
   hasData: false,
-  waiting: false,
-  loading: false,
-  waitingLoadsCount: 0,
+  loadingData: false,
+  styleUpdateDelays: 0,
+  waitingStyleUpdate: false,
+  updatingStyle: false,
 }
 
 interface AqAction extends Action {
-  waiting: boolean
-  loading: boolean
+  loadingData: boolean
+  waitingStyleUpdate: boolean
+  updatingStyle: boolean
 }
 
 const airQualityLayerReducer = (
@@ -18,35 +20,48 @@ const airQualityLayerReducer = (
 ): AirQualityLayerReducer => {
   switch (action.type) {
     case 'RESET_AIR_QUALITY_LAYER':
-      return { ...initialAirQualityLayer, hasData: store.hasData }
+      return { ...initialAirQualityLayer, hasData: store.hasData, loadingData: store.loadingData }
+
+    case 'SET_LOADING_DATA':
+      return { ...store, loadingData: action.loadingData }
 
     case 'SET_DATA_LOADED':
       return { ...store, hasData: true }
 
     case 'SET_WAITING':
-      return { ...store, waiting: action.waiting }
+      return { ...store, waitingStyleUpdate: action.waitingStyleUpdate }
 
-    case 'SET_LOADING':
-      return { ...store, waiting: action.loading }
+    case 'SET_UPDATING_STYLE':
+      return { ...store, updatingStyle: action.updatingStyle }
 
     case 'SET_STYLE_UPDATE_DELAY':
-      return { ...store, waitingLoadsCount: store.waitingLoadsCount + 1 }
+      return { ...store, styleUpdateDelays: store.styleUpdateDelays + 1 }
 
-    case 'FINISH_STYLE_UPDATE_DELAY':
-      return { ...store, waitingLoadsCount: store.waitingLoadsCount - 1 }
+    case 'FINISH_STYLE_UPDATE_DELAY': {
+      const styleUpdateDelays = store.styleUpdateDelays <= 0 ? 0 : store.styleUpdateDelays - 1
+      return { ...store, styleUpdateDelays }
+    }
 
     default:
       return store
   }
 }
 
-export const setDataLoaded = () => ({ type: 'SET_DATA_LOADED' })
-
 export const resetAirQualityLayer = () => ({ type: 'RESET_AIR_QUALITY_LAYER' })
 
-export const setWaiting = (waiting: boolean) => ({ type: 'SET_WAITING', waiting })
+export const setLoadingData = (loadingData: boolean) => ({ type: 'SET_LOADING_DATA', loadingData })
 
-export const setLoading = (loading: boolean) => ({ type: 'SET_LOADING', loading })
+export const setDataLoaded = () => ({ type: 'SET_DATA_LOADED' })
+
+export const setWaitingStyleUpdate = (waitingStyleUpdate: boolean) => ({
+  type: 'SET_WAITING',
+  waitingStyleUpdate,
+})
+
+export const setUpdatingStyle = (updatingStyle: boolean) => ({
+  type: 'SET_UPDATING_STYLE',
+  updatingStyle,
+})
 
 export const setDelayedStyleUpdate = (time: number) => {
   return (dispatch: any) => {

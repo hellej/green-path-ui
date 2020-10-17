@@ -151,9 +151,10 @@ interface MapReducer {
 
 interface AirQualityLayerReducer {
   hasData: boolean
-  waiting: boolean
-  loading: boolean
-  waitingLoadsCount: number
+  loadingData: boolean
+  styleUpdateDelays: number
+  waitingStyleUpdate: boolean
+  updatingStyle: boolean
 }
 
 interface UserLocationReducer {
