@@ -8,6 +8,7 @@ import BottomControlPanel from './components/BottomControlPanel/BottomControlPan
 import PathPanel from './components/PathPanel/PathPanel'
 import Map from './components/Map/Map'
 import MapControl from './components/Map/MapControl'
+import AirQuality from './components/Map/AirQuality'
 import UserLocation from './components/Map/UserLocation'
 import PathShort from './components/Map/PathShort'
 import PathSelected from './components/Map/PathSelected'
@@ -55,6 +56,7 @@ class App extends Component<PropsFromRedux> {
         <HopeLink />
         <Map>
           <MapControl />
+          <AirQuality />
           <PathSelected />
           <PathsGreen />
           <PathShort />

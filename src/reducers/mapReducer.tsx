@@ -14,21 +14,19 @@ const initialMapState: MapReducer = {
 }
 
 interface MapAction extends Action {
-  originCoords: [number, number],
-  destCoords: [number, number],
-  fc: FeatureCollection,
-  userLocFC: PointFeatureCollection,
-  originObject: OdPlace,
-  zoom: number,
-  center: LngLat,
-  basemap: Basemap,
+  originCoords: [number, number]
+  destCoords: [number, number]
+  fc: FeatureCollection
+  userLocFC: PointFeatureCollection
+  originObject: OdPlace
+  zoom: number
+  center: LngLat
+  basemap: Basemap
   layerId: LayerId
 }
 
 const mapReducer = (store: MapReducer = initialMapState, action: MapAction): MapReducer => {
-
   switch (action.type) {
-
     case 'INITIALIZE_MAP':
       return { ...store, initialized: true }
 
@@ -36,7 +34,10 @@ const mapReducer = (store: MapReducer = initialMapState, action: MapAction): Map
       return { ...store, zoomToBbox: turf.getBbox(turf.getBuffer(action.fc, 300)) }
 
     case 'ROUTING_STARTED': {
-      const FC = turf.asFeatureCollection([turf.asPoint(action.originCoords), turf.asPoint(action.destCoords)])
+      const FC = turf.asFeatureCollection([
+        turf.asPoint(action.originCoords),
+        turf.asPoint(action.destCoords),
+      ])
       return { ...store, zoomToBbox: turf.getBbox(FC) }
     }
 
@@ -64,7 +65,11 @@ const mapReducer = (store: MapReducer = initialMapState, action: MapAction): Map
     }
 
     case 'UPDATE_CAMERA':
-      return { ...store, center: action.center, zoom: action.zoom }
+      const center = {
+        lng: Math.round(action.center.lng * 100000) / 100000,
+        lat: Math.round(action.center.lat * 100000) / 100000,
+      }
+      return { ...store, center, zoom: action.zoom }
 
     default:
       return store

@@ -10,7 +10,8 @@
   "extends": [
     "react-app",
     "eslint:recommended",
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
+    "prettier"
   ],
   "parser": "babel-eslint",
   "globals": {

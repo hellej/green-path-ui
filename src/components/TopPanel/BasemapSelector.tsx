@@ -16,7 +16,7 @@ const OptionContainer = styled.div`
   padding: 9px;
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.06), 0 6px 20px 0 rgba(0,0,0,0.03);
-
+  pointer-events: auto;
 `
 const BaseMapOption = styled.div<{ bike?: any, selected: boolean }>`
   cursor: pointer;
@@ -71,6 +71,11 @@ const BasemapSelector = (props: PropsFromRedux) => {
             selected={props.basemap === Basemap.NOISE}
             onClick={() => props.setBaseMap(Basemap.NOISE)}>
             <T>basemap_selector.option.label.traffic_noise</T>
+          </BaseMapOption>
+          <BaseMapOption
+            selected={props.basemap === Basemap.AIR_QUALITY}
+            onClick={() => props.setBaseMap(Basemap.AIR_QUALITY)}>
+            <T>basemap_selector.option.label.air_quality</T>
           </BaseMapOption>
           <BaseMapOption
             selected={props.basemap === Basemap.SATELLITE}
