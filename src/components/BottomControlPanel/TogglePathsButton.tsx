@@ -80,7 +80,8 @@ const TogglePathsButton = (props: PropsFromRedux) => {
       <StyledPathTypeLabel disabled={disabled} toggleToPathType={toggleToPathType}>
         {' '}<T>{toggleLabel}</T>{' '}
       </StyledPathTypeLabel>
-      <T>toggle_paths_exposure.label.paths</T>
+      {toggleToPathType === ExposureMode.CLEAN && <T>toggle_paths_exposure.label.(fresh_air).paths</T>}
+      {toggleToPathType === ExposureMode.QUIET && <T>toggle_paths_exposure.label.(quiet).paths</T>}
     </Button>
   )
 }
