@@ -37,7 +37,7 @@
     "air_quality_label.missing_data": "okänd luftkvalitet",
     "toggle_paths_exposure.label.show": "Visa",
     "toggle_paths_exposure.label.quiet": "tysta",
-    "toggle_paths_exposure.label.fresh_air": "ren luft", 
+    "toggle_paths_exposure.label.fresh_air": "renlufts-", 
     "toggle_paths_exposure.label.paths": "rutter",
     "filter_paths_by_distance.tooltip": "Visa bara rutter som är kortare än",
     "opened_shortest_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den kortaste (valda) rutten",
