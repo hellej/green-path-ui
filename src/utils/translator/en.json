@@ -23,6 +23,8 @@
   "od_inputs.from_label": "From",
   "od_inputs.to_label": "To",
   "od_inputs.use_current_location": "Use current location",
+  "map_od_popup.button.set_origin.label": "Aseta lähtöpaikka",
+  "map_od_popup.button.set_destination.label": "Aseta määränpää",
   "basemap_selector.option.label.streets": "Streets",
   "basemap_selector.option.label.traffic_noise": "Traffic noise",
   "basemap_selector.option.label.air_quality": "Air quality",
