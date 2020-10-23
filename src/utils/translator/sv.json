@@ -23,6 +23,8 @@
   "od_inputs.from_label": "Startpunkt",
   "od_inputs.to_label": "Mål",
   "od_inputs.use_current_location": "Använd nuvarande position",
+  "map_od_popup.button.set_origin.label": "Rutt härifrån",
+  "map_od_popup.button.set_destination.label": "Rutt hit",
   "basemap_selector.option.label.streets": "Gator",
   "basemap_selector.option.label.traffic_noise": "Trafikbuller",
   "basemap_selector.option.label.air_quality": "Luftkvalitet",
