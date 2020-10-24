@@ -7,37 +7,47 @@ import { Action } from 'redux'
 export enum Lang {
   FI = 'fi',
   EN = 'en',
-  SV = 'sv'
+  SV = 'sv',
 }
 
 const initialMenuState: UiReducer = {
   lang: Lang.EN,
   info: false,
+  odPanelHidden: false,
   pathPanel: false,
   pathPanelContent: null,
 }
 
 interface UiAction extends Action {
   lang: Lang
+  hidden: boolean
 }
 
 const uiReducer = (store: UiReducer = initialMenuState, action: UiAction): UiReducer => {
-
   switch (action.type) {
+    case 'TOGGLE_LANG':
+      return { ...store, lang: action.lang }
 
-    case 'TOGGLE_LANG': return { ...store, lang: action.lang }
+    case 'SHOW_INFO':
+      return { ...store, info: true }
 
-    case 'SHOW_INFO': return { ...store, info: true }
+    case 'HIDE_INFO':
+      return { ...store, info: false }
 
-    case 'HIDE_INFO': return { ...store, info: false }
+    case 'SET_OD_PANEL_HIDDEN':
+      return { ...store, odPanelHidden: action.hidden }
 
-    case 'SET_SHORTEST_PATH': return { ...store, pathPanel: true, pathPanelContent: menu.pathList }
+    case 'SET_SHORTEST_PATH':
+      return { ...store, pathPanel: true, odPanelHidden: false, pathPanelContent: menu.pathList }
 
-    case 'TOGGLE_PATH_PANEL': return { ...store, pathPanel: !store.pathPanel }
+    case 'TOGGLE_PATH_PANEL':
+      return { ...store, pathPanel: !store.pathPanel }
 
-    case 'SHOW_PATH_LIST': return { ...store, pathPanel: true, pathPanelContent: menu.pathList }
+    case 'SHOW_PATH_LIST':
+      return { ...store, pathPanel: true, pathPanelContent: menu.pathList }
 
-    case 'SHOW_LENGTH_FILTER_SELECTOR': return { ...store, pathPanel: true, pathPanelContent: menu.lengthLimitSelector }
+    case 'SHOW_LENGTH_FILTER_SELECTOR':
+      return { ...store, pathPanel: true, pathPanelContent: menu.lengthLimitSelector }
 
     default:
       return store
@@ -63,7 +73,7 @@ export const loadSelectedLanguage = () => {
   return (dispatch: any) => {
     const langC = Cookies.get('gp-lang')
     const langLs = localStorage.getItem('gp-lang')
-    const lang = langC ? langC as Lang : langLs as Lang
+    const lang = langC ? (langC as Lang) : (langLs as Lang)
     if (lang && Object.values(Lang).includes(lang)) {
       dispatch({ type: 'TOGGLE_LANG', lang })
     }
@@ -71,6 +81,11 @@ export const loadSelectedLanguage = () => {
 }
 
 export const showInfo = () => ({ type: 'SHOW_INFO' })
+
+export const setOdPanelHidden = (hidden: boolean) => ({
+  type: 'SET_OD_PANEL_HIDDEN',
+  hidden,
+})
 
 export const hideInfo = () => {
   return (dispatch: any) => {

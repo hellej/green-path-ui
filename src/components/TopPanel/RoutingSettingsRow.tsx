@@ -5,6 +5,8 @@ import TravelModeSelector from './TravelModeSelector'
 import ResetPathsButton from './ResetPathsButton'
 import LocateButton from './LocateButton'
 import ToggleLanguageButton from './ToggleLanguageButton'
+import ToggleOdPanelButton from './ToggleOdPanelButton'
+import { setOdPanelHidden } from './../../reducers/uiReducer'
 
 const OuterContainer = styled.div`
   display: flex;
@@ -36,16 +38,20 @@ const LanguageContainer = styled.div`
 `
 
 const RoutingSettingsRow = (props: PropsFromRedux) => {
-  const { showingPaths, waitingPaths } = props
+  const { showingPaths, waitingPaths, odPanelHidden, setOdPanelHidden } = props
   return (
     <OuterContainer>
-      <ResetContainer>
-        {showingPaths || waitingPaths ? <ResetPathsButton /> : null}
-      </ResetContainer>
+      <ResetContainer>{showingPaths || waitingPaths ? <ResetPathsButton /> : null}</ResetContainer>
       <SettingsContainer>
-        <TravelModeSelector />
         <LocateButton />
+        <TravelModeSelector />
       </SettingsContainer>
+      {!showingPaths && !waitingPaths && (
+        <ToggleOdPanelButton
+          onClick={() => setOdPanelHidden(!odPanelHidden)}
+          up={!odPanelHidden}
+        />
+      )}
       <LanguageContainer>
         <ToggleLanguageButton />
       </LanguageContainer>
@@ -56,8 +62,9 @@ const RoutingSettingsRow = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   showingPaths: state.paths.showingPaths,
   waitingPaths: state.paths.waitingPaths,
+  odPanelHidden: state.ui.odPanelHidden,
 })
 
-const connector = connect(mapStateToProps, {})
+const connector = connect(mapStateToProps, { setOdPanelHidden })
 type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(RoutingSettingsRow)

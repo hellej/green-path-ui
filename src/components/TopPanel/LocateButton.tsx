@@ -24,7 +24,7 @@ const Locate = styled(MdNearMe)`
   vertical-align: middle;
   display: table-cell;
   text-align: center;
-  font-size: 31px;
+  font-size: 28px;
 `
 const StyledIcon = styled.div`
   cursor: pointer;

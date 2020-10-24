@@ -264,6 +264,7 @@ interface VisitorReducer {
 interface UiReducer {
   lang: import('./reducers/uiReducer').Lang
   info: boolean
+  odPanelHidden: boolean
   pathPanel: boolean
   pathPanelContent: string | null
 }

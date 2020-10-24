@@ -58,6 +58,7 @@ const LowerRightPanel = styled.div`
 `
 
 const TopPanel = (props: PropsFromRedux) => {
+  const { odPanelHidden } = props
   return (
     <div>
       <VisiblePanel>
@@ -67,7 +68,7 @@ const TopPanel = (props: PropsFromRedux) => {
             Green<span style={{ marginLeft: '2px' }}>Paths</span>
           </GreenPathsLabel>
         </LogoRow>
-        <OrigDestPanel />
+        {!odPanelHidden && <OrigDestPanel />}
         <RoutingSettingsRow />
       </VisiblePanel>
       <LowerTransparentPanel>
@@ -86,6 +87,7 @@ const TopPanel = (props: PropsFromRedux) => {
 
 const mapStateToProps = (state: ReduxState) => ({
   basemap: state.map.basemap,
+  odPanelHidden: state.ui.odPanelHidden,
 })
 
 const connector = connect(mapStateToProps, {})
