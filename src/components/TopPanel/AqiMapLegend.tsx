@@ -11,8 +11,13 @@ const Container = styled.div`
 const LegendBox = styled.div`
   background-color: #000000c2;
   color: white;
-  padding: 10px 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
   border-radius: 5px;
+`
+const TitleRow = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 0px 5px 8px 5px;
 `
 const ColorRow = styled.div`
   display: flex;
@@ -33,11 +38,43 @@ const LoadAnimationWrapper = styled.div`
   margin: 7px 6px 7px 5px;
 `
 
+const formatUtcSecondsToAmPm = (utcSeconds: number): string => {
+  const date = new Date(0)
+  date.setUTCSeconds(utcSeconds)
+  let hours = date.getHours()
+  const ampm = hours >= 12 ? 'pm' : 'am'
+  hours = hours % 12
+  hours = hours ? hours : 12
+  return hours + ':30 ' + ampm
+}
+
+const getDataAgeMinutes = (dataTimeUtcSecs: number): number => {
+  const seconds = Date.now() / 1000
+  return Math.round((seconds - dataTimeUtcSecs) / 60)
+}
+
+const formatAqiTimeInfo = (dataTimeUtcSecs: number): string => {
+  const dataAgeMinutes = getDataAgeMinutes(dataTimeUtcSecs)
+  if (dataAgeMinutes > 60) {
+    return formatUtcSecondsToAmPm(dataTimeUtcSecs)
+  } else {
+    return 'basemap.air_quality.legend.title.aqi_data_time_now'
+  }
+}
+
 const AqiMapLegend = (props: PropsFromRedux) => {
-  const { loadingData, waitingStyleUpdate, updatingStyle } = props.aqLayer
+  const { loadingData, waitingStyleUpdate, updatingStyle, dataTimeUtcSecs } = props.aqLayer
   return (
     <Container>
       <LegendBox>
+        <TitleRow>
+          <T>basemap.air_quality.legend.title.air_quality_index</T>
+          {dataTimeUtcSecs && (
+            <span>
+              &nbsp;(<T>{formatAqiTimeInfo(dataTimeUtcSecs)}</T>)
+            </span>
+          )}
+        </TitleRow>
         <ColorRow>
           {Array.from({ length: 8 }, (_, i) => i + 2).map((k: number) => (
             <ColorBox
