@@ -140,13 +140,13 @@ describe('Set origin & destination from the map', () => {
     cy.get('.mapboxgl-canvas')
       .wait(300)
       .click(465, 520)
-    cy.contains('Route from here').click()
+    cy.contains('Set origin').click()
   })
 
   it('sets destination from the map', () => {
     cy.get('.mapboxgl-canvas')
-      .click(565, 160)
-    cy.contains('Route here').click()
+      .click(565, 230)
+    cy.contains('Set destination').click()
   })
 })
 
@@ -154,9 +154,9 @@ describe('Query and show quiet paths', () => {
 
   it('finds quiet paths (walk)', () => {
     cy.contains('Find quiet paths').click()
-    cy.contains('high noise')
-    cy.contains('2.5 km')
-    cy.contains('26 min')
+    cy.contains('very high noise')
+    cy.contains('1.6 km')
+    cy.contains('20 min')
   })
 
   it('shows dB legend', () => {
@@ -172,19 +172,19 @@ describe('Toggle travel mode', () => {
   it('finds biking routes', () => {
     cy.get('#toggle-to-bike-button').click()
     cy.contains('4/4')
-    cy.contains('8 min')
+    cy.contains('6 min')
   })
 
   it('toggles to walking routes', () => {
     cy.get('#toggle-to-walk-button').click()
     cy.contains('4/4')
-    cy.contains('26 min')
+    cy.contains('19 min')
   })
 
   it('toggles to biking routes', () => {
     cy.get('#toggle-to-bike-button').click()
     cy.contains('4/4')
-    cy.contains('8 min')
+    cy.contains('6 min')
   })
 
   it('toggles back to walking routes', () => {
@@ -204,14 +204,14 @@ describe('Filter paths', () => {
 
   it('filters paths by length', () => {
     cy.get('#filter-by-length-button').click()
-    cy.contains('2.2 km').click()
+    cy.contains('1.7 km').click()
     cy.get('#close-filter-panel').children().click()
-    cy.contains('2/4')
+    cy.contains('3/4')
   })
 
   it('disables filter paths', () => {
     cy.get('#filter-by-length-button').click()
-    cy.contains('2.5 km').click()
+    cy.contains('1.9 km').click()
     cy.get('#close-filter-panel').children().click()
     cy.contains('4/4')
   })
@@ -236,7 +236,7 @@ describe('Reset paths', () => {
     cy.get('.mapboxgl-canvas')
       .wait(500)
       .click(565, 160)
-    cy.contains('Route here').click()
+    cy.contains('Set destination').click()
   })
 
   it('resets paths by selecting new origin from map', () => {
@@ -244,7 +244,7 @@ describe('Reset paths', () => {
     cy.get('.mapboxgl-canvas')
       .wait(500)
       .click(520, 550)
-    cy.contains('Route from here').click()
+    cy.contains('Set origin').click()
     cy.contains('Find quiet paths')
   })
 })
@@ -261,11 +261,11 @@ describe('Routing (more test cases)', () => {
     cy.get('.mapboxgl-canvas')
       .wait(300)
       .click(465, 210)
-    cy.contains('Route from here').click()
+    cy.contains('Set origin').click()
     cy.get('.mapboxgl-canvas')
       .wait(100)
       .click(565, 520)
-    cy.contains('Route here').click()
+    cy.contains('Set destination').click()
     cy.contains('Find quiet paths').click()
   })
 
