@@ -4,7 +4,6 @@ import {
   setLoadingData,
   handleDataNotAvailable,
   setDataLoaded,
-  resetAirQualityLayer,
   setDelayedStyleUpdate,
   setWaitingStyleUpdate,
   setUpdatingStyle,
@@ -47,6 +46,7 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
   sourceLayer = LayerId.AQI_LAYER
   source = 'composite'
   data = undefined as Map<number, number> | undefined
+  dataTimeUtcSecs = null as number | null
 
   updateAqiState = (map: any) => {
     this.props.setUpdatingStyle(true)
@@ -78,7 +78,36 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
     this.props.setUpdatingStyle(false)
   }
 
+  /**
+   * Triggers AQI map data fetch/update if new or initial AQI data is available.
+   */
+  maybeUpdateAqiData = async (repeat: boolean = true) => {
+    if (this.props.basemap === Basemap.AIR_QUALITY && !this.props.layer.loadingData ) {
+      const server = await aqi.getAqiMapDataStatus()
+      if (
+        server.aqi_map_data_utc_time_secs && //i.e. aqi map data is available
+        (!this.dataTimeUtcSecs || this.dataTimeUtcSecs < server.aqi_map_data_utc_time_secs)
+      ) {
+        console.log('fetching new AQI map data:', server.aqi_map_data_utc_time_secs)
+        this.props.setLoadingData(true)
+        try {
+          this.data = await aqi.getAqiLayerData()
+          this.dataTimeUtcSecs = server.aqi_map_data_utc_time_secs
+          this.props.setDataLoaded(server.aqi_map_data_utc_time_secs)
+          this.props.setDelayedStyleUpdate(100)
+        } catch (error) {
+          console.log('error in fetching new AQI map data')
+        }
+        this.props.setLoadingData(false)
+      }
+    }
+    if (repeat) {
+      setTimeout(this.maybeUpdateAqiData, 4000)
+    }
+  }
+
   componentDidMount = async () => {
+    setTimeout(this.maybeUpdateAqiData, 4000)
     this.props.map!.on('sourcedata', (e) => {
       if (
         e.isSourceLoaded &&
@@ -87,9 +116,6 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
         this.data
       ) {
         this.props.setDelayedStyleUpdate(500)
-        if (!this.props.layer.waitingStyleUpdate) {
-          this.props.setWaitingStyleUpdate(true)
-        }
       }
     })
   }
@@ -105,25 +131,19 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
     // add delayed AQI map update to "queue" if basemap changes
     if (prevProps.basemap !== Basemap.AIR_QUALITY) {
       console.log('Changed basemap to AIR QUALITY')
-      this.props.resetAirQualityLayer()
-      this.props.setWaitingStyleUpdate(true)
       if (!this.data) {
-        this.props.setLoadingData(true)
-        this.data = await aqi.getAqiLayerData()
-        this.props.setLoadingData(false)
-      }
-      if (this.data) {
-        this.props.setDataLoaded()
-        this.props.setDelayedStyleUpdate(1000)
+        await this.maybeUpdateAqiData(false)
       } else {
+        this.props.setDelayedStyleUpdate(200)
+      }
+      if (!this.data) {
         this.props.handleDataNotAvailable()
       }
     }
 
     // add delayed AQI map update to "queue" if map center changes
     if (JSON.stringify(prevProps.mapCenter) !== JSON.stringify(this.props.mapCenter) && this.data) {
-      this.props.setWaitingStyleUpdate(true)
-      this.props.setDelayedStyleUpdate(1000)
+      this.props.setDelayedStyleUpdate(1300)
     }
 
     // implement the AQI style update if and only after all update delays have passed
@@ -154,7 +174,6 @@ const connector = connect(mapStateToProps, {
   setLoadingData,
   handleDataNotAvailable,
   setDataLoaded,
-  resetAirQualityLayer,
   setWaitingStyleUpdate,
   setUpdatingStyle,
   setDelayedStyleUpdate,

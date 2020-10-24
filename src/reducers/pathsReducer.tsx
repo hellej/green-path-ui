@@ -57,7 +57,7 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
     case 'SET_AQI_STATUS':
       return {
         ...store,
-        cleanPathsAvailable: true
+        cleanPathsAvailable: action.b_available
       }
 
     case 'SET_TRAVEL_MODE':
@@ -237,8 +237,8 @@ export const testCleanPathServiceStatus = () => {
     try {
       const aqiStatus = await paths.getCleanPathServiceStatus()
       console.log('received clean path service status:', aqiStatus)
-      dispatch({ type: 'SET_AQI_STATUS', b_available: aqiStatus.b_updated })
-      if (aqiStatus.b_updated === false) {
+      dispatch({ type: 'SET_AQI_STATUS', b_available: aqiStatus.aqi_data_updated })
+      if (!aqiStatus.aqi_data_updated) {
         dispatch(showNotification('notif.error.no_real_time_aqi_available', 'info', 10))
       }
     } catch (error) {

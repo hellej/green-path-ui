@@ -152,6 +152,7 @@ interface MapReducer {
 interface AirQualityLayerReducer {
   hasData: boolean
   loadingData: boolean
+  dataTimeUtcSecs: number | undefined
   styleUpdateDelays: number
   waitingStyleUpdate: boolean
   updatingStyle: boolean

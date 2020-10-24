@@ -9,16 +9,20 @@ if (process.env.NODE_ENV !== 'production') {
   baseurl = 'http://localhost:5000/'
 }
 
+export interface AqiStatus {
+  aqi_data_updated: boolean
+  aqi_data_utc_time_secs: number | null
+}
+
 export const getConnectionTestResponse = async (): Promise<string | any> => {
   console.log('testing connection to gp service at:', baseurl)
   const response = await axios.get(baseurl)
   return response
 }
 
-export const getCleanPathServiceStatus = async (): Promise<string | any> => {
-  console.log('testing clean path service status at:', baseurl)
+export const getCleanPathServiceStatus = async (): Promise<AqiStatus> => {
   const response = await axios.get(baseurl.concat('aqistatus'))
-  return response.data
+  return response.data as AqiStatus
 }
 
 const formCoordinateString = (originCoords: number[], destinationCoords: number[]): string => {
