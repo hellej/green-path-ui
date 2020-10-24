@@ -7,6 +7,7 @@ import ShowInfoButton from './ShowInfoButton'
 import OrigDestPanel from './OrigDestPanel'
 import BasemapSelector from './BasemapSelector'
 import AqiMapLegend from './AqiMapLegend'
+import NoiseMapLegend from './NoiseMapLegend'
 import { Basemap } from '../../constants'
 
 const VisiblePanel = styled.div`
@@ -70,7 +71,10 @@ const TopPanel = (props: PropsFromRedux) => {
         <RoutingSettingsRow />
       </VisiblePanel>
       <LowerTransparentPanel>
-        <LowerLeftPanel>{props.basemap === Basemap.AIR_QUALITY && <AqiMapLegend />}</LowerLeftPanel>
+        <LowerLeftPanel>
+          {props.basemap === Basemap.AIR_QUALITY && <AqiMapLegend />}
+          {props.basemap === Basemap.NOISE && <NoiseMapLegend />}
+        </LowerLeftPanel>
         <LowerRightPanel>
           <ShowInfoButton />
           <BasemapSelector />

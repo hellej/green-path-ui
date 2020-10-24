@@ -41,6 +41,8 @@ export enum StatsType {
   NOISE = 'noise',
 }
 
+export type DbClass = 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75
+
 export const dBColors = {
   40: '#00EC00',
   45: '#00EC00',
@@ -50,7 +52,7 @@ export const dBColors = {
   65: '#FF6E1B',
   70: '#FF270E',
   75: '#FF270E',
-}
+} as Record<DbClass, string>
 
 export const aqiLabels = {
   1: 'air_quality_label.good',

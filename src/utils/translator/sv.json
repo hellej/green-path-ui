@@ -29,6 +29,7 @@
   "basemap_selector.option.label.traffic_noise": "Trafikbuller",
   "basemap_selector.option.label.air_quality": "Luftkvalitet",
   "basemap_selector.option.label.satellite": "Satellit",
+  "basemap.traffic_noise.legend.title": "Trafikbuller på dagen",
   "basemap.air_quality.legend.title.air_quality_index": "Luftkvalitet",
   "basemap.air_quality.legend.title.aqi_data_time_now": "nu",
   "basemap.air_quality.legend.label.good": "bra",
