@@ -15,10 +15,10 @@ const OptionContainer = styled.div`
   background: white;
   padding: 9px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.06), 0 6px 20px 0 rgba(0,0,0,0.03);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.06), 0 6px 20px 0 rgba(0, 0, 0, 0.03);
   pointer-events: auto;
 `
-const BaseMapOption = styled.div<{ bike?: any, selected: boolean }>`
+const BaseMapOption = styled.div<{ bike?: any; selected: boolean }>`
   cursor: pointer;
   pointer-events: auto;
   display: flex;
@@ -32,23 +32,25 @@ const BaseMapOption = styled.div<{ bike?: any, selected: boolean }>`
   transition-duration: 0.15s;
   -webkit-transition-duration: 0.15s; /* Safari */
   @media (min-width: 550px) {
-    &:hover { 
+    &:hover {
       border-color: black;
     }
   }
-  ${props => props.selected === true && css`
-    background: #eaf8ff;
-    border-color: #65a1bd;
-    pointer-events: none;
-    &:hover { 
+  ${(props) =>
+    props.selected === true &&
+    css`
+      background: #eaf8ff;
       border-color: #65a1bd;
-    }
-  `}
+      pointer-events: none;
+      &:hover {
+        border-color: #65a1bd;
+      }
+    `}
 `
 const AlignCloseButton = styled.div`
   display: flex;
   justify-content: center;
-  margin: -4px 0px;
+  margin: -5px 0px;
 `
 
 const BasemapSelector = (props: PropsFromRedux) => {
@@ -57,39 +59,44 @@ const BasemapSelector = (props: PropsFromRedux) => {
   return (
     <Wrapper>
       {!showOptions && <BasemapSelectorButton handleClick={() => setShowOptions(true)} />}
-      {showOptions &&
+      {showOptions && (
         <OptionContainer>
-          <AlignCloseButton>
-            <CloseButton size={40} onClick={() => setShowOptions(false)} />
-          </AlignCloseButton>
           <BaseMapOption
             selected={props.basemap === Basemap.STREETS}
-            onClick={() => props.setBaseMap(Basemap.STREETS)}>
+            onClick={() => props.setBaseMap(Basemap.STREETS)}
+          >
             <T>basemap_selector.option.label.streets</T>
           </BaseMapOption>
           <BaseMapOption
             selected={props.basemap === Basemap.NOISE}
-            onClick={() => props.setBaseMap(Basemap.NOISE)}>
+            onClick={() => props.setBaseMap(Basemap.NOISE)}
+          >
             <T>basemap_selector.option.label.traffic_noise</T>
           </BaseMapOption>
           <BaseMapOption
             selected={props.basemap === Basemap.AIR_QUALITY}
-            onClick={() => props.setBaseMap(Basemap.AIR_QUALITY)}>
+            onClick={() => props.setBaseMap(Basemap.AIR_QUALITY)}
+          >
             <T>basemap_selector.option.label.air_quality</T>
           </BaseMapOption>
           <BaseMapOption
             selected={props.basemap === Basemap.SATELLITE}
-            onClick={() => props.setBaseMap(Basemap.SATELLITE)}>
+            onClick={() => props.setBaseMap(Basemap.SATELLITE)}
+          >
             <T>basemap_selector.option.label.satellite</T>
           </BaseMapOption>
-        </OptionContainer>}
+          <AlignCloseButton>
+            <CloseButton size={40} onClick={() => setShowOptions(false)} />
+          </AlignCloseButton>
+        </OptionContainer>
+      )}
     </Wrapper>
   )
 }
 
 const mapStateToProps = (state: ReduxState) => ({
   ui: state.ui,
-  basemap: state.map.basemap
+  basemap: state.map.basemap,
 })
 
 const connector = connect(mapStateToProps, { showInfo, setBaseMap })

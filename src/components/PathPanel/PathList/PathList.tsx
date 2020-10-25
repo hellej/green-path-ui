@@ -5,7 +5,6 @@ import { ExposureMode } from '../../../constants'
 import { OpenPathBox } from './../OpenClosePathBoxes'
 import { setSelectedPath, setOpenedPath } from '../../../reducers/pathsReducer'
 import PathListPathBox, { ShortestPathBox } from './PathListPathBox'
-import DbColorLegendBar from './../DbColorLegendBar'
 
 const PathRowFlex = styled.div`
   display: flex;
@@ -80,10 +79,6 @@ class PathList extends React.Component<PropsFromRedux, State> {
 
     return (
       <div>
-        {showingPathsOfExposureMode === ExposureMode.QUIET
-          ? <DbColorLegendBar />
-          : null
-        }
         <PathRowFlex ref={this.state.pathRefs[shortPath.properties.id]}>
           <ShortestPathBox
             path={shortPath}

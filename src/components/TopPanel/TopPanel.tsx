@@ -8,11 +8,12 @@ import OrigDestPanel from './OrigDestPanel'
 import BasemapSelector from './BasemapSelector'
 import AqiMapLegend from './AqiMapLegend'
 import NoiseMapLegend from './NoiseMapLegend'
-import { Basemap } from '../../constants'
+import { Basemap, ExposureMode } from '../../constants'
 
 const VisiblePanel = styled.div`
   background-color: rgba(255, 255, 255, 0.98);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.06);
+  pointer-events: auto;
 `
 const LogoRow = styled.div`
   display: flex;
@@ -58,7 +59,7 @@ const LowerRightPanel = styled.div`
 `
 
 const TopPanel = (props: PropsFromRedux) => {
-  const { odPanelHidden } = props
+  const { odPanelHidden, showingPathsOfExposureMode } = props
   return (
     <div>
       <VisiblePanel>
@@ -74,7 +75,8 @@ const TopPanel = (props: PropsFromRedux) => {
       <LowerTransparentPanel>
         <LowerLeftPanel>
           {props.basemap === Basemap.AIR_QUALITY && <AqiMapLegend />}
-          {props.basemap === Basemap.NOISE && <NoiseMapLegend />}
+          {(props.basemap === Basemap.NOISE ||
+            showingPathsOfExposureMode === ExposureMode.QUIET) && <NoiseMapLegend />}
         </LowerLeftPanel>
         <LowerRightPanel>
           <ShowInfoButton />
@@ -88,6 +90,7 @@ const TopPanel = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   basemap: state.map.basemap,
   odPanelHidden: state.ui.odPanelHidden,
+  showingPathsOfExposureMode: state.paths.showingPathsOfExposureMode,
 })
 
 const connector = connect(mapStateToProps, {})
