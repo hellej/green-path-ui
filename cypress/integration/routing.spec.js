@@ -260,7 +260,7 @@ describe('Routing (more test cases)', () => {
   it('finds quiet paths (walk)', () => {
     cy.get('.mapboxgl-canvas')
       .wait(300)
-      .click(465, 210)
+      .click(465, 250)
     cy.contains('Set origin').click()
     cy.get('.mapboxgl-canvas')
       .wait(100)
@@ -270,15 +270,15 @@ describe('Routing (more test cases)', () => {
   })
 
   it('shows shortest path stats (walk)', () => {
-    cy.contains('29 min')
-    cy.contains('2.3 km')
+    cy.contains('22 min')
+    cy.contains('1.8 km')
     cy.contains('moderate noise')
   })
 
   it('shows quiet path stats (walk)', () => {
-    cy.contains('33 min')
-    cy.contains('2.6 km')
-    cy.contains('-21 % noise')
+    cy.contains('24 min')
+    cy.contains('1.9 km')
+    cy.contains('-37 % noise')
   })
 })
 
@@ -286,12 +286,12 @@ describe('Routing (more test cases)', () => {
 describe('Path exposure info', () => {
 
   it('shows opened path stats', () => {
-    cy.contains('-30 % noise').parent().parent().parent().within(() => cy.get('.open-path-button').click())
+    cy.contains('-26 % noise').parent().parent().parent().within(() => cy.get('.open-path-button').click())
     cy.contains('Exposure to different traffic noise levels')
     cy.contains('40dB')
     cy.contains('50dB')
-    cy.contains('18 min')
-    cy.contains('10 min')
+    cy.contains('2 min')
+    cy.contains('3 min')
   })
 
   it('closes opened paths stats', () => {
