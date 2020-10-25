@@ -43,16 +43,20 @@ const GreenPathsLabel = styled.div`
   letter-spacing: -0.6px;
 `
 const LowerTransparentPanel = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  position: relative;
 `
 const LowerLeftPanel = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
 `
 const LowerRightPanel = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
