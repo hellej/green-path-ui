@@ -13,11 +13,15 @@ const LegendBox = styled.div`
   color: white;
   padding: 8px 8px 8px 8px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
 `
 const TitleRow = styled.div`
   display: flex;
   justify-content: center;
-  margin: 0px 5px 8px 5px;
+  margin: 1px 5px 9px 5px;
 `
 const ColorRow = styled.div`
   display: flex;
@@ -32,10 +36,20 @@ const ColorBox = styled.div`
 const LabelRow = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 4px 5px 0px 5px;
+  margin: 2px 0px 1px 0px;
+  width: calc(100% - 6px);
 `
 const LoadAnimationWrapper = styled.div`
   margin: 7px 6px 7px 5px;
+`
+
+const ZoomTooltipBox = styled.div`
+  padding: 6px 13px;
+  color: white;
+  font-weight: 400;
+  text-align: center;
+  max-width: 150px;
+  letter-spacing: 1px;
 `
 
 const formatUtcSecondsToAmPm = (utcSeconds: number): string => {
@@ -92,7 +106,12 @@ const AqiMapLegend = (props: PropsFromRedux) => {
           </div>
         </LabelRow>
       </LegendBox>
-      {(loadingData || waitingStyleUpdate || updatingStyle) && (
+      {props.mapZoom < 12 && (
+        <ZoomTooltipBox>
+          <T>basemap.air_quality.zoom_closer_tip</T>
+        </ZoomTooltipBox>
+      )}
+      {(loadingData || waitingStyleUpdate || updatingStyle) && props.mapZoom >= 12 && (
         <LoadAnimationWrapper>
           <LoadAnimation size={30} color={'white'} />
         </LoadAnimationWrapper>
@@ -103,6 +122,7 @@ const AqiMapLegend = (props: PropsFromRedux) => {
 
 const mapStateToProps = (state: ReduxState) => ({
   aqLayer: state.airQualityLayer,
+  mapZoom: state.map.zoom,
 })
 
 const connector = connect(mapStateToProps, {})

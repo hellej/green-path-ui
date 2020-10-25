@@ -58,11 +58,9 @@ class Map extends Component<PropsType & PropsFromRedux, State> {
     this.map.on('load', () => {
       console.log('map loaded')
       this.setState({ loaded: true, isReady: true })
-      // this.map.addControl(new MapboxGL.NavigationControl({ showZoom: false }), 'top-right')
       this.map!.touchZoomRotate.disableRotation()
       this.map!.dragRotate.disable()
       this.props.initializeMap()
-      console.log(this.props.userLocation)
     })
 
     this.map.on('moveend', () => {
@@ -85,7 +83,7 @@ class Map extends Component<PropsType & PropsFromRedux, State> {
     if (!this.map) return
 
     if (!prevState.isReady && this.state.isReady) {
-      console.log('map ready')
+      this.props.updateCamera(this.map!.getCenter(), this.map!.getZoom())
     }
   }
 
@@ -138,10 +136,6 @@ class Map extends Component<PropsType & PropsFromRedux, State> {
   }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
-  userLocation: state.userLocation,
-})
-
 const mapDispatchToProps = {
   initializeMap,
   updateCamera,
@@ -149,6 +143,6 @@ const mapDispatchToProps = {
   setLayerLoaded,
 }
 
-const connector = connect(mapStateToProps, mapDispatchToProps)
+const connector = connect(null, mapDispatchToProps)
 type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(Map)

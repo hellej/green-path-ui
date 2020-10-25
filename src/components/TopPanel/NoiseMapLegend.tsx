@@ -1,6 +1,7 @@
 import React from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
-import { dBColors } from '../../constants'
+import { Basemap, dBColors } from '../../constants'
 import T from '../../utils/translator/Translator'
 
 const Container = styled.div`
@@ -14,6 +15,7 @@ const LegendBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: max-content;
 `
 const TitleRow = styled.div`
   display: flex;
@@ -37,8 +39,17 @@ const ColorBox = styled.div`
   width: 16px;
   height: 16px;
 `
+const ZoomTooltipBox = styled.div`
+  padding: 6px 13px;
+  color: white;
+  font-weight: 400;
+  text-align: center;
+  max-width: 150px;
+  letter-spacing: 1px;
+`
 
-const NoiseMapLegend = () => {
+const NoiseMapLegend = (props: PropsFromRedux) => {
+  const { mapZoom, basemap } = props
   return (
     <Container>
       <LegendBox>
@@ -54,8 +65,20 @@ const NoiseMapLegend = () => {
           ))}
         </ColorRow>
       </LegendBox>
+      {mapZoom < 12 && basemap === Basemap.NOISE && (
+        <ZoomTooltipBox>
+          <T>basemap.traffic_noise.zoom_closer_tip</T>
+        </ZoomTooltipBox>
+      )}
     </Container>
   )
 }
 
-export default NoiseMapLegend
+const mapStateToProps = (state: ReduxState) => ({
+  basemap: state.map.basemap,
+  mapZoom: state.map.zoom,
+})
+
+const connector = connect(mapStateToProps, {})
+type PropsFromRedux = ConnectedProps<typeof connector>
+export default connector(NoiseMapLegend)
