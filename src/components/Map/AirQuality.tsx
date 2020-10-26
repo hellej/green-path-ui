@@ -45,8 +45,8 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
   layerId = LayerId.AQI_LAYER
   sourceLayer = LayerId.AQI_LAYER
   source = 'composite'
-  data = undefined as Map<number, number> | undefined
-  dataTimeUtcSecs = null as number | null
+  data: Map<number, number> | undefined = undefined
+  dataTimeUtcSecs: number | null = null
 
   updateAqiState = (map: any) => {
     this.props.setUpdatingStyle(true)

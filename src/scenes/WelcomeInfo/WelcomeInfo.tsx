@@ -141,35 +141,37 @@ const WelcomeInfo = (props: PropsFromRedux) => {
               <T>info_modal.user_feedback.content_1</T><Link href={text(props.ui.lang, 'info_modal.user_feedback.link_address')}
                 target='_blank' rel='noopener noreferrer'><T>info_modal.user_feedback.link_label</T></Link>
             </P>
-            <SubHeading><T>info_modal.why.title</T></SubHeading>
+            <SubHeading><T>info_modal.problem.title</T></SubHeading>
             <P>
-              <T>info_modal.why.content</T>
+              <T>info_modal.problem.content</T>
             </P>
-            <SubHeading><T>info_modal.how.title</T></SubHeading>
+            <SubHeading><T>info_modal.solution.title</T></SubHeading>
             <P>
-              <T>info_modal.how.content</T>
+              <T>info_modal.solution.content</T>
             </P>
-            <SubHeading><T>info_modal.what.title</T></SubHeading>
+            <SubHeading><T>info_modal.method.title</T></SubHeading>
             <P>
-              <T>info_modal.what.content.enfuser.description</T> <Link href='https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service' target='_blank' rel='noopener noreferrer'>
-                <T>info_modal.what.content.enfuser.link_label</T></Link>.
+              <T>info_modal.method.content.enfuser.description</T> <Link href='https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service' target='_blank' rel='noopener noreferrer'>
+                <T>info_modal.method.content.enfuser.link_label</T></Link>.
             </P>
             <P>
               <Link href='https://hri.fi/data/en_GB/dataset/helsingin-kaupungin-meluselvitys-2017' target='_blank' rel='noopener noreferrer'>
-                <T>info_modal.what.content.noise_data.link_label</T></Link>{' '} <T>info_modal.what.content.noise_data.description</T>
+                <T>info_modal.method.content.noise_data.link_label</T></Link>{' '} <T>info_modal.method.content.noise_data.description</T>
             </P>
             <P>
-              <T>info_modal.what.content.osm.description</T> <Link href='https://www.openstreetmap.org/copyright' target='_blank' rel='noopener noreferrer'>
-                OpenStreetMap</Link> <T>info_modal.what.content.osm.suffix</T>(CC-BY-SA).
+              <T>info_modal.method.content.osm.description</T> <Link href='https://www.openstreetmap.org/copyright' target='_blank' rel='noopener noreferrer'>
+                OpenStreetMap</Link> <T>info_modal.method.content.osm.suffix</T>(CC-BY-SA).
             </P>
-            <SubHeading><T>info_modal.who.title</T></SubHeading>
+            <SubHeading><T>info_modal.team.title</T></SubHeading>
             <P>
-              <T>info_modal.who.content.developed_by</T> <Link href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
-                Digital Geography Lab</Link><T>info_modal.who.content.developed_by.suffix</T> <T>info_modal.who.content.within_the</T> <Link href='https://ilmanlaatu.eu/briefly-in-english/' target='_blank' rel='noopener noreferrer'>
-                Urban Innovative Action: HOPE</Link>{' '} – <T>info_modal.who.content.hope_description</T>
+              <T>info_modal.team.content.developed_by</T> <Link href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
+                Digital Geography Lab</Link><T>info_modal.team.content.developed_by.suffix</T> <T>info_modal.team.content.within_the</T> <Link href='https://ilmanlaatu.eu/briefly-in-english/' target='_blank' rel='noopener noreferrer'>
+                Urban Innovative Action: HOPE</Link>{' '} – <T>info_modal.team.content.hope_description</T>
             </P>
             <SubHeading> <T>info_modal.code.title</T> </SubHeading>
             <P>
+              <Link href='https://github.com/DigitalGeographyLab/green-paths' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/green-paths</Link>{' '}
+              <br />
               <Link href='https://github.com/DigitalGeographyLab/hope-green-path-ui' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/hope-green-path-ui</Link>{' '}
               <br />
               <Link href='https://github.com/DigitalGeographyLab/hope-green-path-server' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/hope-green-path-server</Link>{' '}

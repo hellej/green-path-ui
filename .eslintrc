@@ -28,6 +28,7 @@
       "off",
       2
     ],
+    "comma-dangle": ["error", "always-multiline"],
     "linebreak-style": [
       "error",
       "unix"
