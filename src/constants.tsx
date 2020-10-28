@@ -2,12 +2,33 @@ import hmaPoly from './HMA.json'
 
 export const extentFeat = hmaPoly.features[0] as PolygonFeature
 
+export enum UrlStateKeys {
+  BASEMAP = 'basemap',
+  OD_PANEL_HIDDEN = 'odPanelHidden',
+}
+
 export enum Basemap {
   STREETS = 'mapbox://styles/joose/cjvbyzwuk31oe1fohk6s9ev4b',
   NOISE = 'mapbox://styles/joose/ckenvi8t83bbc19qqq3io2zvu',
   AIR_QUALITY = 'mapbox://styles/joose/ckg3ie4ln1pqp19rzjfpjf5c1',
   SATELLITE = 'mapbox://styles/joose/ckf9du1ua28cj19mk96oidub3',
 }
+
+export const defaultBasemap = Basemap.STREETS
+
+export const UrlIdByBasemap = {
+  [Basemap.STREETS]: 'streets',
+  [Basemap.NOISE]: 'noise',
+  [Basemap.AIR_QUALITY]: 'airquality',
+  [Basemap.SATELLITE]: 'satellite',
+} as Record<Basemap, string>
+
+export const BasemapByUrlId = new Map([
+  ['streets', Basemap.STREETS],
+  ['noise', Basemap.NOISE],
+  ['airquality', Basemap.AIR_QUALITY],
+  ['satellite', Basemap.SATELLITE],
+])
 
 export enum LayerId {
   USER_LOC = 'userLoc',

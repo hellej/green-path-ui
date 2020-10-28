@@ -1,18 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
 import { Provider } from 'react-redux'
+import Root from './Root'
 import store from './store'
 import SelectLocationsPopup from './components/Map/SelectLocationsPopup'
+import './index.css'
 
 const render = () => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('root')
-  )
+  ReactDOM.render(<Root store={store} />, document.getElementById('root'))
+  // render popup in a separate div created by mapbox
   const popupElement = document.getElementById('popup')
   if (popupElement) {
     ReactDOM.render(
@@ -21,7 +17,7 @@ const render = () => {
           <SelectLocationsPopup />
         </div>
       </Provider>,
-      popupElement
+      popupElement,
     )
   }
 }

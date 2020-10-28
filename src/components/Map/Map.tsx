@@ -17,13 +17,17 @@ interface PropsType {
   children: JSX.Element[],
 }
 
+interface Props {
+  basemap: Basemap | undefined
+}
+
 type State = {
   loaded: boolean,
   isReady: boolean,
   flying: boolean
 }
 
-class Map extends Component<PropsType & PropsFromRedux, State> {
+class Map extends Component<PropsType & Props & PropsFromRedux, State> {
   map: MbMap = null
   mapContainer: any
 
@@ -39,7 +43,7 @@ class Map extends Component<PropsType & PropsFromRedux, State> {
 
     this.map = new MapboxGL.Map({
       container: this.mapContainer,
-      style: Basemap.STREETS,
+      style: this.props.basemap || Basemap.STREETS,
       center: mapCenter,
       zoom: zoom,
       boxZoom: false,
@@ -56,7 +60,6 @@ class Map extends Component<PropsType & PropsFromRedux, State> {
     })
 
     this.map.on('load', () => {
-      console.log('map loaded')
       this.setState({ loaded: true, isReady: true })
       this.map!.touchZoomRotate.disableRotation()
       this.map!.dragRotate.disable()
