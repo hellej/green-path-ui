@@ -1,5 +1,5 @@
 import Cookies from 'cookies-js'
-import { UrlStateKeys, menu } from './../constants'
+import { UrlStateKey, menu } from './../constants'
 import { setVisitedStatusVisited, getVisitedStatus } from './visitorReducer'
 import { testGreenPathServiceConnection } from './pathsReducer'
 import { Action } from 'redux'
@@ -84,7 +84,7 @@ export const loadSelectedLanguage = () => {
 export const showInfo = () => ({ type: 'SHOW_INFO' })
 
 export const setOdPanelHidden = (hidden: boolean, location: any, history: any) => {
-  urlManager.setUrlParam(UrlStateKeys.OD_PANEL_HIDDEN, hidden.toString(), location, history)
+  urlManager.setBoolParam(UrlStateKey.OD_PANEL_VISIBLE, !hidden, location, history)
   return {
     type: 'SET_OD_PANEL_HIDDEN',
     hidden,

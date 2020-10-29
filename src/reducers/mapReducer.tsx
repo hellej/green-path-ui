@@ -1,7 +1,7 @@
 import { turf } from '../utils/index'
 import { Action } from 'redux'
 import { LngLat } from 'mapbox-gl'
-import { Basemap, UrlIdByBasemap, UrlStateKeys, LayerId } from '../constants'
+import { Basemap, UrlIdByBasemap, UrlStateKey, LayerId } from '../constants'
 import * as urlManager from './../utils/urlManager'
 
 const initialMapState: MapReducer = {
@@ -91,7 +91,7 @@ export const updateCamera = (center: LngLat, zoom: number) => {
 
 export const setBaseMap = (basemap: Basemap, location: any, history: any) => {
   const basemapName = UrlIdByBasemap[basemap]
-  urlManager.setUrlParam(UrlStateKeys.BASEMAP, basemapName, location, history)
+  urlManager.setStringParam(UrlStateKey.BASEMAP, basemapName, location, history)
   return { type: 'SET_BASEMAP', basemap }
 }
 

@@ -285,5 +285,5 @@ interface ReduxState {
 
 interface UrlState {
   basemap: import('./constants').Basemap | undefined
-  odPanelHidden: boolean
+  odPanelVisible: boolean
 }

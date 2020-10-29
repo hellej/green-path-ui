@@ -43,7 +43,6 @@ const RoutingSettingsRow = (props: PropsFromRedux) => {
 
   const location = useLocation()
   const history = useHistory()
-
   const handleSetOdPanelHidden = (hidden: boolean) => {
     setOdPanelHidden(hidden, location, history)
   }

@@ -2,9 +2,9 @@ import hmaPoly from './HMA.json'
 
 export const extentFeat = hmaPoly.features[0] as PolygonFeature
 
-export enum UrlStateKeys {
-  BASEMAP = 'basemap',
-  OD_PANEL_HIDDEN = 'odPanelHidden',
+export enum UrlStateKey {
+  BASEMAP = 'map',
+  OD_PANEL_VISIBLE = 'od',
 }
 
 export enum Basemap {

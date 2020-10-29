@@ -45,8 +45,8 @@ export const setStateFromUrl = (urlState: UrlState, location: any, history: any)
     } else {
       dispatch(setBaseMap(defaultBasemap, location, history))
     }
-    if (urlState.odPanelHidden) {
-      dispatch(setOdPanelHidden(urlState.odPanelHidden, location, history))
+    if (!urlState.odPanelVisible) {
+      dispatch(setOdPanelHidden(!urlState.odPanelVisible, location, history))
     }
   }
 }
