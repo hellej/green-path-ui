@@ -142,7 +142,7 @@ interface PathDataResponse {
 interface MapReducer {
   initialized: boolean
   zoomToBbox: [number, number, number, number]
-  basemap: import('./constants').Basemap
+  basemap: import('./constants').Basemap | undefined
   basemapChangeId: number
   loadedLayers: import('./constants').LayerId[]
   center: LngLat | {}
@@ -281,4 +281,9 @@ interface ReduxState {
   mapPopup: MapPopupReducer
   visitor: VisitorReducer
   ui: UiReducer
+}
+
+interface UrlState {
+  basemap: import('./constants').Basemap | undefined
+  odPanelVisible: boolean
 }

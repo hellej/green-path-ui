@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
+import { RouteComponentProps } from 'react-router-dom'
+import { getStateFromUrl } from './utils/urlManager'
 import Notification from './components/Notification'
 import FindPathsButtons from './components/FindPathsButtons'
 import TopPanel from './components/TopPanel/TopPanel'
@@ -20,7 +22,11 @@ import DimLayer from './scenes/Home/DimLayer'
 import HopeLink from './scenes/Home/HopeLink'
 import { loadSelectedLanguage } from './reducers/uiReducer'
 import { testGreenPathServiceConnection, testCleanPathServiceStatus } from './reducers/pathsReducer'
-import { showWelcomeIfFirstVisit, maybeDisableAnalyticsCookies } from './reducers/visitorReducer'
+import {
+  setStateFromUrl,
+  showWelcomeIfFirstVisit,
+  maybeDisableAnalyticsCookies,
+} from './reducers/visitorReducer'
 
 const AbsoluteContainer = styled.div`
   position: absolute;
@@ -39,9 +45,20 @@ const BottomPanel = styled(AbsoluteContainer)`
   z-index: 3;
 `
 
-class App extends Component<PropsFromRedux> {
+type State = {
+  urlState: UrlState | null
+}
+
+class App extends Component<PropsFromRedux & RouteComponentProps, State> {
+  constructor(props: PropsFromRedux & RouteComponentProps) {
+    super(props)
+    this.state = { urlState: null }
+  }
 
   componentDidMount() {
+    const urlState = getStateFromUrl(this.props.location)
+    this.setState({ urlState })
+    this.props.setStateFromUrl(urlState, this.props.location, this.props.history)
     this.props.loadSelectedLanguage()
     this.props.maybeDisableAnalyticsCookies()
     this.props.showWelcomeIfFirstVisit()
@@ -51,19 +68,21 @@ class App extends Component<PropsFromRedux> {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <DimLayer />
         <HopeLink />
-        <Map>
-          <MapControl />
-          <AirQuality />
-          <PathSelected />
-          <PathsGreen />
-          <PathShort />
-          <PathsEdges />
-          <OrigDestPoints />
-          <UserLocation />
-        </Map>
+        {this.state.urlState && (
+          <Map basemap={this.state.urlState.basemap}>
+            <MapControl />
+            <AirQuality />
+            <PathSelected />
+            <PathsGreen />
+            <PathShort />
+            <PathsEdges />
+            <OrigDestPoints />
+            <UserLocation />
+          </Map>
+        )}
         <WelcomeInfo />
         <BottomPanel>
           <Notification />
@@ -74,7 +93,7 @@ class App extends Component<PropsFromRedux> {
         <TopPanelContainer>
           <TopPanel />
         </TopPanelContainer>
-      </div>
+      </Fragment>
     )
   }
 }
@@ -85,6 +104,7 @@ const mapDispatchToProps = {
   maybeDisableAnalyticsCookies,
   testGreenPathServiceConnection,
   testCleanPathServiceStatus,
+  setStateFromUrl,
 }
 
 const connector = connect(null, mapDispatchToProps)

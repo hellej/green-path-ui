@@ -4,7 +4,6 @@ import { LayerId } from '../../constants'
 import { setBaseMapChanged, unloadLayers } from './../../reducers/mapReducer'
 
 class MapControl extends Component<PropsFromRedux & { map?: MbMap }> {
-
   getFitBoundsOptions = (showingPaths: boolean) => {
     if (window.innerWidth < 544) {
       if (showingPaths) {
@@ -20,12 +19,20 @@ class MapControl extends Component<PropsFromRedux & { map?: MbMap }> {
     const { zoomToBbox } = this.props.mapState
 
     const { userLocHistory } = this.props.userLocation
+
     if (userLocHistory.length === 1 && prevProps.userLocation.userLocHistory.length === 0) {
       map!.easeTo({ center: userLocHistory[0], zoom: 13.7 })
     }
-    if (zoomToBbox !== prevProps.mapState.zoomToBbox) map!.fitBounds(zoomToBbox, this.getFitBoundsOptions(showingPaths))
 
-    if (this.props.mapState.basemap !== prevProps.mapState.basemap) {
+    if (zoomToBbox !== prevProps.mapState.zoomToBbox) {
+      map!.fitBounds(zoomToBbox, this.getFitBoundsOptions(showingPaths))
+    }
+
+    if (
+      prevProps.mapState.basemap &&
+      this.props.mapState.basemap &&
+      prevProps.mapState.basemap !== this.props.mapState.basemap
+    ) {
       unloadLayers()
       map!.setStyle(this.props.mapState.basemap)
       map!.once('styledataloading', () => {
@@ -43,16 +50,18 @@ class MapControl extends Component<PropsFromRedux & { map?: MbMap }> {
       map!.moveLayer(LayerId.SHORT_PATH, LayerId.GREEN_PATHS)
       map!.moveLayer(LayerId.SELECTED_PATH, LayerId.SHORT_PATH)
     }
-
   }
-  render() { return null }
+
+  render() {
+    return null
+  }
 }
 
 const mapStateToProps = (state: ReduxState) => ({
   userLocation: state.userLocation,
   mapState: state.map,
   showingPaths: state.paths.waitingPaths || state.paths.showingPaths,
-  loadedLayers: state.map.loadedLayers
+  loadedLayers: state.map.loadedLayers,
 })
 
 const connector = connect(mapStateToProps, { setBaseMapChanged, unloadLayers })

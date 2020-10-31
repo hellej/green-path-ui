@@ -7,6 +7,7 @@ import LocateButton from './LocateButton'
 import ToggleLanguageButton from './ToggleLanguageButton'
 import ToggleOdPanelButton from './ToggleOdPanelButton'
 import { setOdPanelHidden } from './../../reducers/uiReducer'
+import { useLocation, useHistory } from 'react-router-dom'
 
 const OuterContainer = styled.div`
   display: flex;
@@ -39,6 +40,13 @@ const LanguageContainer = styled.div`
 
 const RoutingSettingsRow = (props: PropsFromRedux) => {
   const { showingPaths, waitingPaths, odPanelHidden, setOdPanelHidden } = props
+
+  const location = useLocation()
+  const history = useHistory()
+  const handleSetOdPanelHidden = (hidden: boolean) => {
+    setOdPanelHidden(hidden, location, history)
+  }
+
   return (
     <OuterContainer>
       <ResetContainer>{showingPaths || waitingPaths ? <ResetPathsButton /> : null}</ResetContainer>
@@ -48,7 +56,7 @@ const RoutingSettingsRow = (props: PropsFromRedux) => {
       </SettingsContainer>
       {!showingPaths && !waitingPaths && (
         <ToggleOdPanelButton
-          onClick={() => setOdPanelHidden(!odPanelHidden)}
+          onClick={() => handleSetOdPanelHidden(!odPanelHidden)}
           up={!odPanelHidden}
         />
       )}

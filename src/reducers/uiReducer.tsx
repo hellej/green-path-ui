@@ -1,8 +1,9 @@
 import Cookies from 'cookies-js'
-import { menu } from './../constants'
+import { UrlStateKey, menu } from './../constants'
 import { setVisitedStatusVisited, getVisitedStatus } from './visitorReducer'
 import { testGreenPathServiceConnection } from './pathsReducer'
 import { Action } from 'redux'
+import * as urlManager from './../utils/urlManager'
 
 export enum Lang {
   FI = 'fi',
@@ -82,10 +83,13 @@ export const loadSelectedLanguage = () => {
 
 export const showInfo = () => ({ type: 'SHOW_INFO' })
 
-export const setOdPanelHidden = (hidden: boolean) => ({
-  type: 'SET_OD_PANEL_HIDDEN',
-  hidden,
-})
+export const setOdPanelHidden = (hidden: boolean, location: any, history: any) => {
+  urlManager.setBoolParam(UrlStateKey.OD_PANEL_VISIBLE, !hidden, location, history)
+  return {
+    type: 'SET_OD_PANEL_HIDDEN',
+    hidden,
+  }
+}
 
 export const hideInfo = () => {
   return (dispatch: any) => {

@@ -7,6 +7,7 @@ import BasemapSelectorButton from './BasemapSelectorButton'
 import { CloseButton } from './../Icons'
 import { Basemap } from '../../constants'
 import T from '../../utils/translator/Translator'
+import {  useLocation, useHistory } from 'react-router-dom'
 
 const Wrapper = styled.div`
   margin: 15px 5px 0px 0px;
@@ -56,6 +57,13 @@ const AlignCloseButton = styled.div`
 const BasemapSelector = (props: PropsFromRedux) => {
   const [showOptions, setShowOptions] = useState(false)
 
+  const location = useLocation()
+  const history = useHistory()
+
+  const handleSetBasemap = (basemap: Basemap) => {
+    props.setBaseMap(basemap, location, history)
+  }
+
   return (
     <Wrapper>
       {!showOptions && <BasemapSelectorButton handleClick={() => setShowOptions(true)} />}
@@ -63,25 +71,25 @@ const BasemapSelector = (props: PropsFromRedux) => {
         <OptionContainer>
           <BaseMapOption
             selected={props.basemap === Basemap.STREETS}
-            onClick={() => props.setBaseMap(Basemap.STREETS)}
+            onClick={() => handleSetBasemap(Basemap.STREETS)}
           >
             <T>basemap_selector.option.label.streets</T>
           </BaseMapOption>
           <BaseMapOption
             selected={props.basemap === Basemap.NOISE}
-            onClick={() => props.setBaseMap(Basemap.NOISE)}
+            onClick={() => handleSetBasemap(Basemap.NOISE)}
           >
             <T>basemap_selector.option.label.traffic_noise</T>
           </BaseMapOption>
           <BaseMapOption
             selected={props.basemap === Basemap.AIR_QUALITY}
-            onClick={() => props.setBaseMap(Basemap.AIR_QUALITY)}
+            onClick={() => handleSetBasemap(Basemap.AIR_QUALITY)}
           >
             <T>basemap_selector.option.label.air_quality</T>
           </BaseMapOption>
           <BaseMapOption
             selected={props.basemap === Basemap.SATELLITE}
-            onClick={() => props.setBaseMap(Basemap.SATELLITE)}
+            onClick={() => handleSetBasemap(Basemap.SATELLITE)}
           >
             <T>basemap_selector.option.label.satellite</T>
           </BaseMapOption>
