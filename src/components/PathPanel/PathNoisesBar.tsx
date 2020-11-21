@@ -19,18 +19,18 @@ const StyledNoisePc = styled.div<{ first: boolean; last: boolean; pc: number; dB
   ${(props) =>
     props.first &&
     css`
-      border-radius: 3px 0px 0px 3px;
+      border-radius: 8px 0px 0px 8px;
     `}
   ${(props) =>
     props.last &&
     css`
-      border-radius: 0px 3px 3px 0px;
+      border-radius: 0px 8px 8px 0px;
     `}
   ${(props) =>
     props.first &&
     props.last &&
     css`
-      border-radius: 0px 3px 3px 0px;
+      border-radius: 8px;
     `}
 `
 
