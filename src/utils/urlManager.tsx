@@ -11,7 +11,9 @@ export const getStateFromUrl = (location: any): UrlState => {
       basemap = BasemapByUrlId.get(basemapId)
     }
   }
-  const odPanelVisible = searchParams.get(UrlStateKey.OD_PANEL_VISIBLE) === 't'
+  const odPanelVisible = searchParams.has(UrlStateKey.OD_PANEL_VISIBLE)
+    ? searchParams.get(UrlStateKey.OD_PANEL_VISIBLE) === 't'
+    : true
 
   return {
     basemap,
