@@ -12,9 +12,9 @@ const CarTripInfoBox = styled.div`
   padding: 0.5em 1.3em;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
   border-radius: 1px;
-  border-left: 4px solid;
+  border-left: 3px solid;
   border-image: linear-gradient(to bottom, #5e6069, #cecece) 1 100%;
-  border-right: none;
+  border-width: 0px 0px 0px 3px;
   margin: 13px 10px;
   line-height: 133%;
   font-size: 14px;

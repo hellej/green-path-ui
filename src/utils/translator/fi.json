@@ -16,6 +16,7 @@
   "notif.error.no_alternative_quiet_paths_found": "Vaihtoehtoisia hiljaisia reittejä ei löytynyt.",
   "notif.error.no_alternative_clean_paths_found": "Vaihtoehtoisia puhtaan ilman reittejä ei löytynyt.",
   "notif.error.no_aqi_map_data_available": "Ilmanlaatudataa ei ole juuri nyt saatavilla.",
+  "notif.error.no_car_trips_found": "Reittejä ei löytynyt.",
 
   "find_quiet_paths_btn": "Etsi hiljaiset reitit",
   "find_quiet_paths_btn.tooltip": "tyypillisillä melutasoilla",

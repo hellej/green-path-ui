@@ -52,6 +52,9 @@ export const getTripInfo = async (
           : 0
         : 0
     const duration = itineraries.length > 0 ? itineraries[0].duration : 0
+    if (duration === 0 || distance === 0) {
+      return
+    }
     const co2min = Math.round((distance / 1000) * 100)
     const co2max = Math.round((distance / 1000) * 200)
     return {

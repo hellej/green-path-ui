@@ -466,7 +466,11 @@ export const setCleanPaths = (routingId: number, pathData: PathDataResponse, sel
 export const setCarTripInfo = (odCoords: OdCoords) => {
   return async (dispatch: any) => {
     const data = await carTrips.getTripInfo(odCoords[0], odCoords[1])
-    dispatch({type: 'SET_CAR_TRIP_INFO', carTripInfo: data})
+    if (data) {
+      dispatch({type: 'SET_CAR_TRIP_INFO', carTripInfo: data})
+    } else {
+      dispatch(showNotification('notif.error.no_car_trips_found', 'error', 4))
+    }
   }
 }
 
