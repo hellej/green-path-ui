@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { ExposureMode } from '../../../constants'
 import { OpenPathBox } from './../OpenClosePathBoxes'
 import { setSelectedPath, setOpenedPath } from '../../../reducers/pathsReducer'
+import CarTripInfo from './CarTripInfo'
 import PathListPathBox, { ShortestPathBox } from './PathListPathBox'
 
 const PathRowFlex = styled.div`
@@ -105,6 +106,7 @@ class PathList extends React.Component<PropsFromRedux, State> {
               handleClick={() => setOpenedPath(path)} />
           </PathRowFlex>
         ))}
+        <CarTripInfo />
       </div>
     )
   }

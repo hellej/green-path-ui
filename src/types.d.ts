@@ -65,7 +65,9 @@ interface LengthLimit {
   cost_coeff: number
 }
 
-type OdCoords = [[number, number], [number, number]]
+type Coords = [number, number]
+
+type OdCoords = [Coords, Coords]
 
 enum AqiClass {
   1 = 1,
@@ -184,6 +186,7 @@ interface PathsReducer {
   showingPathsOfTravelMode: TravelMode | null
   showingPathsOfExposureMode: ExposureMode | null
   showingStatsType: StatsType | null
+  odCoords: OdCoords | null
   selPathFC: PathFeatureCollection
   shortPathFC: PathFeatureCollection
   quietPathFC: PathFeatureCollection
@@ -195,6 +198,7 @@ interface PathsReducer {
   lengthLimits: LengthLimit[]
   waitingPaths: boolean
   showingPaths: boolean
+  carTripInfo: import('./services/carTrips').CarTripInfo | undefined
   routingId: number
 }
 
