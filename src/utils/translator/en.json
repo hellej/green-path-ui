@@ -16,6 +16,7 @@
   "notif.error.no_alternative_quiet_paths_found": "No alternative quiet paths found.",
   "notif.error.no_alternative_clean_paths_found": "No alternative fresh air paths found due to little variation in the real-time air quality data.",
   "notif.error.no_aqi_map_data_available": "Air quality data is currently unavailable.",
+  "notif.error.no_car_trips_found": "Could not find routes.",
 
   "find_quiet_paths_btn": "Find quiet paths",
   "find_quiet_paths_btn.tooltip": "by typical traffic noise",
@@ -63,6 +64,10 @@
   "toggle_paths_exposure.label.(quiet).paths": "paths",
 
   "filter_paths_by_distance.tooltip": "Filter paths by distance",
+
+  "compare-to-car-trip.button.label": "Compare to car: duration & CO2",
+  "compare-to-car-trip.with-car.label": "With car",
+  "compare-to-car-trip.duration.label": "Duration",
 
   "opened_shortest_quiet_path.tooltip": "Exposure to different traffic noise levels on the shortest (selected) path:",
   "opened_quiet_path.tooltip": "Exposure to different traffic noise levels on the selected and the shortest path:",

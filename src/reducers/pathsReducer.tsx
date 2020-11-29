@@ -1,5 +1,6 @@
 import { turf } from '../utils/index'
 import * as paths from './../services/paths'
+import * as carTrips from './../services/carTrips'
 import { zoomToFC } from './mapReducer'
 import { setOriginDuringRouting, getOriginFromGeocodingResult, LocationType } from './originReducer'
 import { setDestinationDuringRouting, getDestinationFromGeocodingResult } from './destinationReducer'
@@ -16,6 +17,7 @@ const initialPaths: PathsReducer = {
   showingPathsOfTravelMode: null,
   showingPathsOfExposureMode: null,
   showingStatsType: null,
+  odCoords: null,
   selPathFC: { type: 'FeatureCollection', features: [] },
   shortPathFC: { type: 'FeatureCollection', features: [] },
   quietPathFC: { type: 'FeatureCollection', features: [] },
@@ -27,6 +29,7 @@ const initialPaths: PathsReducer = {
   lengthLimits: [],
   waitingPaths: false,
   showingPaths: false,
+  carTripInfo: undefined,
   routingId: 0,
 }
 
@@ -34,6 +37,7 @@ interface PathsAction extends Action {
   selectedTravelMode: TravelMode,
   b_available: boolean,
   routingId: number,
+  odCoords: OdCoords,
   shortPath: PathFeature[],
   lengthLimit: LengthLimit,
   lengthLimits: LengthLimit[],
@@ -45,6 +49,7 @@ interface PathsAction extends Action {
   cleanPaths: PathFeature[],
   quietEdgeFC: EdgeFeatureCollection,
   cleanEdgeFC: EdgeFeatureCollection,
+  carTripInfo: carTrips.CarTripInfo | undefined,
   selPathId: string,
   selPath: PathFeature,
   path: PathFeature
@@ -79,8 +84,10 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
       if (cancelledRouting) return store
       return {
         ...store,
+        odCoords: action.odCoords,
         waitingPaths: false,
         showingPaths: true,
+        carTripInfo: undefined,
         shortPathFC: turf.asFeatureCollection(action.shortPath),
       }
     }
@@ -158,6 +165,11 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
         }
       }
     }
+
+    case 'SET_CAR_TRIP_INFO':
+      return {
+        ...store, carTripInfo: action.carTripInfo
+      }
 
     case 'UNSET_SELECTED_PATH':
       return {
@@ -341,7 +353,7 @@ export const getSetQuietPaths = (origin: OriginReducer, dest: DestinationReducer
     dispatch({ type: 'ROUTING_STARTED', originCoords, destCoords, routingId, selectedTravelMode })
     try {
       const pathData = await paths.getQuietPaths(selectedTravelMode, originCoords!, destCoords!)
-      dispatch(setQuietPaths(routingId, pathData, selectedTravelMode))
+      dispatch(setQuietPaths(routingId, pathData, selectedTravelMode, [originCoords!, destCoords!]))
     } catch (error) {
       console.log('caught error:', error)
       dispatch({ type: 'ERROR_IN_ROUTING' })
@@ -355,7 +367,7 @@ export const getSetQuietPaths = (origin: OriginReducer, dest: DestinationReducer
   }
 }
 
-export const setQuietPaths = (routingId: number, pathData: PathDataResponse, selectedTravelMode: TravelMode) => {
+export const setQuietPaths = (routingId: number, pathData: PathDataResponse, selectedTravelMode: TravelMode, odCoords: OdCoords) => {
   return async (dispatch: any) => {
     dispatch({ type: 'CLOSE_PATHS' })
     const pathFeats: PathFeature[] = pathData.path_FC.features
@@ -364,7 +376,7 @@ export const setQuietPaths = (routingId: number, pathData: PathDataResponse, sel
     const lengthLimits = utils.getLengthLimits(pathFeats)
     const initialLengthLimit = utils.getInitialLengthLimit(lengthLimits, quietPaths.length, 20)
     dispatch({ type: 'SET_LENGTH_LIMITS', lengthLimits, initialLengthLimit, routingId })
-    dispatch({ type: 'SET_SHORTEST_PATH', shortPath, routingId })
+    dispatch({ type: 'SET_SHORTEST_PATH', shortPath, odCoords, routingId })
     dispatch({ type: 'SET_QUIET_PATHS', quietPaths: quietPaths, routingId, selectedTravelMode })
     dispatch({ type: 'SET_EDGE_FC', quietEdgeFC: pathData.edge_FC, routingId })
     const bestPath = utils.getBestPath(quietPaths)
@@ -413,7 +425,7 @@ export const getSetCleanPaths = (origin: OriginReducer, dest: DestinationReducer
     dispatch({ type: 'ROUTING_STARTED', originCoords, destCoords, routingId, selectedTravelMode })
     try {
       const pathData = await paths.getCleanPaths(selectedTravelMode, originCoords!, destCoords!)
-      dispatch(setCleanPaths(routingId, pathData, selectedTravelMode))
+      dispatch(setCleanPaths(routingId, pathData, selectedTravelMode, [originCoords!, destCoords!]))
     } catch (error) {
       console.log('caught error:', error)
       dispatch({ type: 'ERROR_IN_ROUTING' })
@@ -427,7 +439,7 @@ export const getSetCleanPaths = (origin: OriginReducer, dest: DestinationReducer
   }
 }
 
-export const setCleanPaths = (routingId: number, pathData: PathDataResponse, selectedTravelMode: TravelMode) => {
+export const setCleanPaths = (routingId: number, pathData: PathDataResponse, selectedTravelMode: TravelMode, odCoords: OdCoords) => {
   return async (dispatch: any) => {
     dispatch({ type: 'CLOSE_PATHS' })
     const pathFeats: PathFeature[] = pathData.path_FC.features
@@ -436,7 +448,7 @@ export const setCleanPaths = (routingId: number, pathData: PathDataResponse, sel
     const lengthLimits = utils.getLengthLimits(pathFeats)
     const initialLengthLimit = lengthLimits[lengthLimits.length - 1]
     dispatch({ type: 'SET_LENGTH_LIMITS', lengthLimits, initialLengthLimit, routingId })
-    dispatch({ type: 'SET_SHORTEST_PATH', shortPath, routingId })
+    dispatch({ type: 'SET_SHORTEST_PATH', shortPath, odCoords, routingId })
     dispatch({ type: 'SET_CLEAN_PATHS', cleanPaths: cleanPaths, routingId, selectedTravelMode })
     dispatch({ type: 'SET_EDGE_FC', cleanEdgeFC: pathData.edge_FC, routingId })
     const bestPath = utils.getBestPath(cleanPaths)
@@ -447,6 +459,17 @@ export const setCleanPaths = (routingId: number, pathData: PathDataResponse, sel
     }
     if (cleanPaths.length === 0) {
       dispatch(showNotification('notif.error.no_alternative_clean_paths_found', 'info', 10))
+    }
+  }
+}
+
+export const setCarTripInfo = (odCoords: OdCoords) => {
+  return async (dispatch: any) => {
+    const data = await carTrips.getTripInfo(odCoords[0], odCoords[1])
+    if (data) {
+      dispatch({type: 'SET_CAR_TRIP_INFO', carTripInfo: data})
+    } else {
+      dispatch(showNotification('notif.error.no_car_trips_found', 'error', 4))
     }
   }
 }

@@ -16,6 +16,7 @@
   "notif.error.no_alternative_quiet_paths_found": "Vaihtoehtoisia hiljaisia reittejä ei löytynyt.",
   "notif.error.no_alternative_clean_paths_found": "Vaihtoehtoisia puhtaan ilman reittejä ei löytynyt.",
   "notif.error.no_aqi_map_data_available": "Ilmanlaatudataa ei ole juuri nyt saatavilla.",
+  "notif.error.no_car_trips_found": "Reittejä ei löytynyt.",
 
   "find_quiet_paths_btn": "Etsi hiljaiset reitit",
   "find_quiet_paths_btn.tooltip": "tyypillisillä melutasoilla",
@@ -63,6 +64,10 @@
   "toggle_paths_exposure.label.(quiet).paths": "reitit",
 
   "filter_paths_by_distance.tooltip": "Näytä vain reitit jotka ovat lyhyempiä kuin",
+
+  "compare-to-car-trip.button.label": "Vertaa automatkaan: kesto & CO2",
+  "compare-to-car-trip.with-car.label": "Autolla",
+  "compare-to-car-trip.duration.label": "Kesto",
 
   "opened_shortest_quiet_path.tooltip": "Altistus eri melutasoille lyhyimmällä (valitulla) reitillä:",
   "opened_quiet_path.tooltip": "Altistus eri melutasoille valitulla ja lyhyimmällä reitillä:",
