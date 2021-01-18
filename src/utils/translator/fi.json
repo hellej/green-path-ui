@@ -63,6 +63,10 @@
   "toggle_paths_exposure.label.(fresh_air).paths": "reitit",
   "toggle_paths_exposure.label.(quiet).paths": "reitit",
 
+  "exposure_score_label.greenery": "Vihreys",
+  "exposure_score_label.quietness": "Hiljaisuus",
+  "exposure_score_label.air_quality": "Ilmanlaatu",
+
   "filter_paths_by_distance.tooltip": "Näytä vain reitit jotka ovat lyhyempiä kuin",
 
   "compare-to-car-trip.button.label": "Vertaa automatkaan: kesto & CO2",

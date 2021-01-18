@@ -77,6 +77,19 @@ enum AqiClass {
   5 = 5,
 }
 
+enum GviClass {
+  1 = 1,
+  2 = 2,
+  3 = 3,
+  4 = 4,
+  5 = 5,
+  6 = 6,
+  7 = 7,
+  8 = 8,
+  9 = 9,
+  10 = 10,
+}
+
 enum DbClass {
   40 = 40,
   45 = 45,
@@ -88,7 +101,7 @@ enum DbClass {
   75 = 75,
 }
 
-interface PathProperties extends Properties {
+interface RawPathProperties extends Properties {
   aqc: number
   aqc_diff: number
   aqc_diff_rat: number
@@ -98,6 +111,10 @@ interface PathProperties extends Properties {
   aqi_m: number
   aqi_m_diff: number
   aqi_pcts: { [key in AqiClass]: number }
+  gvi_m: number
+  gvi_m_diff: number
+  gvi_cl_exps: { [key in GviClass]: number }
+  gvi_cl_pcts: { [key in GviClass]: number }
   cost_coeff: number
   id: string
   len_diff: number
@@ -106,6 +123,7 @@ interface PathProperties extends Properties {
   mdB: number
   mdB_diff: number
   missing_aqi: boolean
+  missing_gvi: boolean
   missing_noises: boolean
   nei: number
   nei_diff: number
@@ -116,6 +134,22 @@ interface PathProperties extends Properties {
   noises: { [key: number]: number }
   path_score: number
   type: PathType
+}
+
+interface RawPathFeature extends Feature {
+  geometry: import('@turf/helpers').Geometry
+  properties: RawPathProperties
+}
+
+interface RawPathFeatureCollection extends FeatureCollection {
+  features: RawPathFeature[]
+}
+
+interface PathProperties extends RawPathProperties {
+  aqScore: number | null
+  greeneryScore: number | null
+  noisinessScore: number | null
+  quietnessScore: number | null
 }
 
 interface PathFeature extends Feature {
@@ -137,6 +171,11 @@ interface EdgeFeatureCollection extends FeatureCollection {
 }
 
 interface PathDataResponse {
+  edge_FC: FeatureCollection
+  path_FC: RawPathFeatureCollection
+}
+
+interface PathData {
   edge_FC: FeatureCollection
   path_FC: PathFeatureCollection
 }
