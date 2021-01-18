@@ -41,11 +41,11 @@ const Container = styled.div`
 
 const Label = styled.div`
   color: #464646;
-  margin: 2px 2px 4px 2px;
+  margin: 2px 0px 4px 0px;
   white-space: nowrap;
   font-size: 13px;
-  @media (max-width: 400px) {
-    font-size: 11px;
+  @media (max-width: 350px) {
+    font-size: 12px;
   }
 `
 

@@ -31,6 +31,9 @@ const StyledPathListPathBox = styled.div.attrs((props: PathBoxProps) => ({
   transition-duration: 0.12s;
   box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.25), 0 3px 4px 0 rgba(0, 0, 0, 0.3);
   width: 100%;
+  @media (max-width: 360px) {
+    width: calc(100% - 8px);
+  }
   &:hover {
     cursor: pointer;
     @media (min-width: 600px) {
@@ -45,11 +48,17 @@ const TripInfo = styled.div`
   align-content: flex-end;
   flex-direction: column;
   text-align: right;
+  @media (max-width: 350px) {
+    margin: 0 4px 0 3px;
+  }
 `
 const TravelTime = styled.div`
   font-size: 13px;
   color: black;
   margin-bottom: 3px;
+  @media (max-width: 350px) {
+    line-height: 100%;
+  }
 `
 const Distance = styled.div`
   font-size: 11px;
@@ -65,6 +74,9 @@ const MeterWrapper = styled.div`
   flex-grow: 1;
   flex-basis: 0;
   margin: 2px 10px;
+  @media (max-width: 350px) {
+    margin: 2px 9px;
+  }
 `
 const OpenPathInfoWrapper = styled.div`
   margin: 0 7px 0 7px;
@@ -72,6 +84,9 @@ const OpenPathInfoWrapper = styled.div`
   width: 30px;
   flex-direction: column;
   justify-content: center;
+  @media (max-width: 350px) {
+    margin: 0 2px 0 5px;
+  }
 `
 const OpenPathInfoButton = styled.button`
   display: block;
@@ -88,6 +103,12 @@ const OpenPathInfoButton = styled.button`
   background-color: white;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 325px) {
+    height: 28px;
+    width: 24px;
+    font-size: 20px;
+    border-radius: 5px;
   }
 `
 
