@@ -71,7 +71,7 @@ const ShortPathAqiExposures = ({ path, travelMode, unsetOpenedPath }: ShortPathE
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
           <BarsLabel><T>opened_shortest_clean_path.tooltip</T> </BarsLabel>
-          <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_pcts} />
+          <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_cl_pcts} />
         </ExposureBarsFlex>
       </PathRowFlex>
       <OpenedPathAqExps path={path} travelMode={travelMode} />
@@ -105,8 +105,8 @@ const PathAqiExposures = ({ path, shortPath, travelMode, unsetOpenedPath }: Path
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
           <BarsLabel><T>opened_clean_path.tooltip</T> </BarsLabel>
-          <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_pcts} />
-          <PathAqiBar withMargins={true} aqiPcts={shortPath.properties.aqi_pcts} />
+          <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_cl_pcts} />
+          <PathAqiBar withMargins={true} aqiPcts={shortPath.properties.aqi_cl_pcts} />
         </ExposureBarsFlex>
       </PathRowFlex >
       <OpenedPathAqExps path={path} travelMode={travelMode} />

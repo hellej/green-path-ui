@@ -65,35 +65,41 @@ export enum StatsType {
 export type DbClass = 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75
 
 export const dBColors = {
-  40: '#00EC00',
-  45: '#00EC00',
-  50: '#56FF3B',
-  55: '#C6F519',
-  60: '#FFD000',
-  65: '#FF6E1B',
+  40: '#00f000',
+  45: '#00f000',
+  50: '#74f000',
+  55: '#c4f31c',
+  60: '#f7cc0e',
+  65: '#ff6913',
   70: '#FF270E',
   75: '#FF270E',
 } as Record<DbClass, string>
 
-export const aqiLabels = {
-  1: 'air_quality_label.good',
-  2: 'air_quality_label.satisfactory',
-  3: 'air_quality_label.fair',
-  4: 'air_quality_label.poor',
-  5: 'air_quality_label.very_poor',
-}
+export const labelByAqiClass = {
+  2: 'air_quality_label.good',
+  3: 'air_quality_label.good',
+  4: 'air_quality_label.satisfactory',
+  5: 'air_quality_label.satisfactory',
+  6: 'air_quality_label.fair',
+  7: 'air_quality_label.fair',
+  8: 'air_quality_label.poor',
+  9: 'air_quality_label.very_poor',
+  10: 'air_quality_label.very_poor',
+} as Record<AqiClass, string>
 
-export const aqiColors = {
-  1: '#00EC00',
-  2: '#C6F519',
-  3: '#FFD000',
-  4: '#FF6E1B',
-  5: '#FF270E',
-}
+export const colorByAqiClass = {
+  2: '#00f000',
+  3: '#00f000',
+  4: '#74f000',
+  5: '#c4f31c',
+  6: '#f7cc0e',
+  7: '#f7cc0e',
+  8: '#ff6913',
+  9: '#FF270E',
+  10:'#FF270E',
+} as Record<AqiClass, string>
 
-export type AqiClass = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
-
-export const aqiClassColors = {
+export const aqiMapColorByAqiClass = {
   2: '#1a9850',
   3: '#66bd63',
   4: '#a6d96a',

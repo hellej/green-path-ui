@@ -70,11 +70,15 @@ type Coords = [number, number]
 type OdCoords = [Coords, Coords]
 
 enum AqiClass {
-  1 = 1,
   2 = 2,
   3 = 3,
   4 = 4,
   5 = 5,
+  6 = 6,
+  7 = 7,
+  8 = 8,
+  9 = 9,
+  10 = 10,
 }
 
 enum GviClass {
@@ -110,7 +114,7 @@ interface RawPathProperties extends Properties {
   aqi_cl_exps: { [key in AqiClass]: number }
   aqi_m: number
   aqi_m_diff: number
-  aqi_pcts: { [key in AqiClass]: number }
+  aqi_cl_pcts: { [key in AqiClass]: number }
   gvi_m: number
   gvi_m_diff: number
   gvi_cl_exps: { [key in GviClass]: number }

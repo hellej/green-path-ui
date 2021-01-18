@@ -8,22 +8,22 @@ import {
   setWaitingStyleUpdate,
   setUpdatingStyle,
 } from './../../reducers/airQualityLayerReducer'
-import { aqiClassColors, Basemap, LayerId } from '../../constants'
+import { aqiMapColorByAqiClass, Basemap, LayerId } from '../../constants'
 import * as aqi from '../../services/aqi'
 
 // prettier-ignore
 const aqiLineColors = [
   'match',
   ['feature-state', 'aqi'],
-  2, aqiClassColors[2],
-  3, aqiClassColors[3],
-  4, aqiClassColors[4],
-  5, aqiClassColors[5],
-  6, aqiClassColors[6],
-  7, aqiClassColors[7],
-  8, aqiClassColors[8],
-  9, aqiClassColors[9],
-  10, aqiClassColors[10],
+  2, aqiMapColorByAqiClass[2],
+  3, aqiMapColorByAqiClass[3],
+  4, aqiMapColorByAqiClass[4],
+  5, aqiMapColorByAqiClass[5],
+  6, aqiMapColorByAqiClass[6],
+  7, aqiMapColorByAqiClass[7],
+  8, aqiMapColorByAqiClass[8],
+  9, aqiMapColorByAqiClass[9],
+  10, aqiMapColorByAqiClass[10],
   /* other */ '#3d3d3d'
 ]
 
@@ -82,7 +82,7 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
    * Triggers AQI map data fetch/update if new or initial AQI data is available.
    */
   maybeUpdateAqiData = async (repeat: boolean = true) => {
-    if (this.props.basemap === Basemap.AIR_QUALITY && !this.props.layer.loadingData ) {
+    if (this.props.basemap === Basemap.AIR_QUALITY && !this.props.layer.loadingData) {
       const server = await aqi.getAqiMapDataStatus()
       if (
         server.aqi_map_data_utc_time_secs && //i.e. aqi map data is available

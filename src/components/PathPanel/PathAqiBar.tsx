@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { aqiColors } from '../../constants'
+import { colorByAqiClass } from '../../constants'
 
 const StyledAqiBar = styled.div<{ withMargins?: boolean }>`
   display: flex;
@@ -15,7 +15,7 @@ const StyledAqPc = styled.div<{ first: boolean; last: boolean; pc: number; aqiCl
   height: 8px;
   box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.05), 0 3px 4px 0 rgba(0, 0, 0, 0.01);
   width: ${(props) => props.pc || '0'}%;
-  background-color: ${(props) => aqiColors[props.aqiCl] || 'grey'};
+  background-color: ${(props) => colorByAqiClass[props.aqiCl] || 'grey'};
   ${(props) =>
     props.first &&
     css`
