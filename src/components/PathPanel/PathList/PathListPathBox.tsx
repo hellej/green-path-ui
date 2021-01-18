@@ -70,7 +70,6 @@ const OpenPathInfoWrapper = styled.div`
   margin: 0 7px 0 7px;
   display: flex;
   width: 30px;
-  align-content: flex-end;
   flex-direction: column;
   justify-content: center;
 `
@@ -81,7 +80,10 @@ const OpenPathInfoButton = styled.button`
   border-radius: 50%;
   border: none;
   outline: none;
-  font-size: 23px;
+  font-size: 22px;
+  padding: 0px !important; // fix the circle for ios
+  box-sizing: border-box; // fix the circle for ios
+  white-space: nowrap;
   box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
   background-color: white;
   &:hover {
