@@ -86,25 +86,42 @@ export const debugNearestEdgeAttrs = async (lngLat: LngLat): Promise<void> => {
   console.log('nearest edge at', lngLat, response.data)
 }
 
-const cleanExposureScore = (score: number | null): number | null => {
-  if (!score) return null
-  if (score > 100.0) {
-    return 100
+const adjustExposureScore = (score: number | null): number | null => {
+  if (score === null) return null
+  if (score > 100.0) return 100
+  if (score <= 2) {
+    return 2 // this we can still see in the exposure bar
   }
+  return +score.toFixed(1)
+}
+
+const calculateGreeneryScore = (meanGvi: number): number => {
+  // let's stretch GVI scores from mean GVI range 0.07-0.73
+  if (meanGvi <= 0.07) return 0
+  if (meanGvi >= 0.73) return 100
+  const score = (100 * (meanGvi - 0.07)) / (0.73 - 0.07)
+  return +score.toFixed(1)
+}
+
+const calculateNoisinessScore = (noisiness: number): number => {
+  // let's stretch quietness scores from noisiness (nei_norm) range 0.05-0.6
+  if (noisiness <= 0.05) return 0
+  if (noisiness >= 0.6) return 100
+  const score = (100 * (noisiness - 0.05)) / (0.6 - 0.05)
   return +score.toFixed(1)
 }
 
 const processPathProps = (props: RawPathProperties): PathProperties => {
   const aqScore = !props.missing_aqi ? (1 - props.aqc_norm) * 100 : null
-  const noisiness = !props.missing_gvi ? props.nei_norm * 100 : null
+  const noisiness = !props.missing_gvi ? calculateNoisinessScore(props.nei_norm) : null
   const quietness = noisiness ? 100 - noisiness : null
-  const greenery = !props.missing_gvi ? props.gvi_m * 100 : null
+  const greenery = !props.missing_gvi ? calculateGreeneryScore(props.gvi_m) : null
   return {
     ...props,
-    aqScore: cleanExposureScore(aqScore),
-    quietnessScore: cleanExposureScore(quietness),
-    noisinessScore: cleanExposureScore(noisiness),
-    greeneryScore: cleanExposureScore(greenery),
+    aqScore: adjustExposureScore(aqScore),
+    noisinessScore: adjustExposureScore(noisiness),
+    quietnessScore: adjustExposureScore(quietness),
+    greeneryScore: adjustExposureScore(greenery),
   }
 }
 
