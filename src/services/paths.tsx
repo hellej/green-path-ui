@@ -90,32 +90,23 @@ const adjustExposureScore = (score: number | null): number | null => {
   if (score === null) return null
   if (score > 100.0) return 100
   if (score <= 2) {
-    return 2 // this we can still see in the exposure bar
+    return 2 // this we can still visually see in the exposure chart
   }
   return +score.toFixed(1)
 }
 
-const calculateGreeneryScore = (meanGvi: number): number => {
-  // let's stretch GVI scores from mean GVI range 0.07-0.73
-  if (meanGvi <= 0.07) return 0
-  if (meanGvi >= 0.73) return 100
-  const score = (100 * (meanGvi - 0.07)) / (0.73 - 0.07)
-  return +score.toFixed(1)
-}
-
-const calculateNoisinessScore = (noisiness: number): number => {
-  // let's stretch quietness scores from noisiness (nei_norm) range 0.05-0.6
-  if (noisiness <= 0.05) return 0
-  if (noisiness >= 0.6) return 100
-  const score = (100 * (noisiness - 0.05)) / (0.6 - 0.05)
+const stretchScoreFromRange = (value: number, rangeMin: number, rangeMax: number): number => {
+  if (value <= rangeMin) return 0
+  if (value >= rangeMax) return 100
+  const score = (100 * (value - rangeMin)) / (rangeMax - rangeMin)
   return +score.toFixed(1)
 }
 
 const processPathProps = (props: RawPathProperties): PathProperties => {
   const aqScore = !props.missing_aqi ? (1 - props.aqc_norm) * 100 : null
-  const noisiness = !props.missing_gvi ? calculateNoisinessScore(props.nei_norm) : null
-  const quietness = noisiness ? 100 - noisiness : null
-  const greenery = !props.missing_gvi ? calculateGreeneryScore(props.gvi_m) : null
+  const noisiness = !props.missing_gvi ? stretchScoreFromRange(props.nei_norm, 0.05, 0.56) : null
+  const quietness = noisiness !== null ? 100 - noisiness : null
+  const greenery = !props.missing_gvi ? stretchScoreFromRange(props.gvi_m, 0.08, 0.6) : null
   return {
     ...props,
     aqScore: adjustExposureScore(aqScore),
