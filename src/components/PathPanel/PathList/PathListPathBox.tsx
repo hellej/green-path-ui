@@ -12,7 +12,7 @@ const StyledPathListPathBox = styled.div.attrs((props: PathBoxProps) => ({
   style: {
     border: props.selected ? '2px solid black' : '',
     boxShadow: props.selected
-      ? '0 -1px 7px 0 rgba(0, 0, 0, 0.15), 0 4px 7px 0 rgba(0, 0, 0, 0.25)'
+      ? '0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13)'
       : '',
   },
 }))<PathBoxProps>`
@@ -29,15 +29,15 @@ const StyledPathListPathBox = styled.div.attrs((props: PathBoxProps) => ({
   color: black;
   cursor: default;
   transition-duration: 0.12s;
-  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.25), 0 3px 4px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
   width: 100%;
   @media (max-width: 360px) {
     width: calc(100% - 8px);
   }
-  &:hover {
+  @media (min-width: 600px) {
+    &:hover {
     cursor: pointer;
-    @media (min-width: 600px) {
-      box-shadow: 0 -1px 8px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 0 rgba(0, 0, 0, 0.35);
+      box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.12), 0 3px 6px 1px rgba(0, 0, 0, 0.18);
     }
   }
 `
@@ -101,8 +101,11 @@ const OpenPathInfoButton = styled.button`
   white-space: nowrap;
   box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
   background-color: white;
-  &:hover {
-    cursor: pointer;
+  @media (min-width: 600px) {
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.15), 0 3px 4px 0 rgba(0, 0, 0, 0.2);
+    }
   }
   @media (max-width: 325px) {
     height: 28px;
