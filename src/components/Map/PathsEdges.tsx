@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { GeoJSONSource } from 'mapbox-gl'
 import { setSelectedPath } from '../../reducers/pathsReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
-import { dBColors, aqiColors, ExposureMode, LayerId } from '../../constants'
+import { dBColors, colorByAqiClass, ExposureMode, LayerId } from '../../constants'
 
 const dbLineColors = [
   'match',
@@ -20,11 +20,15 @@ const dbLineColors = [
 const aqiLineColors = [
   'match',
   ['get', 'value'],
-  1, aqiColors[1],
-  2, aqiColors[2],
-  3, aqiColors[3],
-  4, aqiColors[4],
-  5, aqiColors[5],
+  2, colorByAqiClass[2],
+  3, colorByAqiClass[3],
+  4, colorByAqiClass[4],
+  5, colorByAqiClass[5],
+  6, colorByAqiClass[6],
+  7, colorByAqiClass[7],
+  8, colorByAqiClass[8],
+  9, colorByAqiClass[9],
+  10, colorByAqiClass[10],
   /* other */ 'white'
 ]
 

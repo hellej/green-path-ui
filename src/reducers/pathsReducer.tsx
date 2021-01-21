@@ -44,7 +44,6 @@ interface PathsAction extends Action {
   initialLengthLimit: LengthLimit,
   origCoords: [number, number],
   destCoords: [number, number],
-  pathData: PathDataResponse,
   quietPaths: PathFeature[],
   cleanPaths: PathFeature[],
   quietEdgeFC: EdgeFeatureCollection,
@@ -367,7 +366,7 @@ export const getSetQuietPaths = (origin: OriginReducer, dest: DestinationReducer
   }
 }
 
-export const setQuietPaths = (routingId: number, pathData: PathDataResponse, selectedTravelMode: TravelMode, odCoords: OdCoords) => {
+export const setQuietPaths = (routingId: number, pathData: PathData, selectedTravelMode: TravelMode, odCoords: OdCoords) => {
   return async (dispatch: any) => {
     dispatch({ type: 'CLOSE_PATHS' })
     const pathFeats: PathFeature[] = pathData.path_FC.features
@@ -439,7 +438,7 @@ export const getSetCleanPaths = (origin: OriginReducer, dest: DestinationReducer
   }
 }
 
-export const setCleanPaths = (routingId: number, pathData: PathDataResponse, selectedTravelMode: TravelMode, odCoords: OdCoords) => {
+export const setCleanPaths = (routingId: number, pathData: PathData, selectedTravelMode: TravelMode, odCoords: OdCoords) => {
   return async (dispatch: any) => {
     dispatch({ type: 'CLOSE_PATHS' })
     const pathFeats: PathFeature[] = pathData.path_FC.features

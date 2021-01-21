@@ -1,104 +1,125 @@
 import React from 'react'
 import styled from 'styled-components'
 import { utils } from '../../../utils/index'
-import { PathNoisesBar } from './../PathNoisesBar'
-import { PathAqiBar } from './../PathAqiBar'
-import { ExposureMode, TravelMode, StatsType, walkSpeed, bikeSpeed, aqiLabels } from '../../../constants'
-import T from './../../../utils/translator/Translator'
+import ExposureScoreBar from './../ExposureScoreBar'
+import { ExposureMode, TravelMode } from '../../../constants'
 
-type Props = {
-  selected: boolean,
+type PathBoxProps = {
+  selected: boolean
   children: any
 }
-
-const StyledPathListPathBox = styled.div.attrs((props: Props) => ({
-  style:
-    ({
-      border: props.selected ? '2px solid black' : '',
-      boxShadow: props.selected ? '0 -1px 7px 0 rgba(0, 0, 0, 0.15), 0 4px 7px 0 rgba(0, 0, 0, 0.25)' : ''
-    })
-})) <Props>`
+const StyledPathListPathBox = styled.div.attrs((props: PathBoxProps) => ({
+  style: {
+    border: props.selected ? '2px solid black' : '',
+    boxShadow: props.selected
+      ? '0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13)'
+      : '',
+  },
+}))<PathBoxProps>`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   pointer-events: auto;
-  height: 48px;
   border-radius: 5px;
   margin: 4px 0px 4px 0px;
   background-color: white;
   border: 2px solid transparent;
-  padding: 3px 4px;
+  padding: 9px 4px;
   color: black;
   cursor: default;
   transition-duration: 0.12s;
-  box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.25), 0 3px 4px 0 rgba(0,0,0,0.3);
-  width: calc(88% - 21px);
-  &:hover { 
+  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
+  width: 100%;
+  @media (max-width: 360px) {
+    width: calc(100% - 8px);
+  }
+  @media (min-width: 600px) {
+    &:hover {
     cursor: pointer;
-    @media (min-width: 600px) {
-      box-shadow: 0 -1px 8px 0 rgba(0,0,0,0.3), 0 4px 8px 0 rgba(0,0,0,0.35);
+      box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.12), 0 3px 6px 1px rgba(0, 0, 0, 0.18);
     }
   }
 `
-const PathPropsRow = styled.div<{ color?: string }>`
+const TripInfo = styled.div`
+  margin: 0 7px 0 4px;
   display: flex;
-  justify-content: space-around;
-  font-size: 12px;
-  font-weight: 500;
-  width: 96%;
-  color: ${props => props.color || '#3c3c3c'};
+  width: 48px;
+  align-content: flex-end;
+  flex-direction: column;
+  text-align: right;
+  @media (max-width: 350px) {
+    margin: 0 4px 0 3px;
+  }
 `
-const QuietPathLengthProps = styled.div`
-  margin-left: 2px;
-  text-align: center;
+const TravelTime = styled.div`
+  font-size: 13px;
+  color: black;
+  margin-bottom: 3px;
+  @media (max-width: 350px) {
+    line-height: 100%;
+  }
 `
-const Sub = styled.sub`
-  font-size: 9px;
+const Distance = styled.div`
+  font-size: 11px;
+  color: grey;
 `
-
-interface PathBoxProperties {
-  path: PathFeature,
-  selected: boolean,
-  handleClick: React.MouseEventHandler<HTMLElement>,
-  travelMode: TravelMode,
-  showingPathsOfExposureMode?: ExposureMode,
-  showingStatsType?: StatsType
-}
-
-const getNoiseIndexLabel = (ni: number): string => {
-  if (ni < 0.15) return 'noise_level_label.very_quiet'
-  if (ni < 0.3) return 'noise_level_label.quiet'
-  if (ni < 0.5) return 'noise_level_label.moderate_noise'
-  if (ni < 0.65) return 'noise_level_label.high_noise'
-  if (ni < 0.75) return 'noise_level_label.very_high_noise'
-  if (ni >= 0.75) return 'noise_level_label.extreme_noise'
-  return ''
-}
-
-const getAqiLabel = (aqi: number): string => {
-  if (aqi <= 0) return ''
-  if (aqi <= 2.0) return aqiLabels[1]
-  if (aqi <= 3.0) return aqiLabels[2]
-  if (aqi <= 4.0) return aqiLabels[3]
-  if (aqi <= 5.0) return aqiLabels[4]
-  if (aqi > 5.0) return aqiLabels[5]
-  return ''
-}
+const MetersContainer = styled.div`
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  width: calc(100% - 48px);
+`
+const MeterWrapper = styled.div`
+  flex-grow: 1;
+  flex-basis: 0;
+  margin: 2px 10px;
+  @media (max-width: 350px) {
+    margin: 2px 9px;
+  }
+`
+const OpenPathInfoWrapper = styled.div`
+  margin: 0 7px 0 7px;
+  display: flex;
+  width: 30px;
+  flex-direction: column;
+  justify-content: center;
+  @media (max-width: 350px) {
+    margin: 0 2px 0 5px;
+  }
+`
+const OpenPathInfoButton = styled.button`
+  display: block;
+  height: 33px;
+  width: 33px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  font-size: 22px;
+  padding: 0px !important; // fix the circle for ios
+  box-sizing: border-box; // fix the circle for ios
+  white-space: nowrap;
+  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
+  background-color: white;
+  @media (min-width: 600px) {
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.15), 0 3px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+  @media (max-width: 325px) {
+    height: 28px;
+    width: 24px;
+    font-size: 20px;
+    border-radius: 5px;
+  }
+`
 
 const roundTo = (number: number, digits: number): number => {
   return Math.round(number * (10 * digits)) / (10 * digits)
 }
 
-const concatSign = (number: number): string => {
-  if (number < 0) {
-    return '-' + String(number)
-  } else if (number > 0) {
-    return '+' + String(number)
-  } else return String(number)
-}
-
-const getFormattedDistanceString = (m: number, withSign: boolean = false): string => {
+const getFormattedDistanceString = (m: number): string => {
   let distance
   let unit
   if (Math.abs(m) >= 950) {
@@ -112,132 +133,83 @@ const getFormattedDistanceString = (m: number, withSign: boolean = false): strin
     distance = Math.round(m)
     unit = ' m'
   }
-  const distanceString = withSign === true ? concatSign(distance) : String(distance)
-  return distanceString + unit
+  return String(distance) + unit
 }
 
-const getFormattedExpDiffRatio = (aqc_diff_rat: number): string => {
-  const diff = Math.round(aqc_diff_rat)
-  if (diff === 0) {
-    return '-' + String(diff)
-  } else if (diff > 0) {
-    return '+' + String(diff)
-  } else {
-    return String(diff)
-  }
-}
-
-const PathListPathBox = ({ path, selected, showingPathsOfExposureMode, travelMode, handleClick }: PathBoxProperties) => {
+const openPathDisabled = (
+  showingPathsOfExposureMode: ExposureMode,
+  pathProps: PathProperties,
+): boolean => {
   if (showingPathsOfExposureMode === ExposureMode.CLEAN) {
-    return <CleanPathBox path={path} selected={selected} travelMode={travelMode} handleClick={handleClick} />
-  } else {
-    return <QuietPathBox path={path} selected={selected} travelMode={travelMode} handleClick={handleClick} />
+    return pathProps.missing_aqi
   }
-}
-
-export const ShortestPathBox = ({ path, selected, showingStatsType, travelMode, handleClick }: PathBoxProperties) => {
-  if (showingStatsType === StatsType.AQ) {
-    return <ShortestPathAqBox path={path} selected={selected} travelMode={travelMode} handleClick={handleClick} />
-  } else { return <ShortestPathNoiseBox path={path} selected={selected} travelMode={travelMode} handleClick={handleClick} /> }
-}
-
-const ShortestPathAqBox = ({ path, selected, travelMode, handleClick }: PathBoxProperties) => {
-  return (
-    <StyledPathListPathBox selected={selected} onClick={handleClick}>
-      {!path.properties.missing_aqi && <PathAqiBar aqiPcts={path.properties.aqi_pcts} />}
-      <PathPropsRow>
-        <div>
-          {utils.getDurationStringFromDist(path.properties.length, travelMode)}
-        </div>
-        <div>
-          {getFormattedDistanceString(path.properties.length, false)}
-        </div>
-        {!path.properties.missing_aqi &&
-          <div>
-            <T>{getAqiLabel(path.properties.aqi_m)}</T>
-          </div>}
-        {path.properties.missing_aqi && <div><T>air_quality_label.missing_data</T></div>}
-      </PathPropsRow>
-    </StyledPathListPathBox>
-  )
-}
-
-const ShortestPathNoiseBox = ({ path, selected, travelMode, handleClick }: PathBoxProperties) => {
-  return (
-    <StyledPathListPathBox selected={selected} onClick={handleClick}>
-      <PathNoisesBar noisePcts={path.properties.noise_pcts} />
-      <PathPropsRow>
-        <div>
-          {utils.getDurationStringFromDist(path.properties.length, travelMode)}
-        </div>
-        <div>
-          {getFormattedDistanceString(path.properties.length, false)}
-        </div>
-        <div>
-          <T>{getNoiseIndexLabel(path.properties.nei_norm)}</T>
-        </div>
-      </PathPropsRow>
-    </StyledPathListPathBox>
-  )
-}
-
-const CleanPathBox = ({ path, selected, travelMode, handleClick }: PathBoxProperties) => {
-  return (
-    <StyledPathListPathBox selected={selected} onClick={handleClick}>
-      {!path.properties.missing_aqi && <PathAqiBar aqiPcts={path.properties.aqi_pcts} />}
-      <PathPropsRow>
-        <div>
-          {utils.getDurationStringFromDist(path.properties.length, travelMode)}
-          <Sub>
-            {' '}{getFormattedDurationDiff(path.properties, travelMode)}
-          </Sub>
-        </div>
-        <QuietPathLengthProps>
-          {getFormattedDistanceString(path.properties.length, false)}
-        </QuietPathLengthProps>
-        {!path.properties.missing_aqi &&
-          <div>
-            <T>{getAqiLabel(path.properties.aqi_m)}</T>
-          </div>}
-      </PathPropsRow>
-    </StyledPathListPathBox>
-  )
-}
-
-const QuietPathBox = ({ path, selected, travelMode, handleClick }: PathBoxProperties) => {
-  return (
-    <StyledPathListPathBox selected={selected} onClick={handleClick}>
-      <PathNoisesBar noisePcts={path.properties.noise_pcts} />
-      <PathPropsRow>
-        <div>
-          {utils.getDurationStringFromDist(path.properties.length, travelMode)}
-          <Sub>
-            {' '}{getFormattedDurationDiff(path.properties, travelMode)}
-          </Sub>
-        </div>
-        <QuietPathLengthProps>
-          {getFormattedDistanceString(path.properties.length, false)}
-        </QuietPathLengthProps>
-        <div>
-          {getFormattedExpDiffRatio(path.properties.nei_diff_rat) + ' % '}<T>noise_level_diff_label.noise</T>
-        </div>
-      </PathPropsRow>
-    </StyledPathListPathBox>
-  )
-}
-
-const getFormattedDurationDiff = (pathProps: PathProperties, travelMode: TravelMode) => {
-  const speed = travelMode === TravelMode.WALK ? walkSpeed : bikeSpeed
-  const sPathLength = pathProps.length - pathProps.len_diff
-  const sPathDurationMins = Math.round((sPathLength / speed) / 60)
-  const cleanPathDurationMins = Math.round((pathProps.length / speed) / 60)
-  const durationDiffMins = cleanPathDurationMins - sPathDurationMins
-  if (durationDiffMins === 0) { return '' }
-  else if (durationDiffMins > 0) {
-    return '+' + String(durationDiffMins) + ' min'
-  } else {
-    return String(durationDiffMins) + ' min'
+  if (showingPathsOfExposureMode === ExposureMode.QUIET) {
+    return pathProps.missing_noises
   }
+  return false
+}
+
+interface PathBoxProperties {
+  path: PathFeature
+  selected: boolean
+  travelMode: TravelMode
+  showingPathsOfExposureMode: ExposureMode
+  handleClick: React.MouseEventHandler<HTMLElement>
+  setOpenedPath: React.MouseEventHandler<HTMLElement>
+}
+
+const PathListPathBox = ({
+  path,
+  selected,
+  travelMode,
+  showingPathsOfExposureMode,
+  handleClick,
+  setOpenedPath,
+}: PathBoxProperties) => {
+  return (
+    <StyledPathListPathBox selected={selected} onClick={handleClick}>
+      <TripInfo>
+        <TravelTime>
+          {utils.getDurationStringFromDist(path.properties.length, travelMode)}
+        </TravelTime>
+        <Distance>{getFormattedDistanceString(path.properties.length)}</Distance>
+      </TripInfo>
+      <MetersContainer>
+        {path.properties.greeneryScore && (
+          <MeterWrapper>
+            <ExposureScoreBar
+              width={path.properties.greeneryScore}
+              labelKey={'exposure_score_label.greenery'}
+            />
+          </MeterWrapper>
+        )}
+        {path.properties.quietnessScore && (
+          <MeterWrapper>
+            <ExposureScoreBar
+              width={path.properties.quietnessScore}
+              labelKey={'exposure_score_label.quietness'}
+            />
+          </MeterWrapper>
+        )}
+        {path.properties.aqScore && (
+          <MeterWrapper>
+            <ExposureScoreBar
+              width={path.properties.aqScore}
+              labelKey={'exposure_score_label.air_quality'}
+            />
+          </MeterWrapper>
+        )}
+        <OpenPathInfoWrapper>
+          <OpenPathInfoButton
+            onClick={setOpenedPath}
+            disabled={openPathDisabled(showingPathsOfExposureMode, path.properties)}
+          >
+            i
+          </OpenPathInfoButton>
+        </OpenPathInfoWrapper>
+      </MetersContainer>
+    </StyledPathListPathBox>
+  )
 }
 
 export default PathListPathBox

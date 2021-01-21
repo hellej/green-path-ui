@@ -63,6 +63,10 @@
   "toggle_paths_exposure.label.(fresh_air).paths": "paths",
   "toggle_paths_exposure.label.(quiet).paths": "paths",
 
+  "exposure_score_label.greenery": "Greenery",
+  "exposure_score_label.quietness": "Quietness",
+  "exposure_score_label.air_quality": "Air quality",
+
   "filter_paths_by_distance.tooltip": "Filter paths by distance",
 
   "compare-to-car-trip.button.label": "Compare to car: duration & CO2",

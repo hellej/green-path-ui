@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
-import { AqiClass, aqiClassColors } from '../../constants'
+import { aqiMapColorByAqiClass } from '../../constants'
 import LoadAnimation from './../LoadAnimation/LoadAnimation'
 import T from '../../utils/translator/Translator'
 
@@ -93,7 +93,7 @@ const AqiMapLegend = (props: PropsFromRedux) => {
           {Array.from({ length: 8 }, (_, i) => i + 2).map((k: number) => (
             <ColorBox
               key={k.toString()}
-              style={{ backgroundColor: aqiClassColors[k as AqiClass] }}
+              style={{ backgroundColor: aqiMapColorByAqiClass[k as AqiClass] }}
             />
           ))}
         </ColorRow>

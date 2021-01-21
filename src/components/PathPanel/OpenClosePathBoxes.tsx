@@ -51,11 +51,11 @@ const StyledOpenClosePathBox = styled.div<{ close?: any, disabled?: boolean }>`
   padding: 3px 4px;
   color: black;
   transition-duration: 0.12s;
-  box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.25), 0 3px 4px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
   margin: 4px 0px 4px 0px;
-  &:hover { 
-    @media (min-width: 600px) {
-      box-shadow: 0 -1px 8px 0 rgba(0,0,0,0.3), 0 4px 8px 0 rgba(0,0,0,0.35);
+  @media (min-width: 600px) {
+    &:hover { 
+      box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.15), 0 3px 4px 0 rgba(0, 0, 0, 0.2);
     }
   }
   ${props => props.close && css`
@@ -66,7 +66,7 @@ const StyledOpenClosePathBox = styled.div<{ close?: any, disabled?: boolean }>`
     cursor: default;
     pointer-events: none;
     &:hover {
-      box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.25), 0 3px 4px 0 rgba(0,0,0,0.3);
+      box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
     }
   `}
 `

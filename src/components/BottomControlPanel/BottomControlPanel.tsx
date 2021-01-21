@@ -18,7 +18,7 @@ const ControlPanel = styled.div<{ pathPanelVisible: boolean }>`
   border: 1px solid #d0d0d0;
   border-top-right-radius: ${props => props.pathPanelVisible === true ? '0px' : '6px'};
   @media (min-width: 600px) {
-    width: 340px;
+    width: 380px;
     padding: 0px 6px 0px 6px;
     border: none;
   }

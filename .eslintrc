@@ -42,6 +42,17 @@
       "error",
       "never"
     ],
+    "@typescript-eslint/semi": ["error", "never"],
+    "@typescript-eslint/member-delimiter-style": {
+      "multiline": {
+        "delimiter": "none",
+        "requireLast": false
+      },
+      "singleline": {
+        "delimiter": "none",
+        "requireLast": false
+      }
+    },
     "eqeqeq": "error",
     "no-trailing-spaces": "error",
     "object-curly-spacing": [
