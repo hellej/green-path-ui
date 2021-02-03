@@ -4,9 +4,8 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { IoIosArrowBack } from 'react-icons/io'
 
 const iconStyle = `
+  display: inline-block;
   vertical-align: middle;
-  display: table-cell;
-  text-align: center;
   font-size: 31px;
 `
 const ArrowForward = styled(IoIosArrowForward)`
@@ -15,58 +14,38 @@ const ArrowForward = styled(IoIosArrowForward)`
 const ArrowBack = styled(IoIosArrowBack)`
   ${iconStyle}
 `
-const IconButton = styled.div<{ padding?: string, leftMargin: string }>`
-  padding: ${props => props.padding || '0px'};
-  margin-left: ${props => props.leftMargin || '0px'};
-  display: table;
-  border-radius: 7px;
-`
-const ArrowForwardButton = () => {
-  return (
-    <IconButton
-      leftMargin={'-3px'}> <ArrowForward />
-    </IconButton>
-  )
-}
-
-const ArrowBackButton = () => {
-  return (
-    <IconButton
-      leftMargin={'-6px'}>
-      <ArrowBack />
-    </IconButton>
-  )
-}
-
-const StyledOpenClosePathBox = styled.div<{ close?: any, disabled?: boolean }>`
-  display: flex;
+const StyledOpenClosePathBox = styled.button<{ close?: any, disabled?: boolean }>`
+  display: inline-block;
   align-items: center;
   pointer-events: auto;
   cursor: pointer;
-  width: 21px;
-  height: 48px;
+  width: 37px;
+  height: 45px;
   border-radius: 5px;
   background-color: white;
   border: 2px solid transparent;
-  padding: 3px 4px;
   color: black;
+  padding: 0 0 0 1px;
   transition-duration: 0.12s;
-  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
-  margin: 4px 0px 4px 0px;
+  box-shadow: 0 -1px 6px 0 rgb(0 0 0 / 8%), 0 3px 4px 0 rgb(0 0 0 / 8%);
   @media (min-width: 600px) {
     &:hover { 
-      box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.15), 0 3px 4px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 -1px 7px 0 rgb(0 0 0 / 9%), 0 3px 5px 0 rgb(0 0 0 / 10%);
     }
   }
+  @media (max-width: 350px) {
+    width: 33px;
+  }
   ${props => props.close && css`
-    height: 36px;
+    padding: 0px 1px 0px 0px;
+    margin-top: 2px;
   `}
   ${props => props.disabled === true && css`
     color: gray;
     cursor: default;
     pointer-events: none;
     &:hover {
-      box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
+      box-shadow: 0 -1px 6px 0 rgb(0 0 0 / 8%), 0 3px 4px 0 rgb(0 0 0 / 8%);
     }
   `}
 `
@@ -74,7 +53,7 @@ const StyledOpenClosePathBox = styled.div<{ close?: any, disabled?: boolean }>`
 export const OpenPathBox = ({ disabled, handleClick }: { disabled: boolean, handleClick: React.MouseEventHandler<HTMLElement> }) => {
   return (
     <StyledOpenClosePathBox className="open-path-button" disabled={disabled} onClick={handleClick}>
-      <ArrowForwardButton />
+      <ArrowForward />
     </StyledOpenClosePathBox>
   )
 }
@@ -82,7 +61,7 @@ export const OpenPathBox = ({ disabled, handleClick }: { disabled: boolean, hand
 export const ClosePathBox = ({ handleClick }: { handleClick: React.MouseEventHandler<HTMLElement> }) => {
   return (
     <StyledOpenClosePathBox className="close-path-button" close onClick={handleClick}>
-      <ArrowBackButton />
+      <ArrowBack />
     </StyledOpenClosePathBox>
   )
 }

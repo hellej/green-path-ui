@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { utils } from '../../../utils/index'
 import ExposureScoreBar from './../ExposureScoreBar'
 import { ExposureMode, TravelMode } from '../../../constants'
+import { OpenPathBox } from '../OpenClosePathBoxes'
 
 type PathBoxProps = {
   selected: boolean
@@ -36,7 +37,7 @@ const StyledPathListPathBox = styled.div.attrs((props: PathBoxProps) => ({
   }
   @media (min-width: 600px) {
     &:hover {
-    cursor: pointer;
+      cursor: pointer;
       box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.12), 0 3px 6px 1px rgba(0, 0, 0, 0.18);
     }
   }
@@ -86,32 +87,6 @@ const OpenPathInfoWrapper = styled.div`
   justify-content: center;
   @media (max-width: 350px) {
     margin: 0 2px 0 5px;
-  }
-`
-const OpenPathInfoButton = styled.button`
-  display: block;
-  height: 33px;
-  width: 33px;
-  border-radius: 50%;
-  border: none;
-  outline: none;
-  font-size: 22px;
-  padding: 0px !important; // fix the circle for ios
-  box-sizing: border-box; // fix the circle for ios
-  white-space: nowrap;
-  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 0 rgba(0, 0, 0, 0.13);
-  background-color: white;
-  @media (min-width: 600px) {
-    &:hover {
-      cursor: pointer;
-      box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.15), 0 3px 4px 0 rgba(0, 0, 0, 0.2);
-    }
-  }
-  @media (max-width: 325px) {
-    height: 28px;
-    width: 24px;
-    font-size: 20px;
-    border-radius: 5px;
   }
 `
 
@@ -200,12 +175,10 @@ const PathListPathBox = ({
           </MeterWrapper>
         )}
         <OpenPathInfoWrapper>
-          <OpenPathInfoButton
-            onClick={setOpenedPath}
+          <OpenPathBox
+            handleClick={setOpenedPath}
             disabled={openPathDisabled(showingPathsOfExposureMode, path.properties)}
-          >
-            i
-          </OpenPathInfoButton>
+          />
         </OpenPathInfoWrapper>
       </MetersContainer>
     </StyledPathListPathBox>
