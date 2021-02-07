@@ -32,6 +32,7 @@
 
   "basemap_selector.option.label.streets": "Streets",
   "basemap_selector.option.label.traffic_noise": "Traffic noise",
+  "basemap_selector.option.label.gvi": "Greenery",
   "basemap_selector.option.label.air_quality": "Air quality",
   "basemap_selector.option.label.satellite": "Satellite",
   "basemap.traffic_noise.legend.title": "Daytime traffic noise",

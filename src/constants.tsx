@@ -10,6 +10,7 @@ export enum UrlStateKey {
 export enum Basemap {
   STREETS = 'mapbox://styles/joose/cjvbyzwuk31oe1fohk6s9ev4b',
   NOISE = 'mapbox://styles/joose/ckenvi8t83bbc19qqq3io2zvu',
+  GVI = 'mapbox://styles/joose/ckkvdtsne3v3717pgtvw5gx0w',
   AIR_QUALITY = 'mapbox://styles/joose/ckg3ie4ln1pqp19rzjfpjf5c1',
   SATELLITE = 'mapbox://styles/joose/ckf9du1ua28cj19mk96oidub3',
 }

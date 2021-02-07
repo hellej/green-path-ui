@@ -31,6 +31,7 @@
 
   "basemap_selector.option.label.streets": "Gator",
   "basemap_selector.option.label.traffic_noise": "Trafikbuller",
+  "basemap_selector.option.label.gvi": "Grönska",
   "basemap_selector.option.label.air_quality": "Luftkvalitet",
   "basemap_selector.option.label.satellite": "Satellit",
   "basemap.traffic_noise.legend.title": "Trafikbuller på dagen",

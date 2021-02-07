@@ -32,6 +32,7 @@
 
   "basemap_selector.option.label.streets": "Peruskartta",
   "basemap_selector.option.label.traffic_noise": "Liikennemelu",
+  "basemap_selector.option.label.gvi": "Vihreys",
   "basemap_selector.option.label.air_quality": "Ilmanlaatu",
   "basemap_selector.option.label.satellite": "Ilmakuva",
   "basemap.traffic_noise.legend.title": "Liikennemelu päivällä",

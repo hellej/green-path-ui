@@ -7,7 +7,7 @@ import BasemapSelectorButton from './BasemapSelectorButton'
 import { CloseButton } from './../Icons'
 import { Basemap } from '../../constants'
 import T from '../../utils/translator/Translator'
-import {  useLocation, useHistory } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 
 const Wrapper = styled.div`
   margin: 15px 5px 0px 0px;
@@ -80,6 +80,12 @@ const BasemapSelector = (props: PropsFromRedux) => {
             onClick={() => handleSetBasemap(Basemap.NOISE)}
           >
             <T>basemap_selector.option.label.traffic_noise</T>
+          </BaseMapOption>
+          <BaseMapOption
+            selected={props.basemap === Basemap.GVI}
+            onClick={() => handleSetBasemap(Basemap.GVI)}
+          >
+            <T>basemap_selector.option.label.gvi</T>
           </BaseMapOption>
           <BaseMapOption
             selected={props.basemap === Basemap.AIR_QUALITY}
