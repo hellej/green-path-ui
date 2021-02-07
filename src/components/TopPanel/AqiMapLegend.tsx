@@ -102,7 +102,7 @@ const AqiMapLegend = (props: PropsFromRedux) => {
             <T>basemap.air_quality.legend.label.good</T>
           </div>
           <div>
-            <T>basemap.air_quality.legend.label.bad</T>
+            <T>basemap.air_quality.legend.label.poor</T>
           </div>
         </LabelRow>
       </LegendBox>

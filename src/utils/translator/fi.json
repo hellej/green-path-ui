@@ -39,7 +39,7 @@
   "basemap.air_quality.legend.title.air_quality_index": "Ilmanlaatu",
   "basemap.air_quality.legend.title.aqi_data_time_now": "nyt",
   "basemap.air_quality.legend.label.good": "hyvä",
-  "basemap.air_quality.legend.label.bad": "huono",
+  "basemap.air_quality.legend.label.poor": "huono",
   "basemap.air_quality.zoom_closer_tip": "Lähennä karttaa nähdäksesi värit",
 
   "noise_level_label.very_quiet": "hiljainen",
