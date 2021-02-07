@@ -76,15 +76,15 @@ export const dBColors = {
 } as Record<DbClass, string>
 
 export const labelByAqiClass = {
-  2: 'air_quality_label.good',
+  2: 'air_quality_label.very_good',
   3: 'air_quality_label.good',
   4: 'air_quality_label.satisfactory',
-  5: 'air_quality_label.satisfactory',
+  5: 'air_quality_label.rather_satisfactory',
   6: 'air_quality_label.fair',
-  7: 'air_quality_label.fair',
-  8: 'air_quality_label.poor',
-  9: 'air_quality_label.very_poor',
-  10: 'air_quality_label.very_poor',
+  7: 'air_quality_label.poor',
+  8: 'air_quality_label.very_poor',
+  9: 'air_quality_label.extremely_poor',
+  10: 'air_quality_label.extremely_poor',
 } as Record<AqiClass, string>
 
 export const colorByAqiClass = {
