@@ -88,27 +88,27 @@ export const labelByAqiClass = {
 } as Record<AqiClass, string>
 
 export const colorByAqiClass = {
-  2: '#00f000',
-  3: '#00f000',
-  4: '#74f000',
-  5: '#c4f31c',
-  6: '#f7cc0e',
-  7: '#f7cc0e',
-  8: '#ff6913',
-  9: '#FF270E',
-  10:'#FF270E',
+  2: '#31A354',
+  3: '#A1D99B',
+  4: '#f0d0b4',
+  5: '#e9bc90',
+  6: '#FDAE6B',
+  7: '#FD8D3C',
+  8: '#E6550D',
+  9: '#A63603',
+  10: '#A63603',
 } as Record<AqiClass, string>
 
 export const aqiMapColorByAqiClass = {
-  2: '#1a9850',
-  3: '#66bd63',
-  4: '#a6d96a',
-  5: '#d9ef8b',
-  6: '#fee08b',
-  7: '#fdae61',
-  8: '#f46d43',
-  9: '#d73027',
-  10: '#d73027',
+  2: '#0c8b43',
+  3: '#09ac4f',
+  4: '#e2a669',
+  5: '#f19c51',
+  6: '#ff8935',
+  7: '#ff6b20',
+  8: '#ff4c15',
+  9: '#ff2f20',
+  10: '#ff2f20',
 } as Record<AqiClass, string>
 
 export const menu = {
