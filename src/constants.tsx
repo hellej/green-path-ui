@@ -112,6 +112,19 @@ export const aqiMapColorByAqiClass = {
   10: '#ff2f20',
 } as Record<AqiClass, string>
 
+export const gviMapColorByGviClass = {
+  1: '#606060',
+  2: '#616e5b',
+  3: '#607d56',
+  4: '#5d8b51',
+  5: '#599a4a',
+  6: '#53a842',
+  7: '#49b738',
+  8: '#3ac62a',
+  9: '#1dd513',
+  10: '#1dd513',
+} as Record<GviClass, string>
+
 export const menu = {
   lengthLimitSelector: 'length_limit_selector',
   pathList: 'path_list',

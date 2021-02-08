@@ -8,6 +8,7 @@ import OrigDestPanel from './OrigDestPanel'
 import BasemapSelector from './BasemapSelector'
 import AqiMapLegend from './AqiMapLegend'
 import NoiseMapLegend from './NoiseMapLegend'
+import GviMapLegend from './GviMapLegend'
 import { Basemap, ExposureMode } from '../../constants'
 
 const VisiblePanel = styled.div`
@@ -78,6 +79,10 @@ const showNoiseMapLegend = (props: PropsFromRedux): boolean => {
   )
 }
 
+const showGviMapLegend = (props: PropsFromRedux): boolean => {
+  return props.basemap === Basemap.GVI
+}
+
 const TopPanel = (props: PropsFromRedux) => {
   return (
     <div>
@@ -95,6 +100,7 @@ const TopPanel = (props: PropsFromRedux) => {
         <LowerLeftPanel>
           {showAqiMapLegend(props) && <AqiMapLegend />}
           {showNoiseMapLegend(props) && <NoiseMapLegend />}
+          {showGviMapLegend(props) && <GviMapLegend />}
         </LowerLeftPanel>
         <LowerRightPanel>
           <ShowInfoButton />
