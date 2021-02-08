@@ -21,6 +21,7 @@ export const UrlIdByBasemap = {
   [Basemap.STREETS]: 'streets',
   [Basemap.NOISE]: 'noise',
   [Basemap.AIR_QUALITY]: 'airquality',
+  [Basemap.GVI]: 'gvi',
   [Basemap.SATELLITE]: 'satellite',
 } as Record<Basemap, string>
 
@@ -28,6 +29,7 @@ export const BasemapByUrlId = new Map([
   ['streets', Basemap.STREETS],
   ['noise', Basemap.NOISE],
   ['airquality', Basemap.AIR_QUALITY],
+  ['gvi', Basemap.GVI],
   ['satellite', Basemap.SATELLITE],
 ])
 
