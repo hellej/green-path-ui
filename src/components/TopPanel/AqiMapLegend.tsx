@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
-import { aqiMapColorByAqiClass } from '../../constants'
+import { aqiMapColorByAqiClass, Basemap, colorByAqiClass } from '../../constants'
 import LoadAnimation from './../LoadAnimation/LoadAnimation'
 import T from '../../utils/translator/Translator'
 
@@ -44,12 +44,16 @@ const LoadAnimationWrapper = styled.div`
 `
 
 const ZoomTooltipBox = styled.div`
-  padding: 6px 13px;
+  padding: 9px 11px;
   color: white;
   font-weight: 400;
   text-align: center;
-  max-width: 150px;
+  max-width: 160px;
   letter-spacing: 1px;
+  background-color: #0000004f;
+  border-radius: 5px;
+  margin: 4px 0 0 0;
+  line-height: 120%;
 `
 
 const formatUtcSecondsToAmPm = (utcSeconds: number): string => {
@@ -78,6 +82,10 @@ const formatAqiTimeInfo = (dataTimeUtcSecs: number): string => {
 
 const AqiMapLegend = (props: PropsFromRedux) => {
   const { loadingData, waitingStyleUpdate, updatingStyle, dataTimeUtcSecs } = props.aqLayer
+
+  const aqiColors: Record<AqiClass, string> =
+    props.basemap === Basemap.AIR_QUALITY ? aqiMapColorByAqiClass : colorByAqiClass
+
   return (
     <Container>
       <LegendBox>
@@ -91,10 +99,7 @@ const AqiMapLegend = (props: PropsFromRedux) => {
         </TitleRow>
         <ColorRow>
           {Array.from({ length: 8 }, (_, i) => i + 2).map((k: number) => (
-            <ColorBox
-              key={k.toString()}
-              style={{ backgroundColor: aqiMapColorByAqiClass[k as AqiClass] }}
-            />
+            <ColorBox key={k.toString()} style={{ backgroundColor: aqiColors[k as AqiClass] }} />
           ))}
         </ColorRow>
         <LabelRow>
@@ -123,6 +128,7 @@ const AqiMapLegend = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   aqLayer: state.airQualityLayer,
   mapZoom: state.map.zoom,
+  basemap: state.map.basemap,
 })
 
 const connector = connect(mapStateToProps, {})

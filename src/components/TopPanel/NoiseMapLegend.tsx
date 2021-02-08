@@ -40,12 +40,16 @@ const ColorBox = styled.div`
   height: 16px;
 `
 const ZoomTooltipBox = styled.div`
-  padding: 6px 13px;
+  padding: 9px 11px;
   color: white;
   font-weight: 400;
   text-align: center;
-  max-width: 150px;
+  max-width: 160px;
   letter-spacing: 1px;
+  background-color: #0000004f;
+  border-radius: 5px;
+  margin: 4px 0 0 0;
+  line-height: 120%;
 `
 
 const NoiseMapLegend = (props: PropsFromRedux) => {

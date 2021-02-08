@@ -62,8 +62,23 @@ const LowerRightPanel = styled.div`
   align-items: flex-end;
 `
 
+const showAqiMapLegend = (props: PropsFromRedux): boolean => {
+  return (
+    props.basemap === Basemap.AIR_QUALITY ||
+    (props.showingPathsOfExposureMode === ExposureMode.CLEAN &&
+      (props.basemap === Basemap.STREETS || props.basemap === Basemap.SATELLITE))
+  )
+}
+
+const showNoiseMapLegend = (props: PropsFromRedux): boolean => {
+  return (
+    props.basemap === Basemap.NOISE ||
+    (props.showingPathsOfExposureMode === ExposureMode.QUIET &&
+      (props.basemap === Basemap.STREETS || props.basemap === Basemap.SATELLITE))
+  )
+}
+
 const TopPanel = (props: PropsFromRedux) => {
-  const { odPanelHidden, showingPathsOfExposureMode } = props
   return (
     <div>
       <VisiblePanel>
@@ -73,14 +88,13 @@ const TopPanel = (props: PropsFromRedux) => {
             Green<span style={{ marginLeft: '2px' }}>Paths</span>
           </GreenPathsLabel>
         </LogoRow>
-        {!odPanelHidden && <OrigDestPanel />}
+        {!props.odPanelHidden && <OrigDestPanel />}
         <RoutingSettingsRow />
       </VisiblePanel>
       <LowerTransparentPanel>
         <LowerLeftPanel>
-          {props.basemap === Basemap.AIR_QUALITY && <AqiMapLegend />}
-          {(props.basemap === Basemap.NOISE ||
-            showingPathsOfExposureMode === ExposureMode.QUIET) && <NoiseMapLegend />}
+          {showAqiMapLegend(props) && <AqiMapLegend />}
+          {showNoiseMapLegend(props) && <NoiseMapLegend />}
         </LowerLeftPanel>
         <LowerRightPanel>
           <ShowInfoButton />

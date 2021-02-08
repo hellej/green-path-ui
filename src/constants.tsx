@@ -91,8 +91,8 @@ export const labelByAqiClass = {
 export const colorByAqiClass = {
   2: '#31A354',
   3: '#A1D99B',
-  4: '#f0d0b4',
-  5: '#e9bc90',
+  4: '#e9cfb8',
+  5: '#FDD0A2',
   6: '#FDAE6B',
   7: '#FD8D3C',
   8: '#E6550D',
@@ -101,10 +101,10 @@ export const colorByAqiClass = {
 } as Record<AqiClass, string>
 
 export const aqiMapColorByAqiClass = {
-  2: '#0c8b43',
-  3: '#09ac4f',
-  4: '#e2a669',
-  5: '#f19c51',
+  2: '#038a37',
+  3: '#459255',
+  4: '#b4a75c',
+  5: '#e6954e',
   6: '#ff8935',
   7: '#ff6b20',
   8: '#ff4c15',
