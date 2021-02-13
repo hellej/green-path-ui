@@ -15,6 +15,7 @@ import * as aqi from '../../services/aqi'
 const aqiLineColors = [
   'match',
   ['feature-state', 'aqi'],
+  1, aqiMapColorByAqiClass[1],
   2, aqiMapColorByAqiClass[2],
   3, aqiMapColorByAqiClass[3],
   4, aqiMapColorByAqiClass[4],
@@ -23,7 +24,6 @@ const aqiLineColors = [
   7, aqiMapColorByAqiClass[7],
   8, aqiMapColorByAqiClass[8],
   9, aqiMapColorByAqiClass[9],
-  10, aqiMapColorByAqiClass[10],
   /* other */ '#3d3d3d'
 ]
 

@@ -20,6 +20,7 @@ const dbLineColors = [
 const aqiLineColors = [
   'match',
   ['get', 'value'],
+  1, colorByAqiClass[1],
   2, colorByAqiClass[2],
   3, colorByAqiClass[3],
   4, colorByAqiClass[4],
@@ -28,7 +29,6 @@ const aqiLineColors = [
   7, colorByAqiClass[7],
   8, colorByAqiClass[8],
   9, colorByAqiClass[9],
-  10, colorByAqiClass[10],
   /* other */ 'white'
 ]
 

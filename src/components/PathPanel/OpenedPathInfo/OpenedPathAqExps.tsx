@@ -36,7 +36,7 @@ const StyledAqiLabelBox = styled.div<{ aqiCl: AqiClass }>`
   border-radius: 8px;
   margin: 0px 3px 0px 3px;
   padding: 5px 7px;
-  background-color: ${props => colorByAqiClass[props.aqiCl] || 'grey'};
+  background-color: ${(props) => colorByAqiClass[props.aqiCl] || 'grey'};
 `
 const StyledAqiExposureBox = styled.div`
   border-radius: 8px;
@@ -52,14 +52,14 @@ const StyledAqiExposureRow = styled.div`
 const AqiClLabelBox = ({ aqiCl }: { aqiCl: AqiClass }) => {
   return (
     <StyledAqiLabelBox aqiCl={aqiCl}>
-      <T>{labelByAqiClass[aqiCl]}</T>
+      <T>{labelByAqiClass[aqiCl]}</T> ({aqiCl})
     </StyledAqiLabelBox>
   )
 }
 
 interface AqiExposureRowProps {
-  aqiCl: AqiClass,
-  aqiClExp: number,
+  aqiCl: AqiClass
+  aqiClExp: number
   travelMode: TravelMode
 }
 
@@ -74,20 +74,29 @@ const AqExposureRow = ({ aqiCl, aqiClExp, travelMode }: AqiExposureRowProps) => 
   )
 }
 
-export const OpenedPathAqExps = ({ path, travelMode }: { path: PathFeature, travelMode: TravelMode }) => {
+export const OpenedPathAqExps = ({
+  path,
+  travelMode,
+}: {
+  path: PathFeature
+  travelMode: TravelMode
+}) => {
   const aqiClExps = path.properties.aqi_cl_exps
   const aqiKeys = Object.keys(aqiClExps)
-  const aqiCls: AqiClass[] = aqiKeys.map(aqi => Number(aqi)).sort()
+  const aqiCls: AqiClass[] = aqiKeys.map((aqi) => Number(aqi)).sort()
   return (
     <StyledOpenedPathExposures>
       <StyledOpenedPathExposures>
         <PathPropsRow>
           <FlexCols>
-            {aqiCls.map(aqiCL => <AqExposureRow
-              key={aqiCL}
-              aqiCl={aqiCL}
-              aqiClExp={aqiClExps[aqiCL]}
-              travelMode={travelMode} />)}
+            {aqiCls.map((aqiCL) => (
+              <AqExposureRow
+                key={aqiCL}
+                aqiCl={aqiCL}
+                aqiClExp={aqiClExps[aqiCL]}
+                travelMode={travelMode}
+              />
+            ))}
           </FlexCols>
         </PathPropsRow>
       </StyledOpenedPathExposures>

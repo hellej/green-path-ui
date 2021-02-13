@@ -79,39 +79,39 @@ export const dBColors = {
 } as Record<DbClass, string>
 
 export const labelByAqiClass = {
-  2: 'air_quality_label.very_good',
-  3: 'air_quality_label.good',
-  4: 'air_quality_label.satisfactory',
-  5: 'air_quality_label.rather_satisfactory',
-  6: 'air_quality_label.fair',
-  7: 'air_quality_label.poor',
-  8: 'air_quality_label.very_poor',
-  9: 'air_quality_label.extremely_poor',
-  10: 'air_quality_label.extremely_poor',
+  1: 'air_quality_label.good_1',
+  2: 'air_quality_label.good_2',
+  3: 'air_quality_label.satisfactory_3',
+  4: 'air_quality_label.satisfactory_4',
+  5: 'air_quality_label.fair_5',
+  6: 'air_quality_label.fair_6',
+  7: 'air_quality_label.poor_7',
+  8: 'air_quality_label.poor_8',
+  9: 'air_quality_label.very_poor',
 } as Record<AqiClass, string>
 
 export const colorByAqiClass = {
-  2: '#31A354',
-  3: '#A1D99B',
-  4: '#e9cfb8',
-  5: '#FDD0A2',
-  6: '#FDAE6B',
-  7: '#FD8D3C',
-  8: '#E6550D',
+  1: '#31A354',
+  2: '#A1D99B',
+  3: '#e9cfb8',
+  4: '#FDD0A2',
+  5: '#FDAE6B',
+  6: '#FD8D3C',
+  7: '#E6550D',
+  8: '#A63603',
   9: '#A63603',
-  10: '#A63603',
 } as Record<AqiClass, string>
 
 export const aqiMapColorByAqiClass = {
-  2: '#038a37',
-  3: '#459255',
-  4: '#b4a75c',
-  5: '#e6954e',
-  6: '#ff8935',
-  7: '#ff6b20',
-  8: '#ff4c15',
+  1: '#038a37',
+  2: '#459255',
+  3: '#b4a75c',
+  4: '#e6954e',
+  5: '#ff8935',
+  6: '#ff6b20',
+  7: '#ff4c15',
+  8: '#ff2f20',
   9: '#ff2f20',
-  10: '#ff2f20',
 } as Record<AqiClass, string>
 
 export const gviMapColorByGviClass = {

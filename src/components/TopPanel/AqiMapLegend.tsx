@@ -98,7 +98,7 @@ const AqiMapLegend = (props: PropsFromRedux) => {
           )}
         </TitleRow>
         <ColorRow>
-          {Array.from({ length: 8 }, (_, i) => i + 2).map((k: number) => (
+          {Array.from({ length: 8 }, (_, i) => i + 1).map((k: number) => (
             <ColorBox key={k.toString()} style={{ backgroundColor: aqiColors[k as AqiClass] }} />
           ))}
         </ColorRow>
