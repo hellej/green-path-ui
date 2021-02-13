@@ -11,6 +11,7 @@
   "notif.error.routing.error_in_path_processing": "Ett fel uppstod vid behandlingen av rutterna.",
   "notif.error.routing.unknown_error": "Ett fel uppstod vid ruttsökningen.",
   "notif.error.routing.general_routing_error": "Ruttplaneringen misslyckades.",
+  "notif.error.origin_not_found": "Startpunkten hittades inte.",
   "notif.error.origin_outside_extent": "Startpunkten är utanför applikationens karta.",
   "notif.error.destination_outside_extent": "Målet är utanför applikationens karta.",
   "notif.error.no_alternative_quiet_paths_found": "Alternativa tysta rutter kunde inte hittas.",

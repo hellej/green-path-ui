@@ -11,6 +11,7 @@
   "notif.error.routing.error_in_path_processing": "Reittien prosessoinnissa tapahtui virhe.",
   "notif.error.routing.unknown_error": "Reitinetsinnässä tapahtui virhe.",
   "notif.error.routing.general_routing_error": "Reititys ei onnistunut.",
+  "notif.error.origin_not_found": "Lähtöpaikkaa ei löytynyt.",
   "notif.error.origin_outside_extent": "Lähtöpaikka on tuetun alueen ulkopuolella.",
   "notif.error.destination_outside_extent": "Määränpää on tuetun alueen ulkopuolella.",
   "notif.error.no_alternative_quiet_paths_found": "Vaihtoehtoisia hiljaisia reittejä ei löytynyt.",

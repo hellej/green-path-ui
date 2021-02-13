@@ -11,6 +11,7 @@
   "notif.error.routing.error_in_path_processing": "An error occurred when processing paths.",
   "notif.error.routing.unknown_error": "An error occurred when finding paths.",
   "notif.error.routing.general_routing_error": "An error occurred when finding paths.",
+  "notif.error.origin_not_found": "Origin was not found.",
   "notif.error.origin_outside_extent": "Origin is outside the supported area.",
   "notif.error.destination_outside_extent": "Destination is outside the supported area.",
   "notif.error.no_alternative_quiet_paths_found": "No alternative quiet paths found.",
