@@ -156,7 +156,9 @@ const WelcomeInfo = (props: PropsFromRedux) => {
             </P>
             <P>
               <Link href='https://hri.fi/data/en_GB/dataset/helsingin-kaupungin-meluselvitys-2017' target='_blank' rel='noopener noreferrer'>
-                <T>info_modal.method.content.noise_data.link_label</T></Link>{' '} <T>info_modal.method.content.noise_data.description</T>
+                <T>info_modal.method.content.noise_data.link_label</T></Link>{' '} <T>info_modal.method.content.noise_data.description</T>{' '}
+              <Link href='https://en.wikipedia.org/wiki/Day%E2%80%93evening%E2%80%93night_noise_level' target='_blank' rel='noopener noreferrer'>
+                <T>info_modal.method.content.noise_data.Lden</T></Link>.
             </P>
             <P>
               <T>info_modal.method.content.osm.description</T> <Link href='https://www.openstreetmap.org/copyright' target='_blank' rel='noopener noreferrer'>
