@@ -1,0 +1,27 @@
+name: CI/CD
+on: [push]
+jobs:
+  cypress-tests:
+    name: Build & run Cypress tests
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          spec: cypress/integration/basic-routing.spec.js
+          build: "npm run build && npm install -g serve"
+          start: serve -s build
+          # quote the url to be safe against YML parsing surprises
+          wait-on: "http://localhost:5000"
+        env:
+          CYPRESS_REACT_APP_GP_SERVER: ${{ secrets.REACT_APP_GP_SERVER }}
+          CYPRESS_REACT_APP_MB_ACCESS: ${{ secrets.REACT_APP_MB_ACCESS }}
+          CYPRESS_REACT_APP_FB_API_KEY: ${{ secrets.REACT_APP_FB_API_KEY }}
+          CYPRESS_REACT_APP_FB_MSG_SENDER_ID: ${{ secrets.REACT_APP_FB_MSG_SENDER_ID }}
+          CYPRESS_REACT_APP_FB_APP_ID: ${{ secrets.REACT_APP_FB_APP_ID }}
+          CYPRESS_REACT_APP_FB_MEASUREMENT_ID: ${{ secrets.REACT_APP_FB_MEASUREMENT_ID }}
+          CYPRESS_REACT_APP_DT_GEOCODING_URL: ${{ secrets.REACT_APP_DT_GEOCODING_URL }}
+  
