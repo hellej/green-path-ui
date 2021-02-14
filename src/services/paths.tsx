@@ -3,10 +3,14 @@ import { analytics } from './../firebase/firebase'
 import { ExposureMode } from '../constants'
 import * as cache from './cache'
 
-let baseurl = process.env.REACT_APP_QP_URL ? process.env.REACT_APP_QP_URL : ''
+let serverUrl = process.env.REACT_APP_GP_SERVER || ''
 
-if (process.env.NODE_ENV !== 'production') {
-  baseurl = 'http://localhost:5000/'
+if (process.env.NODE_ENV === 'development') {
+  serverUrl = 'http://localhost:5000/'
+}
+
+if (serverUrl === '') {
+  console.error('GP server URL not set!')
 }
 
 export interface AqiStatus {
@@ -15,13 +19,13 @@ export interface AqiStatus {
 }
 
 export const getConnectionTestResponse = async (): Promise<string | any> => {
-  console.log('testing connection to gp service at:', baseurl)
-  const response = await axios.get(baseurl)
+  console.log('testing connection to gp service at:', serverUrl)
+  const response = await axios.get(serverUrl)
   return response
 }
 
 export const getCleanPathServiceStatus = async (): Promise<AqiStatus> => {
-  const response = await axios.get(baseurl.concat('aqistatus'))
+  const response = await axios.get(serverUrl.concat('aqistatus'))
   return response.data as AqiStatus
 }
 
@@ -37,7 +41,7 @@ export const getQuietPaths = async (
   destinationCoords: number[],
 ): Promise<PathData> => {
   const coordString = formCoordinateString(originCoords, destinationCoords)
-  const queryUrl = baseurl.concat('paths/', travelMode, '/', ExposureMode.QUIET, '/', coordString)
+  const queryUrl = serverUrl.concat('paths/', travelMode, '/', ExposureMode.QUIET, '/', coordString)
   const cached = cache.getFromCache(queryUrl)
   if (cached) {
     console.log('Found quiet paths from cache:', queryUrl)
@@ -61,7 +65,7 @@ export const getCleanPaths = async (
   destinationCoords: number[],
 ): Promise<PathData> => {
   const coordString = formCoordinateString(originCoords, destinationCoords)
-  const queryUrl = baseurl.concat('paths/', travelMode, '/', ExposureMode.CLEAN, '/', coordString)
+  const queryUrl = serverUrl.concat('paths/', travelMode, '/', ExposureMode.CLEAN, '/', coordString)
   const cached = cache.getFromCache(queryUrl)
   if (cached) {
     console.log('Found clean paths from cache:', queryUrl)
@@ -81,7 +85,7 @@ export const getCleanPaths = async (
 
 export const debugNearestEdgeAttrs = async (lngLat: LngLat): Promise<void> => {
   const coordString = String(lngLat.lat).concat(',', String(lngLat.lng))
-  const queryUrl = baseurl.concat('edge-attrs-near-point/', coordString)
+  const queryUrl = serverUrl.concat('edge-attrs-near-point/', coordString)
   const response = await axios.get(queryUrl)
   console.log('nearest edge at', lngLat, response.data)
 }

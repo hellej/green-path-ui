@@ -10,8 +10,8 @@ import { clickTol } from './../../constants'
 
 MapboxGL.accessToken = process.env.REACT_APP_MB_ACCESS || 'Mapbox token is needed in order to use the map'
 
-const mapCenter = process.env.NODE_ENV !== 'production' ? initialMapCenter : initialMapCenterProd
-const zoom = process.env.NODE_ENV !== 'production' ? 13 : 12
+const mapCenter = process.env.NODE_ENV === 'development' ? initialMapCenter : initialMapCenterProd
+const zoom = process.env.NODE_ENV === 'development' ? 13 : 12
 
 interface PropsType {
   children: JSX.Element[],
@@ -71,7 +71,7 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
     })
 
     this.map.on('click', (e: any) => {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV === 'development') {
         debugNearestEdgeAttrs(e.lngLat)
       }
       const features = utils.getLayersFeaturesAroundClickE([LayerId.GREEN_PATHS, LayerId.SHORT_PATH], e, clickTol, this.map!)

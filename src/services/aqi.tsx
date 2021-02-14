@@ -1,10 +1,14 @@
 import axios from 'axios'
 import { analytics } from './../firebase/firebase'
 
-let baseurl = process.env.REACT_APP_QP_URL ? process.env.REACT_APP_QP_URL : ''
+let serverUrl = process.env.REACT_APP_GP_SERVER || ''
 
-if (process.env.NODE_ENV !== 'production') {
-  baseurl = 'http://localhost:5000/'
+if (process.env.NODE_ENV === 'development') {
+  serverUrl = 'http://localhost:5000/'
+}
+
+if (serverUrl === '') {
+  console.error('GP server URL not set!')
 }
 
 export interface AqiMapDataStatus {
@@ -14,7 +18,7 @@ export interface AqiMapDataStatus {
 
 export const getAqiMapDataStatus = async (): Promise<AqiMapDataStatus> => {
   try {
-    const response = await axios.get(baseurl.concat('aqi-map-data-status'))
+    const response = await axios.get(serverUrl.concat('aqi-map-data-status'))
     if (response.data) {
       return response.data as AqiMapDataStatus
     }
@@ -25,7 +29,7 @@ export const getAqiMapDataStatus = async (): Promise<AqiMapDataStatus> => {
 }
 
 export const getAqiLayerData = async (): Promise<Map<number, number> | undefined> => {
-    const response = await axios.get(baseurl.concat('aqi-map-data'))
+    const response = await axios.get(serverUrl.concat('aqi-map-data'))
     if (response.data) {
       analytics.logEvent('aqi_map_data_loaded')
       return new Map(response.data.data as [number, number][])

@@ -1,5 +1,4 @@
-
-const baseUrl = 'https://api.digitransit.fi/geocoding/v1/search?'
+const baseUrl = process.env.REACT_APP_DT_GEOCODING_URL || 'https://api.digitransit.fi/geocoding/v1/search?'
 
 const getParamString = (params: Record<string, any>): string => {
   let str = ''

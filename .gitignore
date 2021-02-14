@@ -36,5 +36,4 @@ firestore.indexes.json
 firestore.rules
 storage.rules
 firebase-debug.log
-src/firebase/config*
 src/react-app-env.d.ts

@@ -20,8 +20,8 @@ export enum OdType {
 
 const initialOrigin: OriginReducer = {
   error: null,
-  originInputText: process.env.NODE_ENV !== 'production' ? egOrigin.properties.label : '',
-  originObject: process.env.NODE_ENV !== 'production' ? egOrigin as OdPlace : null,
+  originInputText: process.env.NODE_ENV === 'development' ? egOrigin.properties.label : '',
+  originObject: process.env.NODE_ENV === 'development' ? egOrigin as OdPlace : null,
   originOptions: [],
   originOptionsVisible: false,
   waitingUserLocOrigin: false

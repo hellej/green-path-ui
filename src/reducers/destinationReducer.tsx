@@ -9,8 +9,8 @@ import * as geocoding from './../services/geocoding'
 
 const initialDest: DestinationReducer = {
   error: null,
-  destInputText: process.env.NODE_ENV !== 'production' ? egDest.properties.label : '',
-  destObject: process.env.NODE_ENV !== 'production' ? egDest as OdPlace : null,
+  destInputText: process.env.NODE_ENV === 'development' ? egDest.properties.label : '',
+  destObject: process.env.NODE_ENV === 'development' ? egDest as OdPlace : null,
   destOptions: [],
   destOptionsVisible: false,
 }
