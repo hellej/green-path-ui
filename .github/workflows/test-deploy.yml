@@ -16,12 +16,12 @@ jobs:
           # quote the url to be safe against YML parsing surprises
           wait-on: "http://localhost:3000"
         env:
-          CYPRESS_REACT_APP_DEV_MAP_VIEW: "False"
-          CYPRESS_REACT_APP_USE_DEFAULT_OD: "False"
-          CYPRESS_REACT_APP_DEBUG_GRAPH: "False"
-          CYPRESS_REACT_APP_GP_SERVER: ${{ secrets.REACT_APP_GP_SERVER }}
-          CYPRESS_REACT_APP_MB_ACCESS: ${{ secrets.REACT_APP_MB_ACCESS }}
-          CYPRESS_REACT_APP_FB_API_KEY: ${{ secrets.REACT_APP_FB_API_KEY }}
-          CYPRESS_REACT_APP_FB_MSG_SENDER_ID: ${{ secrets.REACT_APP_FB_MSG_SENDER_ID }}
-          CYPRESS_REACT_APP_FB_APP_ID: ${{ secrets.REACT_APP_FB_APP_ID }}
-          CYPRESS_REACT_APP_FB_MEASUREMENT_ID: ${{ secrets.REACT_APP_FB_MEASUREMENT_ID }}
+          REACT_APP_DEV_MAP_VIEW: "False"
+          REACT_APP_USE_DEFAULT_OD: "False"
+          REACT_APP_DEBUG_GRAPH: "False"
+          REACT_APP_GP_SERVER: ${{ secrets.REACT_APP_GP_SERVER }}
+          REACT_APP_MB_ACCESS: ${{ secrets.REACT_APP_MB_ACCESS }}
+          REACT_APP_FB_API_KEY: ${{ secrets.REACT_APP_FB_API_KEY }}
+          REACT_APP_FB_MSG_SENDER_ID: ${{ secrets.REACT_APP_FB_MSG_SENDER_ID }}
+          REACT_APP_FB_APP_ID: ${{ secrets.REACT_APP_FB_APP_ID }}
+          REACT_APP_FB_MEASUREMENT_ID: ${{ secrets.REACT_APP_FB_MEASUREMENT_ID }}
