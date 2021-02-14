@@ -4,13 +4,11 @@ import { connect, ConnectedProps } from 'react-redux'
 import { initializeMap, updateCamera, setLayerLoaded } from './../../reducers/mapReducer'
 import { debugNearestEdgeAttrs } from '../../services/paths'
 import { unsetSelectedPath } from './../../reducers/pathsReducer'
-import { initialMapCenter, Basemap, LayerId } from './../../constants'
+import { initialMapCenter, initialMapZoom, Basemap, LayerId } from './../../constants'
 import { utils } from './../../utils/index'
 import { clickTol } from './../../constants'
 
 MapboxGL.accessToken = process.env.REACT_APP_MB_ACCESS || 'Mapbox token is needed in order to use the map'
-
-const zoom = process.env.REACT_APP_DEV_MAP_VIEW === 'True' ? 13 : 12
 
 interface PropsType {
   children: JSX.Element[],
@@ -44,7 +42,7 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
       container: this.mapContainer,
       style: this.props.basemap || Basemap.STREETS,
       center: initialMapCenter,
-      zoom: zoom,
+      zoom: initialMapZoom,
       boxZoom: false,
       trackResize: true
     })

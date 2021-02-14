@@ -3,7 +3,7 @@ on: [push]
 jobs:
 
   cypress-tests:
-    name: Build & run Cypress tests
+    name: E2E tests
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
@@ -27,7 +27,7 @@ jobs:
           REACT_APP_FB_APP_ID: ${{ secrets.REACT_APP_FB_APP_ID }}
           REACT_APP_FB_MEASUREMENT_ID: ${{ secrets.REACT_APP_FB_MEASUREMENT_ID }}
 
-  deploy:
+  build-deploy:
     name: Deploy
     # if: github.ref == 'refs/heads/master'
     needs: [cypress-tests]
