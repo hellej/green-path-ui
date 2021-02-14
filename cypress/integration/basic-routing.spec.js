@@ -1,7 +1,7 @@
 describe('Page load', () => {
 
   it('opens the page', () => {
-    cy.visit('http://localhost:5000/')
+    cy.visit('http://localhost:3000/')
     cy.get('#set-lang-en-button').click({ force: true })
     cy.contains('Welcome')
   })

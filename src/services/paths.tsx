@@ -3,15 +3,7 @@ import { analytics } from './../firebase/firebase'
 import { ExposureMode } from '../constants'
 import * as cache from './cache'
 
-let serverUrl = process.env.REACT_APP_GP_SERVER || ''
-
-if (process.env.NODE_ENV === 'development') {
-  serverUrl = 'http://localhost:5000/'
-}
-
-if (serverUrl === '') {
-  console.error('GP server URL not set!')
-}
+const serverUrl = process.env.REACT_APP_GP_SERVER || 'http://localhost:5000/'
 
 export interface AqiStatus {
   aqi_data_updated: boolean
