@@ -1,3 +1,5 @@
+[![CI/CD status](https://github.com/DigitalGeographyLab/hope-green-path-ui/workflows/CI%2FCD/badge.svg)](https://github.com/DigitalGeographyLab/hope-green-path-ui/actions)
+
 # Green paths UI
 
 A user interface for [the green path route optimization application](https://github.com/DigitalGeographyLab/hope-green-path-server/) being developed for [UIA HOPE project](https://ilmanlaatu.eu/briefly-in-english/) – Healthy Outdoor Premises for Everyone.
