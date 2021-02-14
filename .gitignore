@@ -27,14 +27,8 @@ yarn-error.log*
 .eslintignore
 .vscode
 
-# firebase
 /deploy.sh
 .firebase
-.firebaserc
-firebase.json
-firestore.indexes.json
-firestore.rules
-storage.rules
 firebase-debug.log
 src/react-app-env.d.ts
 build-serve-prod.sh
