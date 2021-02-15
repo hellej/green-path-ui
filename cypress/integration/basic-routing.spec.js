@@ -53,9 +53,17 @@ describe('Select origin and destination', () => {
   })
 
   it('sets origin by typing address', () => {
+    cy.intercept(
+      {
+        url: 'geocoding',
+        search: {
+          text: '/Voi/',
+        },
+      },
+      { fixture: 'geocode_voimala.json' },
+    )
     cy.get('#origin-input-container').within(() => {
       cy.get('#origin-input').type('Voimalamuseo')
-      cy.wait(400)
       cy.get('ul').within(() => {
         cy.contains('Voimalamuseo').click()
       })
@@ -64,11 +72,19 @@ describe('Select origin and destination', () => {
   })
 
   it('sets destination by typing address', () => {
+    cy.intercept(
+      {
+        url: 'geocoding',
+        search: {
+          text: '/Kes/',
+        },
+      },
+      { fixture: 'geocode_kahvila.json' },
+    )
     cy.get('#reset-destination-button').click()
     cy.get('#destination-input-container').within(() => {
       cy.get('#destination-input').click()
       cy.get('#destination-input').type('Kesäkahvila Kumpu')
-      cy.wait(250)
       cy.get('ul').within(() => {
         cy.contains('Kesäkahvila Kumpu').click()
       })
