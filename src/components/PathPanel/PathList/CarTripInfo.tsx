@@ -41,16 +41,7 @@ const CarTripInfoButton = styled.button`
   border: 1px solid black;
   background-color: white;
   &:focus {
-    color: white;
-    background-color: #e2a6a6;
-    border-color: #e2a6a6;
-  }
-  @media (min-width: 600px) {
-    &:hover {
-      color: white;
-      background-color: #e2a6a6;
-      border-color: #e2a6a6;
-    }
+    background-color: #f1f1f1;
   }
 `
 

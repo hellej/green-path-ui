@@ -74,7 +74,7 @@ const TogglePathsButton = (props: PropsFromRedux) => {
     ? 'toggle_paths_exposure.label.quiet'
     : 'toggle_paths_exposure.label.fresh_air'
   return (
-    <Button disabled={disabled}
+    <Button disabled={disabled} data-cy="toggle-paths-exposure"
       onClick={() => getPathToggleFunc(toggleToPathType, props)}>
       <T>toggle_paths_exposure.label.show</T>
       <StyledPathTypeLabel disabled={disabled} toggleToPathType={toggleToPathType}>
