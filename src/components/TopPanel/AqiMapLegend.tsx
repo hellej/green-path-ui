@@ -111,7 +111,7 @@ const AqiMapLegend = (props: PropsFromRedux) => {
           </div>
         </LabelRow>
       </LegendBox>
-      {props.mapZoom < 12 && (
+      {props.mapZoom < 12 && props.basemap === Basemap.AIR_QUALITY && (
         <ZoomTooltipBox>
           <T>basemap.air_quality.zoom_closer_tip</T>
         </ZoomTooltipBox>
