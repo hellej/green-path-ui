@@ -90,10 +90,13 @@
   "info_modal.cookie.info": "This site uses cookies to log anonymous visitor counts via Google Analytics, and thus some information of your browser (e.g. IP address) is shared with Google. By clicking OK below, you accept this use of cookies. Alternatively, you can disable analytics & cookies:",
   "info_modal.cookie.disable_button_label": "Disable analytics cookies",
   "info_modal.dev_status_info": "The app and its real-time air quality data source are still under active development and hence not guaranteed to work at all times.",
+  
   "info_modal.problem.title": "Problem",
   "info_modal.problem.content": "While fresh air, quietness and greenery bring health benefits, then air pollution and excess noise may cause physical and mental health problems such as respiratory infections, cardiovascular disease or stress. Fortunately, a more peaceful, less polluted and greener (= healthier) route may be just slightly longer than the shortest one.",
+  
   "info_modal.solution.title": "Solution",
   "info_modal.solution.content": "This tool guides you to take pleasant walks to your destinations in Helsinki. You may compare routes from the shortest to the least polluted or quietest and find your own optimal way. The more you value peaceful and pleasant urban environment, the longer routes you may be ready to take.",
+  
   "info_modal.method.title": "Data & methods",
   "info_modal.method.content.enfuser.description": "Hourly air quality index (AQI) is derived from the",
   "info_modal.method.content.enfuser.link_label": "FMI-ENFUSER high-resolution modelling system",
@@ -102,15 +105,24 @@
   "info_modal.method.content.noise_data.Lden": "typical traffic noise levels",
   "info_modal.method.content.osm.description": "Street network data is downloaded from ",
   "info_modal.method.content.osm.suffix": " ",
+  "info_modal.method.content.otp.description_1": "and processed into street network graph with",
+  "info_modal.method.content.otp.description_2": "",
+  "info_modal.method.content.gvi.description_1": "Green view (i.e. greenery) layer is derived from",
+  "info_modal.method.content.gvi.gsv_link_label": "analyzing Google Street View images",
+  "info_modal.method.content.gvi.land_cover": "and openly available",
+  "info_modal.method.content.gvi.land_cover_link_label": "land cover data by HRI",
+
   "info_modal.team.title": "Team",
   "info_modal.team.content.developed_by": "Green path routing tool is developed by the",
   "info_modal.team.content.developed_by.suffix": ", University of Helsinki, ",
   "info_modal.team.content.within_the": "within the",
   "info_modal.team.content.hope_description": "Healthy Outdoor Premises for Everyone. ",
+  
   "info_modal.user_feedback.title": "User feedback",
   "info_modal.user_feedback.content_1": "Please give us your feedback on the tool: ",
   "info_modal.user_feedback.link_label": "LINK",
   "info_modal.user_feedback.link_address": "https://forms.gle/sKDWpgcksEx5Qpbh7",
+  
   "info_modal.code.title": "Code",
   "info_modal.funded_by": "HOPE project is co-financed by the European Regional Development Fund through the Urban Innovative Actions Initiative."
 }

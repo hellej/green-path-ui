@@ -151,7 +151,8 @@ const WelcomeInfo = () => {
           <SubHeading><T>info_modal.method.title</T></SubHeading>
           <P>
             <T>info_modal.method.content.osm.description</T> <Link href='https://www.openstreetmap.org/copyright' target='_blank' rel='noopener noreferrer'>
-              OpenStreetMap</Link> <T>info_modal.method.content.osm.suffix</T>(CC-BY-SA).
+              OpenStreetMap</Link> <T>info_modal.method.content.osm.suffix</T>(CC-BY-SA) <T>info_modal.method.content.otp.description_1</T> <Link href='https://www.opentripplanner.org/' target='_blank' rel='noopener noreferrer'>
+              OpenTripPlanner</Link><T>info_modal.method.content.otp.description_2</T>.
           </P>
           <P>
             <T>info_modal.method.content.enfuser.description</T> <Link href='https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service' target='_blank' rel='noopener noreferrer'>
@@ -162,6 +163,11 @@ const WelcomeInfo = () => {
               <T>info_modal.method.content.noise_data.link_label</T></Link>{' '} <T>info_modal.method.content.noise_data.description</T>{' '}
             <Link href='https://en.wikipedia.org/wiki/Day%E2%80%93evening%E2%80%93night_noise_level' target='_blank' rel='noopener noreferrer'>
               <T>info_modal.method.content.noise_data.Lden</T></Link>.
+          </P>
+          <P>
+            <T>info_modal.method.content.gvi.description_1</T> <Link href='https://doi.org/10.1016/j.dib.2020.105601' target='_blank' rel='noopener noreferrer'>
+              <T>info_modal.method.content.gvi.gsv_link_label</T></Link> <T>info_modal.method.content.gvi.land_cover</T> <Link href='https://hri.fi/data/en_GB/dataset/paakaupunkiseudun-maanpeiteaineisto' target='_blank' rel='noopener noreferrer'>
+            <T>info_modal.method.content.gvi.land_cover_link_label</T></Link>.
           </P>
           <SubHeading><T>info_modal.team.title</T></SubHeading>
           <P>
@@ -188,7 +194,7 @@ const WelcomeInfo = () => {
                   <img src={HYLogoFi} width="61" height="57" alt='HYLogoFi' />
                 </StyledLogoLink>
               }
-              {ui.lang === Lang.EN &&
+              {(ui.lang === Lang.EN || ui.lang === Lang.SV) &&
                 <StyledLogoLink href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
                   <img src={HYLogoEn} width="69" height="57" alt='HYLogoEn' />
                 </StyledLogoLink>

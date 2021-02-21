@@ -90,10 +90,13 @@
   "info_modal.cookie.info": "Tämä sivusto käyttää evästeitä kerätäkseen tietoja käyttäjämääristä. Tämän takia joitain selaimen tietoja (esim. IP osoite) lähetetään Googlelle. Klikkaamalla alta OK, hyväksyt tämän evästeiden käytön. Vaihtoehtoisesti voit estää analytiikan ja evästeet:",
   "info_modal.cookie.disable_button_label": "Estä analytiikan evästeet",
   "info_modal.dev_status_info": "Sovellus ja sen hyödyntämä ilmanlaatumallinnus ovat vielä kehitysvaiheessa, eikä palvelu siksi ole aina käytettävissä.",
+ 
   "info_modal.problem.title": "Ongelma",
   "info_modal.problem.content": "Siinä missä puhdas ilma, hiljaisuus ja vihreys ovat terveydelle hyödyksi, altistuminen ilmansaasteille ja melulle voivat aiheuttaa lukuisia terveysongelmia. Onneksi puhtaampi, rauhallisempi ja vihreämpi reitti saattaa olla vain hieman lyhyintä reittiä pidempi.",
+ 
   "info_modal.solution.title": "Ratkaisu",
   "info_modal.solution.content": "Tämä työkalu auttaa sinua löytämään miellyttävämpiä ja terveellisempiä kävely- ja pyöräilyreittejä Helsingissä. Voit vertailla reittejä pituuden, ilmansaasteiden ja melutasojen suhteen ja valita itsellesi ja tilanteeseen sopivimman reitin.",
+ 
   "info_modal.method.title": "Menetelmä",
   "info_modal.method.content.enfuser.description": "Reaaliaikainen ilmanlaatuindeksi (AQI) saadaan",
   "info_modal.method.content.enfuser.link_label": "FMI-ENFUSER mallinnusjärjestelmästä",
@@ -102,15 +105,24 @@
   "info_modal.method.content.noise_data.Lden": "tyypilliset melutasot",
   "info_modal.method.content.osm.description": "Tieverkosto on ladattu ",
   "info_modal.method.content.osm.suffix": "-palvelusta ",
+  "info_modal.method.content.otp.description_1": "ja prosessoitu reititysgraafiksi",
+  "info_modal.method.content.otp.description_2": " -sovelluksella",
+  "info_modal.method.content.gvi.description_1": "Vihernäkymätieto perustuu ",
+  "info_modal.method.content.gvi.gsv_link_label": "Googlen katukuvista laskettuun katutason viherindeksiin",
+  "info_modal.method.content.gvi.land_cover": "ja kaupunkien avoimena datana julkaisemaan",
+  "info_modal.method.content.gvi.land_cover_link_label": "maanpeiteaineistoon",
+
   "info_modal.team.title": "Tiimi",
   "info_modal.team.content.developed_by": "Green paths reittiopas on kehitetty Helsingin yliopiston",
   "info_modal.team.content.developed_by.suffix": " tutkimusryhmässä, ",
   "info_modal.team.content.within_the": "osana",
   "info_modal.team.content.hope_description": "Healthy Outdoor Premises for Everyone -projektia. ",
+ 
   "info_modal.user_feedback.title": "Palaute",
   "info_modal.user_feedback.content_1": "",
   "info_modal.user_feedback.link_label": "Linkki palautelomakkeeseen",
   "info_modal.user_feedback.link_address": "https://forms.gle/3q2FpTVAfA13bxkM9",
+ 
   "info_modal.code.title": "Koodi",
   "info_modal.funded_by": "HOPE projekti saa osan rahoituksestaan Euroopan aluekehitysrahastolta Urban Innovative Actions Initiative (UIA) -projektin kautta."
 }

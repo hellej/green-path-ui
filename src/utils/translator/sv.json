@@ -82,27 +82,33 @@
   "info_modal.cookie.info": "Denna webbplats använder kakor för att samla information om användarmängden. På grund av detta sänds en del information (t.ex. IP-adressen) till Google. Genom att klicka OK nedan tillåter du användningen av kakor. Alernativt kan du blockera användningen av kakor och hindra analytiken:",
   "info_modal.cookie.disable_button_label": "Blockera analytiska kakor",
   "info_modal.dev_status_info": "Applikationen och luftkvalitetsmodelleringen den använder är ännu under utveckling och tjänsten är därför inte alltid tillgänglig.",
+
   "info_modal.problem.title": "Problem",
   "info_modal.problem.content": "Där ren luft, tystnad och grönska är nyttiga för hälsan kan exponering för luftföroreningar och buller förorsaka otaliga hälsoproblem. Lyckligtvis kan en renare, lugnare och grönare rutt vara bara marginellt längre än den kortaste rutten.",
+
   "info_modal.solution.title": "Lösning",
   "info_modal.solution.content": "Detta verktyg hjälper dig att hitta mer behagliga och hälsosamma gång- och cykelrutter i Helsingfors. Du kan jämföra rutter med avseende på längd, luftförorening och bullernivå och välja den rutt som är lämpligast för dig.",
+
   "info_modal.method.title": "Metod",
   "info_modal.method.content.enfuser.description": "Luftkvalitetsindexet I realtid (AQI) erhålls",
   "info_modal.method.content.enfuser.link_label": "ur FMI-ENFUSER modelleringssystemet",
   "info_modal.method.content.noise_data.link_label": "Bullerinformationen",
   "info_modal.method.content.noise_data.description": "baserar sig på en bullerkartläggning (CC BY 4.0) beställd av Helsingfors stad. Kartläggningen modellerar",
   "info_modal.method.content.noise_data.Lden": "bullernivåerna under dagtid för olika trafikformer",
-  "info_modal.method.content.osm.description": "Vägnätet är nedladdat från",
+  "info_modal.method.content.osm.description": "Vägnätet är nedladdat från ",
   "info_modal.method.content.osm.suffix": "tjänsten ",
+
   "info_modal.team.title": "Teamet",
   "info_modal.team.content.developed_by": "Green Paths ruttplaneraren är utvecklad inom Helsingfors Universitet vid",
   "info_modal.team.content.developed_by.suffix": " forskningsgruppen, ",
   "info_modal.team.content.within_the": "som en del av",
   "info_modal.team.content.hope_description": "Healthy Outdoor Premises for Everyone projektet. ",
+
   "info_modal.user_feedback.title": "Respons",
   "info_modal.user_feedback.content_1": "Vänligen ge oss feedback om ruttplaneraren: ",
   "info_modal.user_feedback.link_label": "Länk till responsblanketten",
   "info_modal.user_feedback.link_address": "https://forms.gle/sKDWpgcksEx5Qpbh7",
+
   "info_modal.code.title": "Kod",
   "info_modal.funded_by": "HOPE-projektet stöds till en del av den Europeiska regionala utvecklingsfonden via projektet Urban Innovative Actions Initiative (UIA)."
 }
