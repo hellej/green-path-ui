@@ -138,9 +138,12 @@ export const bikeSpeed = 4.15
 
 export const clickTol = 12
 
-export const initialMapCenter = { lng: 24.9664, lat: 60.211 }
+export const initialMapCenter =
+  process.env.REACT_APP_DEV_MAP_VIEW === 'True'
+    ? { lng: 24.9664, lat: 60.211 }
+    : { lng: 24.93535, lat: 60.24393 }
 
-export const initialMapCenterProd = { lng: 24.937886, lat: 60.180808 }
+export const initialMapZoom = process.env.REACT_APP_DEV_MAP_VIEW === 'True' ? 13 : 10.03
 
 export const egOrigin = {
   type: 'Feature',

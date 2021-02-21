@@ -1,4 +1,4 @@
-import React, { createRef, RefObject } from 'react'
+import React, { createRef, Fragment, RefObject } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 import { ExposureMode } from '../../../constants'
@@ -74,8 +74,8 @@ class PathList extends React.Component<PropsFromRedux, State> {
     )
 
     return (
-      <div>
-        <PathRowFlex ref={this.state.pathRefs[shortPath.properties.id]}>
+      <Fragment>
+        <PathRowFlex data-cy="shortest-path-box" ref={this.state.pathRefs[shortPath.properties.id]}>
           <PathListPathBox
             path={shortPath}
             travelMode={showingPathsOfTravelMode!}
@@ -86,7 +86,11 @@ class PathList extends React.Component<PropsFromRedux, State> {
           />
         </PathRowFlex>
         {greenPaths.map((path) => (
-          <PathRowFlex key={path.properties.id} ref={this.state.pathRefs[path.properties.id]}>
+          <PathRowFlex
+            data-cy="green-path-box"
+            key={path.properties.id}
+            ref={this.state.pathRefs[path.properties.id]}
+          >
             <PathListPathBox
               path={path}
               travelMode={showingPathsOfTravelMode!}
@@ -98,7 +102,7 @@ class PathList extends React.Component<PropsFromRedux, State> {
           </PathRowFlex>
         ))}
         <CarTripInfo />
-      </div>
+      </Fragment>
     )
   }
 }

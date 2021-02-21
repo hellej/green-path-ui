@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { menu } from '../../constants'
 import PathList from './PathList/PathList'
@@ -10,12 +10,12 @@ const PathInfoPanel = (props: PropsFromRedux) => {
   const showingOpenedPath = openedPath && !(pathPanelContent === menu.lengthLimitSelector)
 
   return (
-    <div>
+    <Fragment>
       {showingPathList &&
         <PathList />}
       {showingOpenedPath &&
         <OpenedPathInfo />}
-    </div>
+    </Fragment>
   )
 }
 

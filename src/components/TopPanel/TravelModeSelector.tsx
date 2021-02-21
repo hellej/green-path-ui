@@ -77,12 +77,12 @@ const TravelModeSelector = (props: PropsFromRedux) => {
 
   return (
     <ButtonRow>
-      <StyledIconContainer id='toggle-to-walk-button'
+      <StyledIconContainer data-cy="toggle-to-walk-button"
         onClick={() => getSetTravelModeFunction(props, TravelMode.WALK)}
         selected={props.selectedTravelMode === TravelMode.WALK}>
         <StyledWalkI />
       </StyledIconContainer>
-      <StyledIconContainer id='toggle-to-bike-button'
+      <StyledIconContainer data-cy="toggle-to-bike-button"
         onClick={() => getSetTravelModeFunction(props, TravelMode.BIKE)}
         selected={props.selectedTravelMode === TravelMode.BIKE}
         bike>

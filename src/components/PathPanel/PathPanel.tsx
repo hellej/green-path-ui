@@ -10,23 +10,25 @@ import LoadAnimation from './../LoadAnimation/LoadAnimation'
 
 const PathPanelContainer = styled.div<{ showingOpenedPath?: boolean }>`
   margin: 0px;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   overflow: auto;
   width: auto;
   max-height: 184px;
   pointer-events: auto;
   padding: 6px 6px 3px 6px;
-  box-shadow: 0 -4px 8px 0 rgba(0,0,0,0.07), 0 -6px 20px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.07), 0 -6px 20px 0 rgba(0, 0, 0, 0.04);
   @media (min-width: 600px) {
     width: 380px;
     max-height: calc(100vh - 121px);
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
   }
-  ${props => props.showingOpenedPath === true && css`
-    max-height: calc(100vh - 121px);
-    height: min-content;
-  `}
+  ${(props) =>
+    props.showingOpenedPath === true &&
+    css`
+      max-height: calc(100vh - 121px);
+      height: min-content;
+    `}
 `
 const LoadAnimationContainer = styled.div`
   display: flex;
@@ -54,13 +56,15 @@ const PathPanel = (props: PropsFromRedux) => {
   const showingOpenedPath = openedPath !== null && !(pathPanelContent === menu.lengthLimitSelector)
 
   return (
-    <PathPanelContainer showingOpenedPath={showingOpenedPath}>
-      {pathPanelContent === menu.lengthLimitSelector ?
+    <PathPanelContainer data-cy="path-panel-container" showingOpenedPath={showingOpenedPath}>
+      {pathPanelContent === menu.lengthLimitSelector ? (
         <MaxLengthFilterSelector
           lengthLimit={lengthLimit}
           lengthLimits={lengthLimits}
           setLengthLimit={setLengthLimit}
-          showPathList={showPathList} /> : null}
+          showPathList={showPathList}
+        />
+      ) : null}
       <PathInfoPanel />
     </PathPanelContainer>
   )

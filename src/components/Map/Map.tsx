@@ -4,14 +4,11 @@ import { connect, ConnectedProps } from 'react-redux'
 import { initializeMap, updateCamera, setLayerLoaded } from './../../reducers/mapReducer'
 import { debugNearestEdgeAttrs } from '../../services/paths'
 import { unsetSelectedPath } from './../../reducers/pathsReducer'
-import { initialMapCenter, initialMapCenterProd, Basemap, LayerId } from './../../constants'
+import { initialMapCenter, initialMapZoom, Basemap, LayerId } from './../../constants'
 import { utils } from './../../utils/index'
 import { clickTol } from './../../constants'
 
 MapboxGL.accessToken = process.env.REACT_APP_MB_ACCESS || 'Mapbox token is needed in order to use the map'
-
-const mapCenter = process.env.NODE_ENV !== 'production' ? initialMapCenter : initialMapCenterProd
-const zoom = process.env.NODE_ENV !== 'production' ? 13 : 12
 
 interface PropsType {
   children: JSX.Element[],
@@ -44,8 +41,8 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
     this.map = new MapboxGL.Map({
       container: this.mapContainer,
       style: this.props.basemap || Basemap.STREETS,
-      center: mapCenter,
-      zoom: zoom,
+      center: initialMapCenter,
+      zoom: initialMapZoom,
       boxZoom: false,
       trackResize: true
     })
@@ -71,7 +68,7 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
     })
 
     this.map.on('click', (e: any) => {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.REACT_APP_DEBUG_GRAPH === 'True') {
         debugNearestEdgeAttrs(e.lngLat)
       }
       const features = utils.getLayersFeaturesAroundClickE([LayerId.GREEN_PATHS, LayerId.SHORT_PATH], e, clickTol, this.map!)

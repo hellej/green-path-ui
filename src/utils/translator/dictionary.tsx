@@ -9,7 +9,7 @@ const langs: Record<Lang, Record<string, string>> = {
   'en': en as Record<string, string>,
 }
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   Object.keys(langs[Lang.EN]).forEach((key) => {
     if (!(key in langs[Lang.FI])) {
       console.error('missing key from FI dict:', key)
@@ -46,7 +46,7 @@ export const getErrorNotifKey = (errorKey: string): string => {
   const errorNotifKey = 'notif.error.routing.' + errorKey
   if (errorNotifKey in langs[Lang.EN]) {
     return errorNotifKey
-  } else if (process.env.NODE_ENV !== 'production') {
+  } else if (process.env.NODE_ENV === 'development') {
     console.error('Received unknown error key:', errorNotifKey)
   }
   return 'notif.error.routing.general_routing_error'
