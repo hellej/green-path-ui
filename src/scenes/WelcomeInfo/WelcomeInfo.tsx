@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 import { Button } from '../../components/Button'
-import { showInfo, hideInfo, Lang } from './../../reducers/uiReducer'
+import { hideInfo, Lang } from './../../reducers/uiReducer'
 import CookieConsent from './CookieConsent'
 import HYLogoFi from '../Images/HY_fi.png'
 import HYLogoEn from '../Images/HY_en.png'
@@ -13,7 +13,7 @@ import ToggleLanguageButtons from './ToggleLanguageButtons'
 import T from '../../utils/translator/Translator'
 import { text } from '../../utils/translator/dictionary'
 
-const InfoContainer = styled.div`
+const InfoWrapper = styled.div`
   position: absolute;
   top: 0px;
   right: 0px;
@@ -22,22 +22,14 @@ const InfoContainer = styled.div`
   z-index: 10;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
   pointer-events: none;
 `
-const FlexDiv = styled.div<{ gaDisabled: boolean }>`
-  align-self: center;
+const InfoContainer = styled.div<{ gaDisabled: boolean }>`
   width: 750px;
-  max-width: 85%;
-  display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: wrap;
-  ${props => props.gaDisabled === true && css`
-    width: 670px;
-  `}
-`
-const WhiteBox = styled.div`
+  max-width: calc(90% - 60px);
   display: flex;
   flex-direction: column;
   letter-spacing: 0.6px;
@@ -45,13 +37,16 @@ const WhiteBox = styled.div`
   background-color: rgba(255, 255, 255, 1);
   border-radius: 8px;
   font-weight: 300;
-  color: black;
   font-size: 14px;
+  color: black;
   height: min-content;
   pointer-events: auto;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.22), 0 6px 20px 0 rgba(0,0,0,0.14);
+  ${props => props.gaDisabled === true && css`
+    width: 670px;
+  `}
 `
-const InfoWrapper = styled.div`
+const ContentContainer = styled.div`
   max-height: 68vh;
   overflow: -moz-scrollbars-vertical; 
   overflow-y: scroll;
@@ -116,109 +111,104 @@ const StyledLogoLink = styled.a`
   cursor: pointer;
 `
 
-const WelcomeInfo = (props: PropsFromRedux) => {
+const WelcomeInfo = () => {
+  const dispatch = useDispatch()
+
+  const visitedBefore = useSelector((state: ReduxState) => state.visitor.visitedBefore)
+  const gaDisabled = useSelector((state: ReduxState) => state.visitor.gaDisabled)
+  const ui = useSelector((state: ReduxState) => state.ui)
+  
   const [raiseLogos, setRaiseLogos] = useState(true)
+  useEffect(() => setRaiseLogos(true), [ui.info])
 
-  useEffect(() => setRaiseLogos(true), [props.ui.info])
-
-  if (!props.ui.info) return null
+  if (!ui.info) return null
 
   return (
-    <InfoContainer>
-      <FlexDiv gaDisabled={props.gaDisabled}>
-        <WhiteBox>
-          <InfoWrapper onClick={() => setRaiseLogos(false)} onScroll={() => setRaiseLogos(false)}>
-            <ToggleLanguageButtons size={16} />
-            <Title><T>info_modal.welcome.title</T> (demo)!</Title>
-            {!props.visitedBefore && !props.gaDisabled && <P><CookieConsent /></P>}
-            <P>
-              <SmallText>
-                <T>info_modal.dev_status_info</T>
-              </SmallText>
-            </P>
-            <SubHeading><T>info_modal.user_feedback.title</T></SubHeading>
-            <P>
-              <T>info_modal.user_feedback.content_1</T><Link href={text(props.ui.lang, 'info_modal.user_feedback.link_address')}
-                target='_blank' rel='noopener noreferrer'><T>info_modal.user_feedback.link_label</T></Link>
-            </P>
-            <SubHeading><T>info_modal.problem.title</T></SubHeading>
-            <P>
-              <T>info_modal.problem.content</T>
-            </P>
-            <SubHeading><T>info_modal.solution.title</T></SubHeading>
-            <P>
-              <T>info_modal.solution.content</T>
-            </P>
-            <SubHeading><T>info_modal.method.title</T></SubHeading>
-            <P>
-              <T>info_modal.method.content.enfuser.description</T> <Link href='https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service' target='_blank' rel='noopener noreferrer'>
-                <T>info_modal.method.content.enfuser.link_label</T></Link>.
-            </P>
-            <P>
-              <Link href='https://hri.fi/data/en_GB/dataset/helsingin-kaupungin-meluselvitys-2017' target='_blank' rel='noopener noreferrer'>
-                <T>info_modal.method.content.noise_data.link_label</T></Link>{' '} <T>info_modal.method.content.noise_data.description</T>{' '}
-              <Link href='https://en.wikipedia.org/wiki/Day%E2%80%93evening%E2%80%93night_noise_level' target='_blank' rel='noopener noreferrer'>
-                <T>info_modal.method.content.noise_data.Lden</T></Link>.
-            </P>
-            <P>
-              <T>info_modal.method.content.osm.description</T> <Link href='https://www.openstreetmap.org/copyright' target='_blank' rel='noopener noreferrer'>
-                OpenStreetMap</Link> <T>info_modal.method.content.osm.suffix</T>(CC-BY-SA).
-            </P>
-            <SubHeading><T>info_modal.team.title</T></SubHeading>
-            <P>
-              <T>info_modal.team.content.developed_by</T> <Link href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
-                Digital Geography Lab</Link><T>info_modal.team.content.developed_by.suffix</T> <T>info_modal.team.content.within_the</T> <Link href='https://ilmanlaatu.eu/briefly-in-english/' target='_blank' rel='noopener noreferrer'>
-                Urban Innovative Action: HOPE</Link>{' '} – <T>info_modal.team.content.hope_description</T>
-            </P>
-            <SubHeading> <T>info_modal.code.title</T> </SubHeading>
-            <P>
-              <Link href='https://github.com/DigitalGeographyLab/green-paths' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/green-paths</Link>{' '}
-              <br />
-              <Link href='https://github.com/DigitalGeographyLab/hope-green-path-ui' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/hope-green-path-ui</Link>{' '}
-              <br />
-              <Link href='https://github.com/DigitalGeographyLab/hope-green-path-server' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/hope-green-path-server</Link>{' '}
-            </P>
-            {props.visitedBefore && !props.gaDisabled && <P style={{ marginTop: '6px' }}><CookieConsent /></P>}
-            <SmallText style={{ marginTop: '8px' }}>
-              <T>info_modal.funded_by</T>
+    <InfoWrapper>
+      <InfoContainer gaDisabled={gaDisabled}>
+        <ContentContainer onClick={() => setRaiseLogos(false)} onScroll={() => setRaiseLogos(false)}>
+          <ToggleLanguageButtons size={16} />
+          <Title><T>info_modal.welcome.title</T> (demo)!</Title>
+          {!visitedBefore && !gaDisabled && <P><CookieConsent /></P>}
+          <P>
+            <SmallText>
+              <T>info_modal.dev_status_info</T>
             </SmallText>
-            <SponsorsDiv raiseLogos={raiseLogos}>
-              <LogoFlex>
-                {props.ui.lang === Lang.FI &&
-                  <StyledLogoLink href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
-                    <img src={HYLogoFi} width="61" height="57" alt='HYLogoFi' />
-                  </StyledLogoLink>
-                }
-                {props.ui.lang === Lang.EN &&
-                  <StyledLogoLink href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
-                    <img src={HYLogoEn} width="69" height="57" alt='HYLogoEn' />
-                  </StyledLogoLink>
-                }
-                <StyledLogoLink href='https://ilmanlaatu.eu/' target='_blank' rel='noopener noreferrer'>
-                  <img src={HopeLogo} width="116" height="30" alt='HopeLogo' />
+          </P>
+          <SubHeading><T>info_modal.user_feedback.title</T></SubHeading>
+          <P>
+            <T>info_modal.user_feedback.content_1</T><Link href={text(ui.lang, 'info_modal.user_feedback.link_address')}
+              target='_blank' rel='noopener noreferrer'><T>info_modal.user_feedback.link_label</T></Link>
+          </P>
+          <SubHeading><T>info_modal.problem.title</T></SubHeading>
+          <P>
+            <T>info_modal.problem.content</T>
+          </P>
+          <SubHeading><T>info_modal.solution.title</T></SubHeading>
+          <P>
+            <T>info_modal.solution.content</T>
+          </P>
+          <SubHeading><T>info_modal.method.title</T></SubHeading>
+          <P>
+            <T>info_modal.method.content.osm.description</T> <Link href='https://www.openstreetmap.org/copyright' target='_blank' rel='noopener noreferrer'>
+              OpenStreetMap</Link> <T>info_modal.method.content.osm.suffix</T>(CC-BY-SA).
+          </P>
+          <P>
+            <T>info_modal.method.content.enfuser.description</T> <Link href='https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service' target='_blank' rel='noopener noreferrer'>
+              <T>info_modal.method.content.enfuser.link_label</T></Link>.
+          </P>
+          <P>
+            <Link href='https://hri.fi/data/en_GB/dataset/helsingin-kaupungin-meluselvitys-2017' target='_blank' rel='noopener noreferrer'>
+              <T>info_modal.method.content.noise_data.link_label</T></Link>{' '} <T>info_modal.method.content.noise_data.description</T>{' '}
+            <Link href='https://en.wikipedia.org/wiki/Day%E2%80%93evening%E2%80%93night_noise_level' target='_blank' rel='noopener noreferrer'>
+              <T>info_modal.method.content.noise_data.Lden</T></Link>.
+          </P>
+          <SubHeading><T>info_modal.team.title</T></SubHeading>
+          <P>
+            <T>info_modal.team.content.developed_by</T> <Link href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
+              Digital Geography Lab</Link><T>info_modal.team.content.developed_by.suffix</T> <T>info_modal.team.content.within_the</T> <Link href='https://ilmanlaatu.eu/briefly-in-english/' target='_blank' rel='noopener noreferrer'>
+              Urban Innovative Action: HOPE</Link>{' '} – <T>info_modal.team.content.hope_description</T>
+          </P>
+          <SubHeading> <T>info_modal.code.title</T> </SubHeading>
+          <P>
+            <Link href='https://github.com/DigitalGeographyLab/green-paths' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/green-paths</Link>{' '}
+            <br />
+            <Link href='https://github.com/DigitalGeographyLab/hope-green-path-ui' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/hope-green-path-ui</Link>{' '}
+            <br />
+            <Link href='https://github.com/DigitalGeographyLab/hope-green-path-server' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/hope-green-path-server</Link>{' '}
+          </P>
+          {visitedBefore && !gaDisabled && <P style={{ marginTop: '6px' }}><CookieConsent /></P>}
+          <SmallText style={{ marginTop: '8px' }}>
+            <T>info_modal.funded_by</T>
+          </SmallText>
+          <SponsorsDiv raiseLogos={raiseLogos}>
+            <LogoFlex>
+              {ui.lang === Lang.FI &&
+                <StyledLogoLink href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
+                  <img src={HYLogoFi} width="61" height="57" alt='HYLogoFi' />
                 </StyledLogoLink>
-                <StyledLogoLink href='https://www.uia-initiative.eu/en/uia-cities/helsinki' target='_blank' rel='noopener noreferrer'>
-                  <img src={UIALogo} width='106' height='53' alt='UIALogo' />
+              }
+              {ui.lang === Lang.EN &&
+                <StyledLogoLink href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
+                  <img src={HYLogoEn} width="69" height="57" alt='HYLogoEn' />
                 </StyledLogoLink>
-                <LogoWrapper><img src={EU} width="90" height='60' alt='EULogo' /></LogoWrapper>
-              </LogoFlex>
-            </SponsorsDiv>
-          </InfoWrapper>
-          <ButtonDiv id='hide-welcome-button'>
-            <Button small green onClick={props.hideInfo}>OK</Button>
-          </ButtonDiv>
-        </WhiteBox>
-      </FlexDiv>
+              }
+              <StyledLogoLink href='https://ilmanlaatu.eu/' target='_blank' rel='noopener noreferrer'>
+                <img src={HopeLogo} width="116" height="30" alt='HopeLogo' />
+              </StyledLogoLink>
+              <StyledLogoLink href='https://www.uia-initiative.eu/en/uia-cities/helsinki' target='_blank' rel='noopener noreferrer'>
+                <img src={UIALogo} width='106' height='53' alt='UIALogo' />
+              </StyledLogoLink>
+              <LogoWrapper><img src={EU} width="90" height='60' alt='EULogo' /></LogoWrapper>
+            </LogoFlex>
+          </SponsorsDiv>
+        </ContentContainer>
+        <ButtonDiv id='hide-welcome-button'>
+          <Button small green onClick={() => dispatch(hideInfo())}>OK</Button>
+        </ButtonDiv>
     </InfoContainer>
+  </InfoWrapper>
   )
 }
 
-const mapStateToProps = (state: ReduxState) => ({
-  ui: state.ui,
-  visitedBefore: state.visitor.visitedBefore,
-  gaDisabled: state.visitor.gaDisabled,
-})
-
-const connector = connect(mapStateToProps, { showInfo, hideInfo })
-type PropsFromRedux = ConnectedProps<typeof connector>
-export default connector(WelcomeInfo)
+export default WelcomeInfo
