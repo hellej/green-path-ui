@@ -1,4 +1,4 @@
-[![CI/CD status](https://github.com/DigitalGeographyLab/hope-green-path-ui/workflows/CI%2FCD/badge.svg)](https://github.com/DigitalGeographyLab/hope-green-path-ui/actions)
+[![tests & deploy status](https://github.com/DigitalGeographyLab/hope-green-path-ui/workflows/Tests%20%26%20Deploy/badge.svg)](https://github.com/DigitalGeographyLab/hope-green-path-ui/actions)
 
 # Green paths UI
 
