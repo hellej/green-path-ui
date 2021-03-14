@@ -153,7 +153,7 @@ const PathListPathBox = ({
         {path.properties.greeneryScore && (
           <MeterWrapper>
             <ExposureScoreBar
-              width={path.properties.greeneryScore}
+              expScorePct={path.properties.greeneryScore}
               labelKey={'exposure_score_label.greenery'}
             />
           </MeterWrapper>
@@ -161,7 +161,7 @@ const PathListPathBox = ({
         {path.properties.quietnessScore && (
           <MeterWrapper>
             <ExposureScoreBar
-              width={path.properties.quietnessScore}
+              expScorePct={path.properties.quietnessScore}
               labelKey={'exposure_score_label.quietness'}
             />
           </MeterWrapper>
@@ -169,7 +169,7 @@ const PathListPathBox = ({
         {path.properties.aqScore && (
           <MeterWrapper>
             <ExposureScoreBar
-              width={path.properties.aqScore}
+              expScorePct={path.properties.aqScore}
               labelKey={'exposure_score_label.air_quality'}
             />
           </MeterWrapper>

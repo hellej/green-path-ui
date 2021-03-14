@@ -14,7 +14,7 @@ const Meter = styled.div`
   box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
 `
 
-const Bar = styled.span<{ width: number }>`
+const Bar = styled.span<{ width: number; filter: string }>`
   display: block;
   height: 100%;
   border-top-right-radius: 8px;
@@ -26,12 +26,8 @@ const Bar = styled.span<{ width: number }>`
   position: relative;
   overflow: hidden;
   width: ${(props) => props.width}%;
+  filter: ${(props) => props.filter};
 `
-
-interface Props {
-  width: number
-  labelKey: string
-}
 
 const Container = styled.div`
   display: flex;
@@ -49,17 +45,36 @@ const Label = styled.div`
   }
 `
 
-const ExposureScoreBar = ({ width, labelKey }: Props) => {
+const getGrayscaleFilter = (expScorePct: number): number => {
+  // get grayscale filter value from range 0% to 100%
+  if (expScorePct > 0) {
+    const saturation = (expScorePct / 40) * 100 //0-100
+    return Math.min(100, Math.round((100 - saturation) * 1.3))
+  }
+  return 0
+}
+
+interface Props {
+  expScorePct: number
+  labelKey: string
+  lowScoreDim: boolean
+}
+
+const ExposureScoreBar = ({ expScorePct, labelKey, lowScoreDim }: Props) => {
+  const filter =
+    lowScoreDim && expScorePct <= 40 ? `grayscale(${getGrayscaleFilter(expScorePct)}%)` : 'none'
+
   return (
     <Container>
       <Label>
         <T>{labelKey}</T>
       </Label>
       <Meter>
-        <Bar width={width} />
+        <Bar width={expScorePct} filter={filter} />
       </Meter>
     </Container>
   )
 }
 
+ExposureScoreBar.defaultProps = { lowScoreDim: true }
 export default ExposureScoreBar
