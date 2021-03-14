@@ -132,7 +132,7 @@ describe('Find quiet paths', () => {
       cy.get('#origin-input').should('have.value', 'Kesäkahvila Kumpu')
       cy.get('#destination-input').should('have.value', 'Voimalamuseo')
     })
-    cy.contains('Daytime traffic noise (dB)')
+    cy.contains('Typical daily traffic noise (dB)')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.gte', 3)
     cy.get('[data-cy=shortest-path-box').should('have.length', 1)
     cy.get('[data-cy=green-path-box').its('length').should('be.gte', 1)
@@ -198,7 +198,7 @@ describe('Toggle routing mode: fresh air -> quiet', () => {
     cy.get('[data-cy=toggle-paths-exposure]').click()
     cy.contains('22 min')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 4)
-    cy.contains('Daytime traffic noise (dB')
+    cy.contains('Typical daily traffic noise (dB')
   })
 
 })

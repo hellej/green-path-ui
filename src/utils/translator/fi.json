@@ -36,7 +36,7 @@
   "basemap_selector.option.label.gvi": "Vihreys",
   "basemap_selector.option.label.air_quality": "Ilmanlaatu",
   "basemap_selector.option.label.satellite": "Ilmakuva",
-  "basemap.traffic_noise.legend.title": "Liikennemelu päivällä",
+  "basemap.traffic_noise.legend.title": "Tyypillinen liikennemelu",
   "basemap.traffic_noise.zoom_closer_tip": "Lähennä karttaa nähdäksesi melutasot",
   "basemap.gvi.legend.title": "Vihreys (kasvillisuus)",
   "basemap.gvi.zoom_closer_tip": "Lähennä karttaa nähdäksesi vihreyden",
