@@ -2,31 +2,30 @@
 
 # Green paths UI
 
-A user interface for [the green path route optimization application](https://github.com/DigitalGeographyLab/hope-green-path-server/) being developed for [UIA HOPE project](https://ilmanlaatu.eu/briefly-in-english/) – Healthy Outdoor Premises for Everyone.
+A user interface for the [Green Paths](https://github.com/DigitalGeographyLab/hope-green-path-server/) route planner being developed within [UIA HOPE project](https://ilmanlaatu.eu/briefly-in-english/) – Healthy Outdoor Premises for Everyone. Its goal is to help people find routes of fresh air, less noise and more greenery for walking and cycling in the Helsinki capital region.
 
-Its goal is to inform people on clean routes for walking and cycling in Helsinki region. It utilizes Air Quality Index (AQI) from the Enfuser model (by the Finnish Meteorological Institute) and modelled traffic noise data. AQI is based on hourly updated and combined information on NO2, PM2.5, PM10 and O3.
+The route planner utilizes air quality index (AQI) data from the [FMI-ENFUSER](https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service) modeling system (by the Finnish Meteorological Institute) and modeled [traffic noise data](www.syke.fi/en-US/Open_information/Spatial_datasets/Downloadable_spatial_dataset#E) from the Helsinki capital region. AQI is based on real-time hourly data as a composite measure of NO2, PM2.5, PM10, SO2 and O3. Green view (i.e. greenery) data is derived from [analyzing Google Street View images](https://www.sciencedirect.com/science/article/pii/S2352340920304959?via%3Dihub) and openly available [land cover data by HRI](https://hri.fi/data/en_GB/dataset/paakaupunkiseudun-maanpeiteaineisto). 
 
-Currently implemented features include calculation of walkable quiet paths with respect to typical daily traffic noise levels. The exposure-based routing application and user interface are based on [an MSc thesis](https://github.com/hellej/quiet-paths-msc). 
+Currently implemented features include calculation of unpolluted, green and quiet paths for walking or cycling (separately) with respect to real-time air quality, street level green view index and typical (day-evening-night) noise levels from road and rail traffic. The exposure-based routing method (and application) is based on [an MSc thesis](https://github.com/hellej/quiet-paths-msc). 
 
 Live demo: [green-paths.web.app](https://green-paths.web.app/)
 
 ## Related projects
 - [hope-green-path-server](https://github.com/DigitalGeographyLab/hope-green-path-server)
-- [hope-graph-updater](https://github.com/DigitalGeographyLab/hope-graph-updater)
 - [hope-graph-builder](https://github.com/DigitalGeographyLab/hope-graph-builder)
 
 ## Materials
-* [Green Paths project website](https://www.helsinki.fi/en/researchgroups/digital-geography-lab/green-paths)
-* [UIA HOPE project](https://ilmanlaatu.eu/briefly-in-english/)
-* [FMI Enfuser model](https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service)
-* [SYKE - Traffic noise data in Helsinki urban region 2017](https://www.syke.fi/en-US/Open_information/Spatial_datasets/Downloadable_spatial_dataset#E)
+* [OpenStreetMap](https://www.openstreetmap.org/about/) 
+* [FMI-Enfuser modeling system](https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service)
+* [SYKE - Traffic noise modeling data from Helsinki urban region](https://www.syke.fi/en-US/Open_information/Spatial_datasets/Downloadable_spatial_dataset#E)
 * [Traffic noise zones in Helsinki 2017](https://hri.fi/data/en_GB/dataset/helsingin-kaupungin-meluselvitys-2017)
-* [OpenStreetMap](https://www.openstreetmap.org/about/)
+* [Street-level green view index by Google Street View images](https://www.sciencedirect.com/science/article/pii/S2352340920304959?via%3Dihub)
+* [Land cover data (low & high vegetation)](https://hri.fi/data/en_GB/dataset/paakaupunkiseudun-maanpeiteaineisto)
 
 ## Built with
 * React, Redux & Thunk
-* Mapbox GL JS & Turf.js
 * TypeScript
+* Mapbox GL JS & Turf.js
 
 ## Contributing
 * See also [CONTRIBUTING.md](CONTRIBUTING.md)
@@ -50,6 +49,10 @@ Open browser to http://localhost:3000/
 ```
 $ npm run cypress
 ```
+
+## Links
+* [Green Paths project website](https://www.helsinki.fi/en/researchgroups/digital-geography-lab/green-paths)
+* [UIA HOPE project](https://ilmanlaatu.eu/briefly-in-english/)
 
 ## License
 [MIT](LICENSE)
