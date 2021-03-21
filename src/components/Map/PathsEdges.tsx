@@ -5,6 +5,7 @@ import { setSelectedPath } from '../../reducers/pathsReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { dBColors, colorByAqiClass, ExposureMode, LayerId } from '../../constants'
 
+// prettier-ignore
 const dbLineColors = [
   'match',
   ['get', 'value'],
@@ -17,6 +18,7 @@ const dbLineColors = [
   /* other */ 'white'
 ]
 
+// prettier-ignore
 const aqiLineColors = [
   'match',
   ['get', 'value'],
@@ -38,7 +40,7 @@ class PathsEdges extends React.Component<PropsFromRedux> {
   paint = {
     'line-width': 2.2,
     'line-opacity': 1,
-    'line-color': dbLineColors
+    'line-color': dbLineColors,
   }
   layout = {
     'line-join': 'round',

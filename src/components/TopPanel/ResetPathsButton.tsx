@@ -7,7 +7,7 @@ import { turf } from './../../utils/index'
 
 const ButtonContainer = styled.div`
   padding: 2px 3px 2px 0px;
-  margin: 1px 5px 1px 10px; 
+  margin: 1px 5px 1px 10px;
   cursor: pointer;
   pointer-events: auto;
   border-radius: 5px;
@@ -15,7 +15,7 @@ const ButtonContainer = styled.div`
   transition-duration: 0.15s;
   -webkit-transition-duration: 0.15s; /* Safari */
   @media (min-width: 550px) {
-    &:hover { 
+    &:hover {
       background: #f5f5f5c4;
       border-color: #f5f5f5c4;
     }
@@ -32,7 +32,7 @@ const ArrowBack = styled(IoIosArrowBack)`
 const ResetPathsButton = ({ resetPaths, originObject, destObject }: PropsFromRedux) => {
   const odFc = turf.asFeatureCollection([originObject!, destObject!])
   return (
-    <ButtonContainer id='reset-paths-container' onClick={() => resetPaths(odFc)}>
+    <ButtonContainer id="reset-paths-container" onClick={() => resetPaths(odFc)}>
       <ArrowBack />
     </ButtonContainer>
   )
@@ -40,7 +40,7 @@ const ResetPathsButton = ({ resetPaths, originObject, destObject }: PropsFromRed
 
 const mapStateToProps = (state: ReduxState) => ({
   originObject: state.origin.originObject,
-  destObject: state.destination.destObject
+  destObject: state.destination.destObject,
 })
 
 const connector = connect(mapStateToProps, { resetPaths })

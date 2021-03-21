@@ -22,8 +22,8 @@ export const getCleanPathServiceStatus = async (): Promise<AqiStatus> => {
 }
 
 const formCoordinateString = (originCoords: number[], destinationCoords: number[]): string => {
-  const fromC = originCoords.map((coord) => String(coord))
-  const toC = destinationCoords.map((coord) => String(coord))
+  const fromC = originCoords.map(coord => String(coord))
+  const toC = destinationCoords.map(coord => String(coord))
   return fromC[1].concat(',', fromC[0], '/', toC[1], ',', toC[0])
 }
 
@@ -115,7 +115,7 @@ const processPathProps = (props: RawPathProperties): PathProperties => {
 const processPathData = (pathData: PathDataResponse): PathData => {
   const path_FC = {
     ...pathData.path_FC,
-    features: pathData.path_FC.features.map((f) => {
+    features: pathData.path_FC.features.map(f => {
       return {
         ...f,
         properties: processPathProps(f.properties),

@@ -25,11 +25,13 @@ const StyledNotificationDiv = styled.div<{ look: string | null }>`
   letter-spacing: 1.2px;
   word-break: break-word;
   text-align: center;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.22), 0 6px 20px 0 rgba(0,0,0,0.14);
-  ${props => props.look === 'error' && css`
-    color: white;
-    background-color: rgba(70, 10, 10, 0.87);
-  `}
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.22), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
+  ${props =>
+    props.look === 'error' &&
+    css`
+      color: white;
+      background-color: rgba(70, 10, 10, 0.87);
+    `}
 `
 
 const Notification = (props: PropsFromRedux) => {
@@ -41,10 +43,21 @@ const Notification = (props: PropsFromRedux) => {
   return (
     <OuterFlex>
       <StyledNotificationDiv look={look}>
-        {props.notification.text &&
-          <div> <T>{props.notification.text}</T></div>}
-        {origError && <div><T>{origError}</T></div>}
-        {destError && <div><T>{destError}</T></div>}
+        {props.notification.text && (
+          <div>
+            <T>{props.notification.text}</T>
+          </div>
+        )}
+        {origError && (
+          <div>
+            <T>{origError}</T>
+          </div>
+        )}
+        {destError && (
+          <div>
+            <T>{destError}</T>
+          </div>
+        )}
       </StyledNotificationDiv>
     </OuterFlex>
   )
@@ -53,7 +66,7 @@ const Notification = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   notification: state.notification,
   origError: state.origin.error,
-  destError: state.destination.error
+  destError: state.destination.error,
 })
 
 const connector = connect(mapStateToProps, {})

@@ -25,8 +25,8 @@ const Bar = styled.span<{ width: number; filter: string }>`
   box-shadow: inset 0 2px 7px rgba(255, 255, 255, 0.1), inset 0 -2px 6px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
-  width: ${(props) => props.width}%;
-  filter: ${(props) => props.filter};
+  width: ${props => props.width}%;
+  filter: ${props => props.filter};
 `
 
 const Container = styled.div`

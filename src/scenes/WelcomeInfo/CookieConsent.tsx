@@ -33,9 +33,12 @@ const CookieConsent = (props: PropsFromRedux) => {
     <SmallText>
       <T>info_modal.cookie.info</T>
       <DisableGaWrapper>
-        <DisableGaButton onClick={props.disableAnalyticsCookies}><T>info_modal.cookie.disable_button_label</T></DisableGaButton>
+        <DisableGaButton onClick={props.disableAnalyticsCookies}>
+          <T>info_modal.cookie.disable_button_label</T>
+        </DisableGaButton>
       </DisableGaWrapper>
-    </SmallText>)
+    </SmallText>
+  )
 }
 
 const connector = connect(null, { disableAnalyticsCookies })

@@ -19,10 +19,10 @@ const Spinner = styled.div`
 `
 
 const StyledLoadingIcon = styled(LoadingIcon)<{ size?: number }>`
-  ${(props) =>
+  ${props =>
     props.size &&
     css<{ size?: number }>`
-      height: ${(props) => props.size || '50'}px;
+      height: ${props => props.size || '50'}px;
       width: auto;
     `}
 `

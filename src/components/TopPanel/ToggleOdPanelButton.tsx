@@ -23,7 +23,7 @@ const IconButton = styled.div<IconButtonProps>`
       border-color: #f5f5f5c4;
     }
   }
-  ${(props) =>
+  ${props =>
     props.up &&
     css`
       margin: 3px 0px 0px 15px;

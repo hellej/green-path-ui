@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
@@ -12,18 +13,31 @@ const StyledPopupDiv = styled.div`
 `
 
 class SelectLocationsPopup extends React.Component<PropsFromRedux> {
-
   render() {
     const { visible, lngLat } = this.props
     if (!visible) return null
 
     return (
       <StyledPopupDiv>
-        {/* @ts-ignore */}
-        <Button smallest border green disabled={false} onClick={() => store.dispatch(setOriginFromMap(lngLat))}><T>map_od_popup.button.set_origin.label</T></Button>
-        {/* @ts-ignore */}
-        <Button smallest border green disabled={false} onClick={() => store.dispatch(setDestinationFromMap(lngLat))}><T>map_od_popup.button.set_destination.label</T></Button>
-      </StyledPopupDiv >
+        <Button
+          smallest
+          border
+          green
+          disabled={false}
+          onClick={() => store.dispatch(setOriginFromMap(lngLat))}
+        >
+          <T>map_od_popup.button.set_origin.label</T>
+        </Button>
+        <Button
+          smallest
+          border
+          green
+          disabled={false}
+          onClick={() => store.dispatch(setDestinationFromMap(lngLat))}
+        >
+          <T>map_od_popup.button.set_destination.label</T>
+        </Button>
+      </StyledPopupDiv>
     )
   }
 }

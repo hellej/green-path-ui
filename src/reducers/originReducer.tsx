@@ -10,36 +10,37 @@ import * as geocoding from './../services/geocoding'
 export enum LocationType {
   ADDRESS = 'address',
   USER_LOCATION = 'user',
-  MAP_LOCATION = 'map'
+  MAP_LOCATION = 'map',
 }
 
 export enum OdType {
   ORIGIN = 'orig',
-  DESTINATION = 'dest'
+  DESTINATION = 'dest',
 }
 
 const initialOrigin: OriginReducer = {
   error: null,
   originInputText: process.env.REACT_APP_USE_DEFAULT_OD === 'True' ? egOrigin.properties.label : '',
-  originObject: process.env.REACT_APP_USE_DEFAULT_OD === 'True' ? egOrigin as OdPlace : null,
+  originObject: process.env.REACT_APP_USE_DEFAULT_OD === 'True' ? (egOrigin as OdPlace) : null,
   originOptions: [],
   originOptionsVisible: false,
-  waitingUserLocOrigin: false
+  waitingUserLocOrigin: false,
 }
 
 interface OdInputAction extends Action {
-  originInputText: string,
-  originOptions: GeocodingResult[],
-  originObject: OdPlace,
-  name: string,
-  coords: [number, number],
+  originInputText: string
+  originOptions: GeocodingResult[]
+  originObject: OdPlace
+  name: string
+  coords: [number, number]
   error: string | null
 }
 
-const originReducer = (store: OriginReducer = initialOrigin, action: OdInputAction): OriginReducer => {
-
+const originReducer = (
+  store: OriginReducer = initialOrigin,
+  action: OdInputAction,
+): OriginReducer => {
   switch (action.type) {
-
     case 'UPDATE_ORIGIN_INPUT_VALUE':
       return {
         ...store,
@@ -47,13 +48,13 @@ const originReducer = (store: OriginReducer = initialOrigin, action: OdInputActi
         originObject: null,
         originOptionsVisible: true,
         waitingUserLocOrigin: false,
-        error: null
+        error: null,
       }
 
     case 'SET_ORIGIN_OPTIONS':
       return {
         ...store,
-        originOptions: action.originOptions
+        originOptions: action.originOptions,
       }
 
     case 'HIDE_ORIGIN_OPTIONS':
@@ -72,7 +73,7 @@ const originReducer = (store: OriginReducer = initialOrigin, action: OdInputActi
         originInputText: action.name,
         originOptionsVisible: false,
         waitingUserLocOrigin: false,
-        error: action.error
+        error: action.error,
       }
 
     case 'SET_ORIGIN_TO_USER_LOCATION':
@@ -81,7 +82,7 @@ const originReducer = (store: OriginReducer = initialOrigin, action: OdInputActi
         originObject: action.originObject,
         originInputText: action.originObject.properties.label,
         waitingUserLocOrigin: false,
-        error: action.error
+        error: action.error,
       }
 
     case 'UPDATE_USER_LOCATION': {
@@ -93,7 +94,7 @@ const originReducer = (store: OriginReducer = initialOrigin, action: OdInputActi
           originObject,
           originInputText: originObject.properties.label,
           waitingUserLocOrigin: false,
-          error
+          error,
         }
       } else {
         return store
@@ -106,7 +107,7 @@ const originReducer = (store: OriginReducer = initialOrigin, action: OdInputActi
         originObject: action.originObject,
         originInputText: action.originObject.properties.label,
         waitingUserLocOrigin: false,
-        error: action.error
+        error: action.error,
       }
     }
 
@@ -150,7 +151,12 @@ export const setUsedOrigin = (originObject: OdPlace, destObject: OdPlace | null)
   return async (dispatch: any) => {
     originObject.properties.odType = OdType.ORIGIN
     const error = originWithinSupportedArea(originObject)
-    dispatch({ type: 'SET_GEOCODED_ORIGIN', originObject, name: originObject.properties.name, error })
+    dispatch({
+      type: 'SET_GEOCODED_ORIGIN',
+      originObject,
+      name: originObject.properties.name,
+      error,
+    })
     const odFc = turf.asFeatureCollection(destObject ? [originObject, destObject] : [originObject])
     dispatch(zoomToFC(odFc))
   }
@@ -158,7 +164,12 @@ export const setUsedOrigin = (originObject: OdPlace, destObject: OdPlace | null)
 
 export const setOriginDuringRouting = (originObject: OdPlace) => {
   return async (dispatch: any) => {
-    dispatch({ type: 'SET_GEOCODED_ORIGIN', originObject, name: originObject.properties.name, error: null })
+    dispatch({
+      type: 'SET_GEOCODED_ORIGIN',
+      originObject,
+      name: originObject.properties.name,
+      error: null,
+    })
   }
 }
 
@@ -174,7 +185,11 @@ export const toggleOriginOptionsVisible = () => {
   return { type: 'TOGGLE_ORIGIN_OPTIONS' }
 }
 
-export const useUserLocationOrigin = (e: any, userLocation: UserLocationReducer, destObject: OdPlace | null) => {
+export const useUserLocationOrigin = (
+  e: any,
+  userLocation: UserLocationReducer,
+  destObject: OdPlace | null,
+) => {
   e.stopPropagation()
   return async (dispatch: any) => {
     dispatch({ type: 'RESET_ORIGIN_INPUT' })
@@ -187,9 +202,11 @@ export const useUserLocationOrigin = (e: any, userLocation: UserLocationReducer,
       dispatch({
         type: 'SET_ORIGIN_TO_USER_LOCATION',
         originObject,
-        error
+        error,
       })
-      const odFc = turf.asFeatureCollection(destObject ? [originObject, destObject] : [originObject])
+      const odFc = turf.asFeatureCollection(
+        destObject ? [originObject, destObject] : [originObject],
+      )
       dispatch(zoomToFC(odFc))
     } else {
       dispatch({ type: 'WAIT_FOR_USER_LOC_ORIGIN' })
@@ -215,8 +232,8 @@ export const getOriginFromGeocodingResult = (place: GeocodingResult): OdPlace =>
     properties: {
       ...place.properties,
       locationType: LocationType.ADDRESS,
-      odType: OdType.ORIGIN
-    }
+      odType: OdType.ORIGIN,
+    },
   }
 }
 
@@ -229,15 +246,15 @@ const getOriginFromCoords = (coordinates: [number, number], locType: LocationTyp
   return {
     geometry: {
       type: 'Point',
-      coordinates
+      coordinates,
     },
     properties: {
       label,
       name: label,
       locationType: locType,
-      odType: OdType.ORIGIN
+      odType: OdType.ORIGIN,
     },
-    type: 'Feature'
+    type: 'Feature',
   }
 }
 

@@ -11,7 +11,7 @@ import {
   hideOriginOptions,
   toggleOriginOptionsVisible,
   resetOriginInput,
-  useUserLocationOrigin
+  useUserLocationOrigin,
 } from '../../reducers/originReducer'
 import LoadAnimation from './../LoadAnimation/LoadAnimation'
 
@@ -67,7 +67,7 @@ const OrigOptions = styled.ul`
   position: absolute;
   width: calc(100% - 1px);
   background-color: #ffffff;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1), 0 6px 20px 0 rgba(0,0,0,0.06);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.06);
   max-height: calc(100vh - 57px);
   overflow: auto;
 `
@@ -75,48 +75,59 @@ const OrigOption = styled.li<{ noShadow?: any }>`
   padding: 7px 8px;
   margin: 8px;
   border-radius: 3px;
-  box-shadow: 0 1px 2px 2px rgba(0,0,0,0.06), 0 1px 3px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.06), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
   transition-duration: 0.15s;
   -webkit-transition-duration: 0.15s; /* Safari */
   @media (min-width: 600px) {
     &:hover {
-      box-shadow: 0 1px 2px 2px rgba(0,0,0,0.1), 0 1px 3px 0 rgba(0,0,0,0.16);
+      box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.16);
     }
   }
-  ${props => props.noShadow && css`
-    box-shadow: none;
-  `}
+  ${props =>
+    props.noShadow &&
+    css`
+      box-shadow: none;
+    `}
 `
 
 class OriginInput extends Component<PropsFromRedux> {
   wrapperRef: RefObject<HTMLDivElement>
   constructor(props: PropsFromRedux) {
-    super(props);
-    this.wrapperRef = React.createRef();
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
+    super(props)
+    this.wrapperRef = React.createRef()
+    this.setWrapperRef = this.setWrapperRef.bind(this)
+    this.handleClickOutside = this.handleClickOutside.bind(this)
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', this.handleClickOutside)
   }
 
   setWrapperRef(node: any) {
-    this.wrapperRef = node;
+    this.wrapperRef = node
   }
 
   handleClickOutside(event: any) {
-    if (this.wrapperRef && this.wrapperRef.current && !this.wrapperRef.current.contains(event.target)) {
+    if (
+      this.wrapperRef &&
+      this.wrapperRef.current &&
+      !this.wrapperRef.current.contains(event.target)
+    ) {
       this.props.hideOriginOptions()
     }
   }
 
   render() {
-    const { waitingUserLocOrigin, originInputText, originOptionsVisible, originOptions } = this.props.origin
+    const {
+      waitingUserLocOrigin,
+      originInputText,
+      originOptionsVisible,
+      originOptions,
+    } = this.props.origin
     const {
       lang,
       destObject,
@@ -125,41 +136,59 @@ class OriginInput extends Component<PropsFromRedux> {
       setGeocodedOrigin,
       setUsedOrigin,
       resetOriginInput,
-      toggleOriginOptionsVisible
+      toggleOriginOptionsVisible,
     } = this.props
 
-    return <OrigSelectorDiv id='origin-input-container' ref={this.wrapperRef}>
-      <Input
-        id='origin-input'
-        placeholder={text(lang, 'od_inputs.from_label')}
-        type='text'
-        value={originInputText}
-        onClick={toggleOriginOptionsVisible}
-        onChange={setOriginInputText} />
-      {waitingUserLocOrigin && <WaitForUserLocContainer ><LoadAnimation size={25} /></WaitForUserLocContainer>}
-      <ResetLocButton id='reset-origin-button' onClick={resetOriginInput}><CloseIcon /></ResetLocButton>
-      {originOptionsVisible && <OrigOptions>
-        <OrigOption noShadow onClick={(e) => useUserLocationOrigin(e, this.props.userLocation, destObject)}>
-          <UseCurrLocButton handleClick={(e) => useUserLocationOrigin(e, this.props.userLocation, destObject)} />
-        </OrigOption>
-        {originInputText.length < 3 && this.props.usedOds.map(odPlace =>
-          <OrigOption
-            key={odPlace.properties.label}
-            style={{ color: '#ff38ff' }}
-            onClick={() => setUsedOrigin(odPlace, destObject)}>
-            {odPlace.properties.label}
-          </OrigOption>
+    return (
+      <OrigSelectorDiv id="origin-input-container" ref={this.wrapperRef}>
+        <Input
+          id="origin-input"
+          placeholder={text(lang, 'od_inputs.from_label')}
+          type="text"
+          value={originInputText}
+          onClick={toggleOriginOptionsVisible}
+          onChange={setOriginInputText}
+        />
+        {waitingUserLocOrigin && (
+          <WaitForUserLocContainer>
+            <LoadAnimation size={25} />
+          </WaitForUserLocContainer>
         )}
-        {originOptions.map(option =>
-          <OrigOption
-            key={option.properties.gid}
-            onClick={() => setGeocodedOrigin(option, destObject)}>
-            {option.properties.label}
-          </OrigOption>
+        <ResetLocButton id="reset-origin-button" onClick={resetOriginInput}>
+          <CloseIcon />
+        </ResetLocButton>
+        {originOptionsVisible && (
+          <OrigOptions>
+            <OrigOption
+              noShadow
+              onClick={e => useUserLocationOrigin(e, this.props.userLocation, destObject)}
+            >
+              <UseCurrLocButton
+                handleClick={e => useUserLocationOrigin(e, this.props.userLocation, destObject)}
+              />
+            </OrigOption>
+            {originInputText.length < 3 &&
+              this.props.usedOds.map(odPlace => (
+                <OrigOption
+                  key={odPlace.properties.label}
+                  style={{ color: '#ff38ff' }}
+                  onClick={() => setUsedOrigin(odPlace, destObject)}
+                >
+                  {odPlace.properties.label}
+                </OrigOption>
+              ))}
+            {originOptions.map(option => (
+              <OrigOption
+                key={option.properties.gid}
+                onClick={() => setGeocodedOrigin(option, destObject)}
+              >
+                {option.properties.label}
+              </OrigOption>
+            ))}
+          </OrigOptions>
         )}
-      </OrigOptions>
-      }
-    </OrigSelectorDiv >
+      </OrigSelectorDiv>
+    )
   }
 }
 
@@ -168,7 +197,7 @@ const mapStateToProps = (state: ReduxState) => ({
   origin: state.origin,
   destObject: state.destination.destObject,
   usedOds: state.visitor.usedOds,
-  lang: state.ui.lang
+  lang: state.ui.lang,
 })
 
 const mapDispatchToProps = {
@@ -178,7 +207,7 @@ const mapDispatchToProps = {
   setUsedOrigin,
   hideOriginOptions,
   toggleOriginOptionsVisible,
-  resetOriginInput
+  resetOriginInput,
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

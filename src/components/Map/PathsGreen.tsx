@@ -65,8 +65,12 @@ class PathsGreen extends React.Component<PropsFromRedux> {
     map.once('load', () => {
       this.loadLayerToMap(map)
 
-      map.on('mouseenter', this.layerId, () => { map.getCanvas().style.cursor = 'pointer' })
-      map.on('mouseleave', this.layerId, () => { map.getCanvas().style.cursor = '' })
+      map.on('mouseenter', this.layerId, () => {
+        map.getCanvas().style.cursor = 'pointer'
+      })
+      map.on('mouseleave', this.layerId, () => {
+        map.getCanvas().style.cursor = ''
+      })
       map.on('click', (e: MapMouseEvent) => {
         const features = utils.getLayersFeaturesAroundClickE([this.layerId], e, clickTol, map)
         if (features.length > 0) {
@@ -88,7 +92,6 @@ class PathsGreen extends React.Component<PropsFromRedux> {
     } else {
       this.updateLayerData(map)
     }
-
   }
 
   render() {

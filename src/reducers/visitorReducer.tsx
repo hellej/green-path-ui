@@ -27,7 +27,7 @@ const visitorReducer = (
 
     case 'SET_USED_OD': {
       const filteredOds = store.usedOds.filter(
-        (od) => od.properties.label !== action.odObject.properties.label,
+        od => od.properties.label !== action.odObject.properties.label,
       )
       filteredOds.unshift(action.odObject)
       return { ...store, usedOds: filteredOds.slice(0, 10) }

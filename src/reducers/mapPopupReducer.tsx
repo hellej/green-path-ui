@@ -1,11 +1,10 @@
-
 import MapboxGl from 'mapbox-gl'
 import { Popup, Map } from 'mapbox-gl'
 import { Action } from 'redux'
 
 const initialMapPopups: MapPopupReducer = {
   visible: false,
-  lngLat: {}
+  lngLat: {},
 }
 
 let mbPopup: Popup
@@ -15,10 +14,11 @@ interface PopupAction extends Action {
   lngLat: LngLat
 }
 
-const mapPopupReducer = (store: MapPopupReducer = initialMapPopups, action: PopupAction): MapPopupReducer => {
-
+const mapPopupReducer = (
+  store: MapPopupReducer = initialMapPopups,
+  action: PopupAction,
+): MapPopupReducer => {
   switch (action.type) {
-
     case 'SET_POPUP':
       return { ...store, visible: true }
 
@@ -43,10 +43,7 @@ export const setSelectLocationsPopup = (lngLat: LngLat) => {
 
     mbPopup = new MapboxGl.Popup({ closeOnClick: true, closeButton: true, anchor: 'bottom' })
 
-    mbPopup
-      .setLngLat(lngLat)
-      .setHTML('<div id="popup" </div>')
-      .addTo(mapRef)
+    mbPopup.setLngLat(lngLat).setHTML('<div id="popup" </div>').addTo(mapRef)
 
     dispatch({ type: 'SET_POPUP' })
   }

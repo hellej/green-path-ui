@@ -61,7 +61,7 @@ const NoiseMapLegend = (props: PropsFromRedux) => {
           <T>basemap.traffic_noise.legend.title</T> (dB)
         </TitleRow>
         <ColorRow>
-          {[...Object.keys(dBColors)].map((k) => (
+          {[...Object.keys(dBColors)].map(k => (
             <ColorLabelBox key={k}>
               <ColorBox key={k} style={{ backgroundColor: dBColors[parseInt(k) as DbClass] }} />
               <div>{k}</div>

@@ -11,7 +11,7 @@ class UserLocation extends React.Component<PropsFromRedux> {
     'circle-stroke-color': '#ff38ff',
     'circle-color': 'transparent',
     'circle-radius': 10,
-    'circle-stroke-width': 2.5
+    'circle-stroke-width': 2.5,
   }
 
   loadLayerToMap(map: any) {

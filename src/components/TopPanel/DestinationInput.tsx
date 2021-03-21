@@ -59,7 +59,7 @@ const DestinationOptions = styled.ul`
   position: absolute;
   width: calc(100% - 1px);
   background-color: #ffffff;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1), 0 6px 20px 0 rgba(0,0,0,0.06);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.06);
   max-height: calc(100vh - 108px);
   overflow: auto;
 `
@@ -67,12 +67,12 @@ const DestinationOption = styled.li`
   padding: 7px 8px;
   margin: 8px;
   border-radius: 3px;
-  box-shadow: 0 1px 2px 2px rgba(0,0,0,0.06), 0 1px 3px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.06), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
   transition-duration: 0.15s;
   -webkit-transition-duration: 0.15s; /* Safari */
   @media (min-width: 600px) {
     &:hover {
-      box-shadow: 0 1px 2px 2px rgba(0,0,0,0.1), 0 1px 3px 0 rgba(0,0,0,0.16);
+      box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.16);
     }
   }
 `
@@ -80,26 +80,30 @@ const DestinationOption = styled.li`
 class DestinationInput extends Component<PropsFromRedux> {
   wrapperRef: RefObject<HTMLDivElement>
   constructor(props: PropsFromRedux) {
-    super(props);
-    this.wrapperRef = React.createRef();
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
+    super(props)
+    this.wrapperRef = React.createRef()
+    this.setWrapperRef = this.setWrapperRef.bind(this)
+    this.handleClickOutside = this.handleClickOutside.bind(this)
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', this.handleClickOutside)
   }
 
   setWrapperRef(node: any) {
-    this.wrapperRef = node;
+    this.wrapperRef = node
   }
 
   handleClickOutside(event: any) {
-    if (this.wrapperRef && this.wrapperRef.current && !this.wrapperRef.current.contains(event.target)) {
+    if (
+      this.wrapperRef &&
+      this.wrapperRef.current &&
+      !this.wrapperRef.current.contains(event.target)
+    ) {
       this.props.hideDestinationOptions()
     }
   }
@@ -113,37 +117,46 @@ class DestinationInput extends Component<PropsFromRedux> {
       setGeocodedDestination,
       setUsedDestination,
       resetDestinationInput,
-      toggleDestinationOptionsVisible
+      toggleDestinationOptionsVisible,
     } = this.props
 
-    return <DestSelectorDiv id='destination-input-container' ref={this.wrapperRef}>
-      <Input
-        id='destination-input'
-        placeholder={text(lang, 'od_inputs.to_label')}
-        type='text'
-        value={destInputText}
-        onClick={toggleDestinationOptionsVisible}
-        onChange={setDestinationInputText} />
-      <ResetLocButton id='reset-destination-button' onClick={resetDestinationInput}><CloseIcon /></ResetLocButton>
-      {destOptionsVisible && <DestinationOptions>
-        {destInputText.length < 3 && this.props.usedOds.map(odPlace =>
-          <DestinationOption
-            key={odPlace.properties.label}
-            style={{ color: '#ff38ff' }}
-            onClick={() => setUsedDestination(odPlace, originObject)}>
-            {odPlace.properties.label}
-          </DestinationOption>
+    return (
+      <DestSelectorDiv id="destination-input-container" ref={this.wrapperRef}>
+        <Input
+          id="destination-input"
+          placeholder={text(lang, 'od_inputs.to_label')}
+          type="text"
+          value={destInputText}
+          onClick={toggleDestinationOptionsVisible}
+          onChange={setDestinationInputText}
+        />
+        <ResetLocButton id="reset-destination-button" onClick={resetDestinationInput}>
+          <CloseIcon />
+        </ResetLocButton>
+        {destOptionsVisible && (
+          <DestinationOptions>
+            {destInputText.length < 3 &&
+              this.props.usedOds.map(odPlace => (
+                <DestinationOption
+                  key={odPlace.properties.label}
+                  style={{ color: '#ff38ff' }}
+                  onClick={() => setUsedDestination(odPlace, originObject)}
+                >
+                  {odPlace.properties.label}
+                </DestinationOption>
+              ))}
+            {destOptions.map(option => (
+              <DestinationOption
+                key={option.properties.gid}
+                onClick={() => setGeocodedDestination(option, originObject)}
+              >
+                {option.properties.label}
+              </DestinationOption>
+            ))}
+          </DestinationOptions>
         )}
-        {destOptions.map(option =>
-          <DestinationOption
-            key={option.properties.gid}
-            onClick={() => setGeocodedDestination(option, originObject)}>
-            {option.properties.label}
-          </DestinationOption>
-        )}
-      </DestinationOptions>
-      }
-    </DestSelectorDiv >
+      </DestSelectorDiv>
+    )
   }
 }
 
@@ -151,7 +164,7 @@ const mapStateToProps = (state: ReduxState) => ({
   destination: state.destination,
   originObject: state.origin.originObject,
   usedOds: state.visitor.usedOds,
-  lang: state.ui.lang
+  lang: state.ui.lang,
 })
 
 const mapDispatchToProps = {

@@ -31,13 +31,13 @@ const Button = styled.div`
   pointer-events: auto;
   transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s; /* Safari */
-  border: 2px solid rgba(255,255,255,0.8);
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.22), 0 6px 20px 0 rgba(0,0,0,0.14);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.22), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
   background-color: #10a538ed;
   color: white;
-  &:hover { 
-  background-color: #0fb93d;
-    border: 2px solid rgba(255,255,255,0.95);
+  &:hover {
+    background-color: #0fb93d;
+    border: 2px solid rgba(255, 255, 255, 0.95);
   }
   @media (max-width: 620px) {
     font-size: 26px;
@@ -45,17 +45,28 @@ const Button = styled.div`
 `
 const Tooltip = styled.div`
   font-size: 15px;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
 `
 
 const FindPathsButtons = (props: PropsFromRedux) => {
-  const { cleanPathsAvailable, origin, destination, selectedTravelMode, routingId,
-    waitingPaths, showingPaths, getSetCleanPaths, getSetQuietPaths } = props
+  const {
+    cleanPathsAvailable,
+    origin,
+    destination,
+    selectedTravelMode,
+    routingId,
+    waitingPaths,
+    showingPaths,
+    getSetCleanPaths,
+    getSetQuietPaths,
+  } = props
 
   const { originObject } = origin
   const { destObject } = destination
 
-  const odUnset = (!originObject && origin.originInputText.length < 2) || (!destObject && destination.destInputText.length < 2)
+  const odUnset =
+    (!originObject && origin.originInputText.length < 2) ||
+    (!destObject && destination.destInputText.length < 2)
 
   if (odUnset || showingPaths || waitingPaths || origin.error || destination.error) {
     return null
@@ -63,17 +74,23 @@ const FindPathsButtons = (props: PropsFromRedux) => {
 
   return (
     <OuterFlex>
-      <Button onClick={() => getSetQuietPaths(origin, destination, selectedTravelMode, routingId)}> <T>find_quiet_paths_btn</T>
-        <Tooltip><T>find_quiet_paths_btn.tooltip</T></Tooltip>
+      <Button onClick={() => getSetQuietPaths(origin, destination, selectedTravelMode, routingId)}>
+        <T>find_quiet_paths_btn</T>
+        <Tooltip>
+          <T>find_quiet_paths_btn.tooltip</T>
+        </Tooltip>
       </Button>
-      {cleanPathsAvailable
-        ? <Button
-          onClick={() => getSetCleanPaths(origin, destination, selectedTravelMode, routingId)}> <T>find_fresh_air_paths_btn</T>
-          <Tooltip><T>find_fresh_air_paths_btn.tooltip</T></Tooltip>
+      {cleanPathsAvailable ? (
+        <Button
+          onClick={() => getSetCleanPaths(origin, destination, selectedTravelMode, routingId)}
+        >
+          <T>find_fresh_air_paths_btn</T>
+          <Tooltip>
+            <T>find_fresh_air_paths_btn.tooltip</T>
+          </Tooltip>
         </Button>
-        : null
-      }
-    </OuterFlex >
+      ) : null}
+    </OuterFlex>
   )
 }
 

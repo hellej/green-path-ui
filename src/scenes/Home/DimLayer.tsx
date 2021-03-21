@@ -3,9 +3,9 @@ import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 
 const DimDiv = styled.div<{ visible?: boolean }>`
-  visibility: ${props => props.visible ? 'visible' : 'hidden'};
-  pointer-events: ${props => props.visible ? 'auto' : 'none'};
-  opacity: ${props => props.visible ? 1 : 0};
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  pointer-events: ${props => (props.visible ? 'auto' : 'none')};
+  opacity: ${props => (props.visible ? 1 : 0)};
   position: absolute;
   top: 0px;
   bottom: 0px;
@@ -19,14 +19,11 @@ const DimDiv = styled.div<{ visible?: boolean }>`
   transition: visibility 0.7s linear, opacity 0.7s linear;
   transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s; /* Safari */
-  background: rgba(5,5,5,0.5);
+  background: rgba(5, 5, 5, 0.5);
 `
 
 const DimLayer = (props: PropsFromRedux) => {
-
-  return (
-    <DimDiv visible={props.ui.info} />
-  )
+  return <DimDiv visible={props.ui.info} />
 }
 
 const mapStateToProps = (state: ReduxState) => ({ ui: state.ui })

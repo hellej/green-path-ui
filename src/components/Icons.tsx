@@ -28,10 +28,10 @@ const List = styled(IoMdMenu)`
 `
 
 type IconButtonProps = {
-  onClick: React.MouseEventHandler<HTMLElement>,
-  children: any,
-  padding?: string,
-  leftMargin?: string,
+  onClick: React.MouseEventHandler<HTMLElement>
+  children: any
+  padding?: string
+  leftMargin?: string
   hoverJump?: any
 }
 
@@ -43,21 +43,36 @@ const IconButton = styled.div<IconButtonProps>`
   display: table;
   color: black;
   border-radius: 7px;
-  ${props => props.hoverJump && css`
-  @media (min-width: 600px) {
-    &:hover { 
-      padding-bottom: 3px;
-    }
-  }`}
+  ${props =>
+    props.hoverJump &&
+    css`
+      @media (min-width: 600px) {
+        &:hover {
+          padding-bottom: 3px;
+        }
+      }
+    `}
 `
 
 type IconProps = {
-  onClick: React.MouseEventHandler<HTMLElement>,
+  onClick: React.MouseEventHandler<HTMLElement>
   size?: number
 }
 
-export const FilterButton = ({ onClick }: IconProps) => <IconButton padding='5px' onClick={onClick}> <Filter /> </IconButton>
+export const FilterButton = ({ onClick }: IconProps) => (
+  <IconButton padding="5px" onClick={onClick}>
+    <Filter />
+  </IconButton>
+)
 
-export const CloseButton = ({ onClick, size }: IconProps) => <IconButton onClick={onClick}> <Close size={size} /></IconButton>
+export const CloseButton = ({ onClick, size }: IconProps) => (
+  <IconButton onClick={onClick}>
+    <Close size={size} />
+  </IconButton>
+)
 
-export const ListButton = ({ onClick }: IconProps) => <IconButton hoverJump onClick={onClick}> <List /></IconButton>
+export const ListButton = ({ onClick }: IconProps) => (
+  <IconButton hoverJump onClick={onClick}>
+    <List />
+  </IconButton>
+)

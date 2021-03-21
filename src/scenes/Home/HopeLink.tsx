@@ -19,10 +19,10 @@ const StyledHopeLink = styled.a`
   padding: 2px 6px;
   cursor: pointer;
   text-decoration: none;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   @media (min-width: 600px) {
-    &:hover { 
-        margin-bottom: 2px;
+    &:hover {
+      margin-bottom: 2px;
     }
   }
 `
@@ -30,7 +30,7 @@ const StyledHopeLink = styled.a`
 const HopeLink = () => {
   return (
     <Container>
-      <StyledHopeLink href='https://ilmanlaatu.eu/' target='_blank' rel='noopener noreferrer'>
+      <StyledHopeLink href="https://ilmanlaatu.eu/" target="_blank" rel="noopener noreferrer">
         <img src={HopeLogo} width="78" height="20" alt="HopeLogo" />
       </StyledHopeLink>
     </Container>

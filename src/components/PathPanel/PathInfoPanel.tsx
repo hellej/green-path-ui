@@ -11,10 +11,8 @@ const PathInfoPanel = (props: PropsFromRedux) => {
 
   return (
     <Fragment>
-      {showingPathList &&
-        <PathList />}
-      {showingOpenedPath &&
-        <OpenedPathInfo />}
+      {showingPathList && <PathList />}
+      {showingOpenedPath && <OpenedPathInfo />}
     </Fragment>
   )
 }

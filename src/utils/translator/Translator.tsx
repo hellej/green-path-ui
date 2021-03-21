@@ -8,7 +8,6 @@ interface PropsType {
 }
 
 class Translate extends PureComponent<PropsType & PropsFromRedux> {
-
   translateWord(lang: Lang, rawKey: string): string {
     const key = rawKey.trim()
     try {
@@ -39,7 +38,7 @@ class Translate extends PureComponent<PropsType & PropsFromRedux> {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  lang: state.ui.lang
+  lang: state.ui.lang,
 })
 
 const connector = connect(mapStateToProps, {})

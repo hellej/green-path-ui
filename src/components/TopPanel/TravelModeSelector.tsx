@@ -27,7 +27,7 @@ const ButtonRow = styled.div`
   align-content: center;
   margin: 2px 4px;
 `
-const StyledIconContainer = styled.div<{ bike?: any, selected: boolean }>`
+const StyledIconContainer = styled.div<{ bike?: any; selected: boolean }>`
   cursor: pointer;
   pointer-events: auto;
   display: flex;
@@ -43,18 +43,20 @@ const StyledIconContainer = styled.div<{ bike?: any, selected: boolean }>`
   transition-duration: 0.15s;
   -webkit-transition-duration: 0.15s; /* Safari */
   @media (min-width: 550px) {
-    &:hover { 
+    &:hover {
       border-color: black;
     }
   }
-  ${props => props.selected === true && css`
-    background: #eaf8ff;
-    border-color: #65a1bd;
-    pointer-events: none;
-    &:hover { 
+  ${props =>
+    props.selected === true &&
+    css`
+      background: #eaf8ff;
       border-color: #65a1bd;
-    }
-  `}
+      pointer-events: none;
+      &:hover {
+        border-color: #65a1bd;
+      }
+    `}
 `
 
 const getSetTravelModeFunction = (props: PropsFromRedux, travelModeOfTheButton: TravelMode) => {
@@ -74,18 +76,21 @@ const getSetTravelModeFunction = (props: PropsFromRedux, travelModeOfTheButton: 
 }
 
 const TravelModeSelector = (props: PropsFromRedux) => {
-
   return (
     <ButtonRow>
-      <StyledIconContainer data-cy="toggle-to-walk-button"
+      <StyledIconContainer
+        data-cy="toggle-to-walk-button"
         onClick={() => getSetTravelModeFunction(props, TravelMode.WALK)}
-        selected={props.selectedTravelMode === TravelMode.WALK}>
+        selected={props.selectedTravelMode === TravelMode.WALK}
+      >
         <StyledWalkI />
       </StyledIconContainer>
-      <StyledIconContainer data-cy="toggle-to-bike-button"
+      <StyledIconContainer
+        data-cy="toggle-to-bike-button"
         onClick={() => getSetTravelModeFunction(props, TravelMode.BIKE)}
         selected={props.selectedTravelMode === TravelMode.BIKE}
-        bike>
+        bike
+      >
         <StyledBikeI />
       </StyledIconContainer>
     </ButtonRow>

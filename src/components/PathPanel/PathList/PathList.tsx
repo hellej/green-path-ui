@@ -70,7 +70,7 @@ class PathList extends React.Component<PropsFromRedux, State> {
 
     const shortPath = shortPathFC.features[0]
     const greenPaths = greenPathFC.features.filter(
-      (path) => path.properties.length <= lengthLimit.limit,
+      path => path.properties.length <= lengthLimit.limit,
     )
 
     return (
@@ -85,7 +85,7 @@ class PathList extends React.Component<PropsFromRedux, State> {
             setOpenedPath={() => setOpenedPath(shortPath)}
           />
         </PathRowFlex>
-        {greenPaths.map((path) => (
+        {greenPaths.map(path => (
           <PathRowFlex
             data-cy="green-path-box"
             key={path.properties.id}

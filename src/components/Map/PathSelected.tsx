@@ -64,7 +64,6 @@ class PathSelected extends React.Component<PropsFromRedux> {
     } else {
       this.updateLayerData(map)
     }
-
   }
 
   render() {
@@ -75,7 +74,7 @@ class PathSelected extends React.Component<PropsFromRedux> {
 const mapStateToProps = (state: ReduxState) => ({
   selPathFC: state.paths.selPathFC,
   lengthLimit: state.paths.lengthLimit,
-  basemapChangeId: state.map.basemapChangeId
+  basemapChangeId: state.map.basemapChangeId,
 })
 
 const connector = connect(mapStateToProps, { setLayerLoaded })

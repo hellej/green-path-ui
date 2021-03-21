@@ -22,7 +22,6 @@ const airQualityLayerReducer = (
   action: AqAction,
 ): AirQualityLayerReducer => {
   switch (action.type) {
-
     case 'SET_LOADING_DATA':
       return { ...store, loadingData: action.loadingData }
 

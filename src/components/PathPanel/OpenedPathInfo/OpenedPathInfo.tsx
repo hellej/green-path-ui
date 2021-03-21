@@ -33,34 +33,46 @@ const OpenedPathInfo = ({ paths, unsetOpenedPath }: PropsFromRedux) => {
 
   if (openedPath!.properties.type === PathType.SHORT) {
     if (showingStatsType === StatsType.AQ) {
-      return <ShortPathAqiExposures
-        path={openedPath!}
-        travelMode={showingPathsOfTravelMode!}
-        unsetOpenedPath={unsetOpenedPath} />
+      return (
+        <ShortPathAqiExposures
+          path={openedPath!}
+          travelMode={showingPathsOfTravelMode!}
+          unsetOpenedPath={unsetOpenedPath}
+        />
+      )
     } else {
-      return <ShortPathNoiseExposures
-        path={openedPath!}
-        travelMode={showingPathsOfTravelMode!}
-        unsetOpenedPath={unsetOpenedPath} />
+      return (
+        <ShortPathNoiseExposures
+          path={openedPath!}
+          travelMode={showingPathsOfTravelMode!}
+          unsetOpenedPath={unsetOpenedPath}
+        />
+      )
     }
   } else if (showingStatsType === StatsType.AQ) {
-    return <PathAqiExposures
-      path={openedPath!}
-      shortPath={shortPath}
-      travelMode={showingPathsOfTravelMode!}
-      unsetOpenedPath={unsetOpenedPath} />
+    return (
+      <PathAqiExposures
+        path={openedPath!}
+        shortPath={shortPath}
+        travelMode={showingPathsOfTravelMode!}
+        unsetOpenedPath={unsetOpenedPath}
+      />
+    )
   } else {
-    return <PathNoiseExposures
-      path={openedPath!}
-      shortPath={shortPath}
-      travelMode={showingPathsOfTravelMode!}
-      unsetOpenedPath={unsetOpenedPath} />
+    return (
+      <PathNoiseExposures
+        path={openedPath!}
+        shortPath={shortPath}
+        travelMode={showingPathsOfTravelMode!}
+        unsetOpenedPath={unsetOpenedPath}
+      />
+    )
   }
 }
 
 interface ShortPathExposureProps {
-  path: PathFeature,
-  travelMode: TravelMode,
+  path: PathFeature
+  travelMode: TravelMode
   unsetOpenedPath: React.MouseEventHandler<HTMLElement>
 }
 
@@ -70,7 +82,9 @@ const ShortPathAqiExposures = ({ path, travelMode, unsetOpenedPath }: ShortPathE
       <PathRowFlex>
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
-          <BarsLabel><T>opened_shortest_clean_path.tooltip</T> </BarsLabel>
+          <BarsLabel>
+            <T>opened_shortest_clean_path.tooltip</T>
+          </BarsLabel>
           <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_cl_pcts} />
         </ExposureBarsFlex>
       </PathRowFlex>
@@ -85,7 +99,9 @@ const ShortPathNoiseExposures = ({ path, travelMode, unsetOpenedPath }: ShortPat
       <PathRowFlex>
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
-          <BarsLabel><T>opened_shortest_quiet_path.tooltip</T> </BarsLabel>
+          <BarsLabel>
+            <T>opened_shortest_quiet_path.tooltip</T>
+          </BarsLabel>
           <PathNoisesBar withMargins={true} noisePcts={path.properties.noise_pcts} />
         </ExposureBarsFlex>
       </PathRowFlex>
@@ -95,7 +111,7 @@ const ShortPathNoiseExposures = ({ path, travelMode, unsetOpenedPath }: ShortPat
 }
 
 interface PathExposureProps extends ShortPathExposureProps {
-  shortPath: PathFeature,
+  shortPath: PathFeature
 }
 
 const PathAqiExposures = ({ path, shortPath, travelMode, unsetOpenedPath }: PathExposureProps) => {
@@ -104,27 +120,36 @@ const PathAqiExposures = ({ path, shortPath, travelMode, unsetOpenedPath }: Path
       <PathRowFlex>
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
-          <BarsLabel><T>opened_clean_path.tooltip</T> </BarsLabel>
+          <BarsLabel>
+            <T>opened_clean_path.tooltip</T>
+          </BarsLabel>
           <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_cl_pcts} />
           <PathAqiBar withMargins={true} aqiPcts={shortPath.properties.aqi_cl_pcts} />
         </ExposureBarsFlex>
-      </PathRowFlex >
+      </PathRowFlex>
       <OpenedPathAqExps path={path} travelMode={travelMode} />
     </div>
   )
 }
 
-const PathNoiseExposures = ({ path, shortPath, travelMode, unsetOpenedPath }: PathExposureProps) => {
+const PathNoiseExposures = ({
+  path,
+  shortPath,
+  travelMode,
+  unsetOpenedPath,
+}: PathExposureProps) => {
   return (
     <div>
       <PathRowFlex>
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
-          <BarsLabel><T>opened_quiet_path.tooltip</T> </BarsLabel>
+          <BarsLabel>
+            <T>opened_quiet_path.tooltip</T>
+          </BarsLabel>
           <PathNoisesBar withMargins={true} noisePcts={path.properties.noise_pcts} />
           <PathNoisesBar withMargins={true} noisePcts={shortPath.properties.noise_pcts} />
         </ExposureBarsFlex>
-      </PathRowFlex >
+      </PathRowFlex>
       <OpenedPathNoiseExps path={path} travelMode={travelMode} />
     </div>
   )

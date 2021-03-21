@@ -10,36 +10,37 @@ import * as geocoding from './../services/geocoding'
 const initialDest: DestinationReducer = {
   error: null,
   destInputText: process.env.REACT_APP_USE_DEFAULT_OD === 'True' ? egDest.properties.label : '',
-  destObject: process.env.REACT_APP_USE_DEFAULT_OD === 'True' ? egDest as OdPlace : null,
+  destObject: process.env.REACT_APP_USE_DEFAULT_OD === 'True' ? (egDest as OdPlace) : null,
   destOptions: [],
   destOptionsVisible: false,
 }
 
 interface DestinationAction extends Action {
-  destInputText: string,
-  destOptions: GeocodingResult[],
-  destObject: OdPlace,
-  name: string,
+  destInputText: string
+  destOptions: GeocodingResult[]
+  destObject: OdPlace
+  name: string
   error: string | null
 }
 
-const destinationReducer = (store: DestinationReducer = initialDest, action: DestinationAction): DestinationReducer => {
-
+const destinationReducer = (
+  store: DestinationReducer = initialDest,
+  action: DestinationAction,
+): DestinationReducer => {
   switch (action.type) {
-
     case 'UPDATE_DESTINATION_INPUT_VALUE':
       return {
         ...store,
         destInputText: action.destInputText,
         destObject: null,
-        error: null
+        error: null,
       } // no need to set destination options visible yet (let's wait for geocoding results)
 
     case 'SET_DESTINATION_OPTIONS':
       return {
         ...store,
         destOptions: action.destOptions,
-        destOptionsVisible: true
+        destOptionsVisible: true,
       }
 
     case 'HIDE_DESTINATION_OPTIONS':
@@ -54,7 +55,7 @@ const destinationReducer = (store: DestinationReducer = initialDest, action: Des
         destObject: action.destObject,
         destInputText: action.name,
         destOptionsVisible: false,
-        error: action.error
+        error: action.error,
       }
 
     case 'SET_DESTINATION_FROM_MAP': {
@@ -63,7 +64,7 @@ const destinationReducer = (store: DestinationReducer = initialDest, action: Des
         destObject: action.destObject,
         destInputText: action.destObject.properties.label,
         destOptionsVisible: false,
-        error: action.error
+        error: action.error,
       }
     }
 
@@ -108,7 +109,12 @@ export const setUsedDestination = (destObject: OdPlace, originObject: OdPlace | 
   return async (dispatch: any) => {
     destObject.properties.odType = OdType.DESTINATION
     const error = destWithinSupportedArea(destObject)
-    dispatch({ type: 'SET_GEOCODED_DESTINATION', destObject, error, name: destObject.properties.name })
+    dispatch({
+      type: 'SET_GEOCODED_DESTINATION',
+      destObject,
+      error,
+      name: destObject.properties.name,
+    })
     const odFc = turf.asFeatureCollection(originObject ? [originObject, destObject] : [destObject])
     dispatch(zoomToFC(odFc))
   }
@@ -116,7 +122,12 @@ export const setUsedDestination = (destObject: OdPlace, originObject: OdPlace | 
 
 export const setDestinationDuringRouting = (destObject: OdPlace) => {
   return async (dispatch: any) => {
-    dispatch({ type: 'SET_GEOCODED_DESTINATION', destObject, name: destObject.properties.name, error: null })
+    dispatch({
+      type: 'SET_GEOCODED_DESTINATION',
+      destObject,
+      name: destObject.properties.name,
+      error: null,
+    })
   }
 }
 
@@ -149,8 +160,8 @@ export const getDestinationFromGeocodingResult = (place: GeocodingResult): OdPla
     properties: {
       ...place.properties,
       locationType: LocationType.ADDRESS,
-      odType: OdType.DESTINATION
-    }
+      odType: OdType.DESTINATION,
+    },
   }
 }
 
@@ -158,20 +169,23 @@ const roundCoords = (coord: number) => {
   return Math.round(coord * 10000) / 10000
 }
 
-const getDestinationFromCoords = (coordinates: [number, number], locType: LocationType): OdPlace => {
+const getDestinationFromCoords = (
+  coordinates: [number, number],
+  locType: LocationType,
+): OdPlace => {
   const label = String(roundCoords(coordinates[0])) + ' ' + String(roundCoords(coordinates[1]))
   return {
     geometry: {
       type: 'Point',
-      coordinates
+      coordinates,
     },
     properties: {
       label,
       name: label,
       locationType: locType,
-      odType: OdType.DESTINATION
+      odType: OdType.DESTINATION,
     },
-    type: 'Feature'
+    type: 'Feature',
   }
 }
 

@@ -23,7 +23,7 @@ const PathPanelContainer = styled.div<{ showingOpenedPath?: boolean }>`
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
   }
-  ${(props) =>
+  ${props =>
     props.showingOpenedPath === true &&
     css`
       max-height: calc(100vh - 121px);

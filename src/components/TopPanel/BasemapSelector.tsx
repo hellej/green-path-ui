@@ -37,7 +37,7 @@ const BaseMapOption = styled.div<{ bike?: any; selected: boolean }>`
       border-color: black;
     }
   }
-  ${(props) =>
+  ${props =>
     props.selected === true &&
     css`
       background: #eaf8ff;

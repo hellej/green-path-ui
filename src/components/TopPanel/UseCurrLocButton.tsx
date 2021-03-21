@@ -5,7 +5,7 @@ import T from './../../utils/translator/Translator'
 const Button = styled.div`
   cursor: pointer;
   padding: 3px 10px;
-  margin: 2px 0px 2px -1px;  
+  margin: 2px 0px 2px -1px;
   color: white;
   border-radius: 25px;
   font-weight: 500;
@@ -22,7 +22,7 @@ const Button = styled.div`
   -webkit-transition-duration: 0.2s; /* Safari */
   background-color: #23a50d;
   @media (min-width: 600px) {
-    &:hover { 
+    &:hover {
       background-color: #188007;
     }
   }

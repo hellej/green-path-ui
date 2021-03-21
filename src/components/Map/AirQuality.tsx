@@ -30,8 +30,8 @@ const aqiLineColors = [
 const getUniqueFeatureIds = (features: any[]) => {
   const existingFeatureKeys: Map<number, boolean> = new Map()
   return features
-    .map((feat) => feat.id)
-    .filter((id) => {
+    .map(feat => feat.id)
+    .filter(id => {
       if (existingFeatureKeys.has(id)) {
         return false
       } else {
@@ -59,7 +59,7 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
     const uniqIds = getUniqueFeatureIds(features)
 
     // update feature states with new AQI values
-    uniqIds.forEach((id) => {
+    uniqIds.forEach(id => {
       const aqi = this.data!.get(id)
       if (aqi) {
         map.setFeatureState(
@@ -108,7 +108,7 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
 
   componentDidMount = async () => {
     setTimeout(this.maybeUpdateAqiData, 4000)
-    this.props.map!.on('sourcedata', (e) => {
+    this.props.map!.on('sourcedata', e => {
       if (
         e.isSourceLoaded &&
         e.sourceId === this.source &&

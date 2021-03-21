@@ -4,13 +4,13 @@ import en from './en.json'
 import { Lang } from '../../reducers/uiReducer'
 
 const langs: Record<Lang, Record<string, string>> = {
-  'fi': fi as Record<string, string>,
-  'sv': sv as Record<string, string>,
-  'en': en as Record<string, string>,
+  fi: fi as Record<string, string>,
+  sv: sv as Record<string, string>,
+  en: en as Record<string, string>,
 }
 
 if (process.env.NODE_ENV === 'development') {
-  Object.keys(langs[Lang.EN]).forEach((key) => {
+  Object.keys(langs[Lang.EN]).forEach(key => {
     if (!(key in langs[Lang.FI])) {
       console.error('missing key from FI dict:', key)
     }
@@ -18,12 +18,12 @@ if (process.env.NODE_ENV === 'development') {
       console.log(`missing key "${key}" from SV dict -> defaulting to EN`)
     }
   })
-  Object.keys(langs[Lang.FI]).forEach((key) => {
+  Object.keys(langs[Lang.FI]).forEach(key => {
     if (!(key in langs[Lang.EN])) {
       console.error('missing key from EN dict:', key)
     }
   })
-  Object.keys(langs[Lang.SV]).forEach((key) => {
+  Object.keys(langs[Lang.SV]).forEach(key => {
     if (!(key in langs[Lang.EN])) {
       console.error(`found invalid key "${key}" in SV dict`)
     }
