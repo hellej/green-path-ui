@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { AqiClass, PathFeature } from '../../../types'
 import { utils } from '../../../utils/index'
-import { labelByAqiClass, colorByAqiClass } from './../../../constants'
+import { labelByAqiClass, colorByAqiClass, TravelMode } from './../../../constants'
 import T from './../../../utils/translator/Translator'
 
 const StyledOpenedPathExposures = styled.div`
@@ -83,7 +84,8 @@ export const OpenedPathAqExps = ({
 }) => {
   const aqiClExps = path.properties.aqi_cl_exps
   const aqiKeys = Object.keys(aqiClExps)
-  const aqiCls: AqiClass[] = aqiKeys.map(aqi => Number(aqi)).sort()
+  const aqiCls = aqiKeys.map(aqi => Number(aqi)).sort() as AqiClass[]
+
   return (
     <StyledOpenedPathExposures>
       <StyledOpenedPathExposures>

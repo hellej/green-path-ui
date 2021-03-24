@@ -1,4 +1,5 @@
 import { Action } from 'redux'
+import { AirQualityLayerReducer } from '../types'
 import { showNotification } from './notificationReducer'
 
 const initialAirQualityLayer: AirQualityLayerReducer = {

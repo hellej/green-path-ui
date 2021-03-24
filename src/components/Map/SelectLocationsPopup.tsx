@@ -7,6 +7,7 @@ import { setOriginFromMap } from '../../reducers/originReducer'
 import { setDestinationFromMap } from '../../reducers/destinationReducer'
 import { Button } from '../Button'
 import T from '../../utils/translator/Translator'
+import { ReduxState } from '../../types'
 
 const StyledPopupDiv = styled.div`
   margin: -5px 11px -10px -6px;

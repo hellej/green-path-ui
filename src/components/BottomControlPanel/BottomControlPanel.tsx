@@ -11,6 +11,7 @@ import {
   showPathList,
   showMaxLengthFilterSelector,
 } from './../../reducers/uiReducer'
+import { ReduxState } from '../../types'
 
 const ControlPanel = styled.div<{ pathPanelVisible: boolean }>`
   background: rgba(255, 255, 255, 0.98);

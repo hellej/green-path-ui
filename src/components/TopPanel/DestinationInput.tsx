@@ -11,6 +11,7 @@ import {
   toggleDestinationOptionsVisible,
   resetDestinationInput,
 } from '../../reducers/destinationReducer'
+import { ReduxState } from '../../types'
 
 const DestSelectorDiv = styled.div`
   margin: 5px 5px 5px 5px;

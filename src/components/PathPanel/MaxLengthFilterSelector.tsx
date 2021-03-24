@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { LengthLimit } from '../../types'
 import { CloseButton } from '../Icons'
 import T from './../../utils/translator/Translator'
 
@@ -47,13 +48,13 @@ const StyledMaxLengthOption = styled.div<{ selected?: boolean }>`
   }
 `
 
-interface MaxLengthOption {
+interface IMaxLengthOption {
   ll: LengthLimit
   selected: boolean
   setLengthLimit: Function
 }
 
-const MaxLengthOption = ({ ll, selected, setLengthLimit }: MaxLengthOption) => {
+const MaxLengthOption = ({ ll, selected, setLengthLimit }: IMaxLengthOption) => {
   return (
     <StyledMaxLengthOption selected={selected} onClick={() => setLengthLimit(ll)}>
       {ll.label}

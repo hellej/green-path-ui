@@ -1,3 +1,5 @@
+import { GeocodingResult } from '../types'
+
 const baseUrl =
   process.env.REACT_APP_DT_GEOCODING_URL || 'https://api.digitransit.fi/geocoding/v1/search?'
 

@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { GeoJSONSource } from 'mapbox-gl'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { LayerId } from '../../constants'
+import { ReduxState } from '../../types'
 
 class UserLocation extends React.Component<PropsFromRedux> {
   layerId = LayerId.USER_LOC

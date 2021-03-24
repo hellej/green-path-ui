@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { LengthLimit } from '../../types'
 import { Filter } from './../Icons'
 
 const StyledButton = styled.div<{ disabled: boolean }>`

@@ -6,6 +6,7 @@ import { zoomToFC } from './mapReducer'
 import { extentFeat, egDest } from './../constants'
 import { turf } from './../utils/index'
 import * as geocoding from './../services/geocoding'
+import { OdPlace, LngLat, DestinationReducer, GeocodingResult } from '../types'
 
 const initialDest: DestinationReducer = {
   error: null,

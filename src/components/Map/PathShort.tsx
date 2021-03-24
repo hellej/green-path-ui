@@ -6,6 +6,7 @@ import { scrollToPath } from './../../reducers/pathListReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { clickTol, LayerId } from './../../constants'
 import { utils } from './../../utils/index'
+import { ReduxState } from '../../types'
 
 class PathShort extends React.Component<PropsFromRedux> {
   layerId = LayerId.SHORT_PATH

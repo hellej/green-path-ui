@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Coords } from '../types'
 
 const endpoint = 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql'
 

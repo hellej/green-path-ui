@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
+import { ReduxState } from '../../types'
 
 const DimDiv = styled.div<{ visible?: boolean }>`
   visibility: ${props => (props.visible ? 'visible' : 'hidden')};

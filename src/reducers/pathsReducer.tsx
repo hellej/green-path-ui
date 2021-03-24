@@ -13,6 +13,19 @@ import { utils } from './../utils/index'
 import { Action } from 'redux'
 import * as geocoding from './../services/geocoding'
 import { getErrorNotifKey } from '../utils/translator/dictionary'
+import {
+  PathsReducer,
+  OdCoords,
+  PathFeature,
+  LengthLimit,
+  OdPlace,
+  PathData,
+  EdgeFeatureCollection,
+  PathFeatureCollection,
+  OriginReducer,
+  OdFeatureCollection,
+  DestinationReducer,
+} from './../types'
 
 const initialPaths: PathsReducer = {
   cleanPathsAvailable: false,

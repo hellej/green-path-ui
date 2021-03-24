@@ -3,6 +3,7 @@ import { Action } from 'redux'
 import { LngLat } from 'mapbox-gl'
 import { Basemap, UrlIdByBasemap, UrlStateKey, LayerId } from '../constants'
 import * as urlManager from './../utils/urlManager'
+import { OdPlace, MapReducer, FeatureCollection, PointFeatureCollection } from '../types'
 
 const initialMapState: MapReducer = {
   initialized: false,
@@ -65,12 +66,13 @@ const mapReducer = (store: MapReducer = initialMapState, action: MapAction): Map
       return { ...store, loadedLayers: [] }
     }
 
-    case 'UPDATE_CAMERA':
+    case 'UPDATE_CAMERA': {
       const center = {
         lng: Math.round(action.center.lng * 100000) / 100000,
         lat: Math.round(action.center.lat * 100000) / 100000,
       }
       return { ...store, center, zoom: action.zoom }
+    }
 
     default:
       return store

@@ -1,4 +1,5 @@
 import { Action } from 'redux'
+import { PathListReducer } from '../types'
 
 const initialPathList: PathListReducer = {
   scrollToPath: '',

@@ -5,6 +5,7 @@ import { setMapReferenceForPopups, setSelectLocationsPopup } from './../../reduc
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { clickTol, LayerId } from './../../constants'
 import { utils, turf } from './../../utils/index'
+import { OdPlace, ReduxState } from '../../types'
 
 class OrigDest extends React.Component<PropsFromRedux> {
   layerId = LayerId.ORIG_DEST

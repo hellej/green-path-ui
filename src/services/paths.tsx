@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { analytics } from './../firebase/firebase'
-import { ExposureMode } from '../constants'
+import { ExposureMode, TravelMode } from '../constants'
 import * as cache from './cache'
+import { LngLat, PathData, RawPathProperties, PathProperties, PathDataResponse } from '../types'
 
 const serverUrl = process.env.REACT_APP_GP_SERVER || 'http://localhost:5000/'
 

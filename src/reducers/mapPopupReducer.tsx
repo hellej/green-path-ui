@@ -1,6 +1,7 @@
 import MapboxGl from 'mapbox-gl'
 import { Popup, Map } from 'mapbox-gl'
 import { Action } from 'redux'
+import { LngLat, MapPopupReducer } from '../types'
 
 const initialMapPopups: MapPopupReducer = {
   visible: false,

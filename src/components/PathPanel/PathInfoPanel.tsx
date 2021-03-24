@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { menu } from '../../constants'
 import PathList from './PathList/PathList'
 import OpenedPathInfo from './OpenedPathInfo/OpenedPathInfo'
+import { ReduxState } from '../../types'
 
 const PathInfoPanel = (props: PropsFromRedux) => {
   const { openedPath, pathPanelContent } = props

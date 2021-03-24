@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { colorByAqiClass } from '../../constants'
+import { AqiClass } from '../../types'
 
 const StyledAqiBar = styled.div<{ withMargins?: boolean }>`
   display: flex;
@@ -41,7 +42,7 @@ interface Props {
 
 export const PathAqiBar = ({ aqiPcts, withMargins }: Props) => {
   const aqiKeys = Object.keys(aqiPcts)
-  const aqis: AqiClass[] = aqiKeys.map(aqi => Number(aqi)).sort()
+  const aqis = aqiKeys.map(aqi => Number(aqi)).sort() as AqiClass[]
 
   return (
     <StyledAqiBar withMargins={withMargins}>

@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { DbClass, PathFeature } from '../../../types'
 import { utils } from '../../../utils/index'
-import { dBColors } from './../../../constants'
+import { dBColors, TravelMode } from './../../../constants'
 
 const StyledOpenedPathNoiseExps = styled.div`
   display: flex;

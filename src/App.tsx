@@ -27,6 +27,7 @@ import {
   showWelcomeIfFirstVisit,
   maybeDisableAnalyticsCookies,
 } from './reducers/visitorReducer'
+import { UrlState } from './types'
 
 const AbsoluteContainer = styled.div`
   position: absolute;

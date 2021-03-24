@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, ReactElement } from 'react'
 import MapboxGL from 'mapbox-gl'
 import { connect, ConnectedProps } from 'react-redux'
 import { initializeMap, updateCamera, setLayerLoaded } from './../../reducers/mapReducer'
@@ -7,12 +7,13 @@ import { unsetSelectedPath } from './../../reducers/pathsReducer'
 import { initialMapCenter, initialMapZoom, Basemap, LayerId } from './../../constants'
 import { utils } from './../../utils/index'
 import { clickTol } from './../../constants'
+import { MbMap } from '../../types'
 
 MapboxGL.accessToken =
   process.env.REACT_APP_MB_ACCESS || 'Mapbox token is needed in order to use the map'
 
 interface PropsType {
-  children: JSX.Element[]
+  children: ReactElement[]
 }
 
 interface Props {
@@ -137,8 +138,8 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
       touchAction: 'none',
     }
 
-    const children = React.Children.map(this.props.children, child =>
-      React.cloneElement(child as React.ReactElement<any>, { map: this.map }),
+    const children = React.Children.map(this.props.children, (child: ReactElement) =>
+      React.cloneElement(child, { map: this.map }),
     )
 
     return (

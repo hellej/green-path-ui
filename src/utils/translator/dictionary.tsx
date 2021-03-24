@@ -52,6 +52,8 @@ export const getErrorNotifKey = (errorKey: string): string => {
   return 'notif.error.routing.general_routing_error'
 }
 
-export default (lang: Lang) => {
+const dictionary = (lang: Lang) => {
   return langs[lang]
 }
+
+export default dictionary

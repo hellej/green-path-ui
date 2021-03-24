@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { LayerId } from '../../constants'
+import { MbMap, ReduxState } from '../../types'
 import { setBaseMapChanged, unloadLayers } from './../../reducers/mapReducer'
 
 class MapControl extends Component<PropsFromRedux & { map?: MbMap }> {

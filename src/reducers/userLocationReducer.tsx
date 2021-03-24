@@ -1,5 +1,6 @@
 import { turf } from '../utils/index'
 import { Action } from 'redux'
+import { LngLat, PointFeature, PointFeatureCollection, UserLocationReducer } from '../types'
 
 const geoOptions = {
   enableHighAccuracy: true,
@@ -20,6 +21,13 @@ interface UserLocationAction extends Action {
   lngLat: LngLat
   userLocFC: PointFeatureCollection
   watchId: number
+}
+
+interface Position {
+  coords: {
+    latitude: number
+    longitude: number
+  }
 }
 
 const userLocationReducer = (

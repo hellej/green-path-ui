@@ -10,6 +10,7 @@ import {
 } from './../../reducers/airQualityLayerReducer'
 import { aqiMapColorByAqiClass, Basemap, LayerId } from '../../constants'
 import * as aqi from '../../services/aqi'
+import { MbMap, ReduxState } from '../../types'
 
 // prettier-ignore
 const aqiLineColors = [
@@ -24,7 +25,7 @@ const aqiLineColors = [
   7, aqiMapColorByAqiClass[7],
   8, aqiMapColorByAqiClass[8],
   9, aqiMapColorByAqiClass[9],
-  /* other */ '#3d3d3d'
+  /* other */ '#3d3d3d',
 ]
 
 const getUniqueFeatureIds = (features: any[]) => {

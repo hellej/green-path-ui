@@ -7,6 +7,7 @@ import { showPathList } from './../../reducers/uiReducer'
 import MaxLengthFilterSelector from './MaxLengthFilterSelector'
 import PathInfoPanel from './PathInfoPanel'
 import LoadAnimation from './../LoadAnimation/LoadAnimation'
+import { ReduxState } from '../../types'
 
 const PathPanelContainer = styled.div<{ showingOpenedPath?: boolean }>`
   margin: 0px;

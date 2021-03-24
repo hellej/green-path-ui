@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled, { css } from 'styled-components'
+import { ReduxState } from '../types'
 import T from './../utils/translator/Translator'
 
 const OuterFlex = styled.div`

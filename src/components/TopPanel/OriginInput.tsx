@@ -14,6 +14,7 @@ import {
   useUserLocationOrigin,
 } from '../../reducers/originReducer'
 import LoadAnimation from './../LoadAnimation/LoadAnimation'
+import { OdPlace, ReduxState } from '../../types'
 
 const OrigSelectorDiv = styled.div`
   margin: 5px 5px 5px 5px;
@@ -168,7 +169,7 @@ class OriginInput extends Component<PropsFromRedux> {
               />
             </OrigOption>
             {originInputText.length < 3 &&
-              this.props.usedOds.map(odPlace => (
+              this.props.usedOds.map((odPlace: OdPlace) => (
                 <OrigOption
                   key={odPlace.properties.label}
                   style={{ color: '#ff38ff' }}

@@ -2,6 +2,7 @@ import { PureComponent } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import dictionary from './dictionary'
 import { Lang } from '../../reducers/uiReducer'
+import { ReduxState } from '../../types'
 
 interface PropsType {
   children: string

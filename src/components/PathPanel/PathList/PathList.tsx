@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 import { ExposureMode } from '../../../constants'
 import { setSelectedPath, setOpenedPath } from '../../../reducers/pathsReducer'
+import { ReduxState } from '../../../types'
 import CarTripInfo from './CarTripInfo'
 import PathListPathBox from './PathListPathBox'
 

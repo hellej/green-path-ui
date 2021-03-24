@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { dBColors } from '../../constants'
+import { DbClass } from '../../types'
 
 const StyledNoiseBar = styled.div<{ withMargins?: boolean }>`
   display: flex;
@@ -41,7 +42,7 @@ interface PathNoisesBarProps {
 
 export const PathNoisesBar = ({ noisePcts, withMargins }: PathNoisesBarProps) => {
   const dBKeys = Object.keys(noisePcts)
-  const dBs: DbClass[] = dBKeys.map(dB => Number(dB)).sort()
+  const dBs = dBKeys.map(dB => Number(dB)).sort() as DbClass[]
 
   return (
     <StyledNoiseBar withMargins={withMargins}>

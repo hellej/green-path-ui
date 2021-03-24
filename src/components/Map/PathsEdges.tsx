@@ -4,6 +4,7 @@ import { GeoJSONSource } from 'mapbox-gl'
 import { setSelectedPath } from '../../reducers/pathsReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { dBColors, colorByAqiClass, ExposureMode, LayerId } from '../../constants'
+import { ReduxState } from '../../types'
 
 // prettier-ignore
 const dbLineColors = [
@@ -15,7 +16,7 @@ const dbLineColors = [
   60, dBColors[60],
   65, dBColors[65],
   70, dBColors[70],
-  /* other */ 'white'
+  /* other */ 'white',
 ]
 
 // prettier-ignore
@@ -31,7 +32,7 @@ const aqiLineColors = [
   7, colorByAqiClass[7],
   8, colorByAqiClass[8],
   9, colorByAqiClass[9],
-  /* other */ 'white'
+  /* other */ 'white',
 ]
 
 class PathsEdges extends React.Component<PropsFromRedux> {

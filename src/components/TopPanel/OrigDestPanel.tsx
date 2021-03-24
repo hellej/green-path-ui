@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import OriginInput from './OriginInput'
 import DestinationInput from './DestinationInput'
+import { ReduxState } from '../../types'
 
 const OdContainer = styled.div<{ hide?: boolean }>`
   pointer-events: auto;

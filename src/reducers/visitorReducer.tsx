@@ -3,6 +3,7 @@ import { setOdPanelHidden, showInfo } from './uiReducer'
 import { Action } from 'redux'
 import { setBaseMap } from './mapReducer'
 import { defaultBasemap } from '../constants'
+import { OdPlace, UrlState, VisitorReducer } from '../types'
 
 const initialVisitorState: VisitorReducer = {
   visitedBefore: false,

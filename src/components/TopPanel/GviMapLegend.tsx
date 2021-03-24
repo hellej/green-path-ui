@@ -2,6 +2,7 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 import { Basemap, gviMapColorByGviClass } from '../../constants'
+import { GviClass, ReduxState } from '../../types'
 import T from '../../utils/translator/Translator'
 
 const Container = styled.div`

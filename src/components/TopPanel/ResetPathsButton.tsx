@@ -4,6 +4,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { resetPaths } from '../../reducers/pathsReducer'
 import { IoIosArrowBack } from 'react-icons/io'
 import { turf } from './../../utils/index'
+import { ReduxState } from '../../types'
 
 const ButtonContainer = styled.div`
   padding: 2px 3px 2px 0px;

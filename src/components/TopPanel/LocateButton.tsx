@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { MdNearMe } from 'react-icons/md'
 import { zoomToUserLocation } from '../../reducers/userLocationReducer'
+import { ReduxState } from '../../types'
 
 const ButtonContainer = styled.div`
   padding: 2px 3px 2px 2px;

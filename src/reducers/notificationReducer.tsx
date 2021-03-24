@@ -1,4 +1,5 @@
 import { Action } from 'redux'
+import { NotificationReducer } from '../types'
 
 const initialNotification: NotificationReducer = {
   text: null,
@@ -41,7 +42,7 @@ export const showNotification = (text: string, look: string, notifTime: number) 
     if (rmNotifTimeout) {
       // wait for the current notification to get removed before showing the new one
       rmNotification()
-      await new Promise(resolve => {
+      await new Promise<void>(resolve => {
         rmNotifTimeout = setTimeout(() => {
           dispatch(rmNotification())
           resolve()
@@ -52,7 +53,7 @@ export const showNotification = (text: string, look: string, notifTime: number) 
     // show new notification after removing the old one
     dispatch({ type: 'SHOWNOTIF', text, look })
 
-    await new Promise(resolve => {
+    await new Promise<void>(resolve => {
       rmNotifTimeout = setTimeout(() => {
         dispatch(rmNotification())
         resolve()

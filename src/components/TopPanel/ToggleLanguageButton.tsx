@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { toggleLanguage, Lang } from './../../reducers/uiReducer'
+import { ReduxState } from '../../types'
 
 const StyledButton = styled.div`
   pointer-events: auto;

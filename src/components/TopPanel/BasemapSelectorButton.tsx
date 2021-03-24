@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { showInfo } from './../../reducers/uiReducer'
 import { FaLayerGroup } from 'react-icons/fa'
+import { ReduxState } from '../../types'
 
 const StyledLayersIcon = styled(FaLayerGroup)`
   font-size: 23px;

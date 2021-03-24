@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { getSetCleanPaths, getSetQuietPaths } from '../reducers/pathsReducer'
 import T from './../utils/translator/Translator'
+import { ReduxState } from '../types'
 
 const OuterFlex = styled.div`
   display: flex;

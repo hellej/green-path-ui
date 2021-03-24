@@ -9,6 +9,7 @@ import {
 } from '../../reducers/pathsReducer'
 import { ExposureMode } from '../../constants'
 import T from './../../utils/translator/Translator'
+import { ReduxState } from '../../types'
 
 const Button = styled.div<{ disabled: boolean }>`
   cursor: pointer;

@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { setLanguage, Lang } from './../../reducers/uiReducer'
+import { ReduxState } from '../../types'
 
 const ButtonPair = styled.div`
   display: flex;

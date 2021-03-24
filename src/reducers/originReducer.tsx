@@ -6,6 +6,7 @@ import { startTrackingUserLocation } from './userLocationReducer'
 import { turf } from './../utils/index'
 import { extentFeat, egOrigin } from './../constants'
 import * as geocoding from './../services/geocoding'
+import { LngLat, GeocodingResult, OdPlace, OriginReducer, UserLocationReducer } from '../types'
 
 export enum LocationType {
   ADDRESS = 'address',
