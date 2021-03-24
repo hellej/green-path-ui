@@ -6,7 +6,6 @@
     "es6": true
   },
   "extends": ["react-app", "eslint:recommended", "plugin:cypress/recommended", "prettier"],
-  "parser": "babel-eslint",
   "globals": {
     "test": true,
     "expect": true,
@@ -22,17 +21,22 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single", "avoid-escape"],
     "semi": ["error", "never"],
+    "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/semi": ["error", "never"],
-    "@typescript-eslint/member-delimiter-style": {
-      "multiline": {
-        "delimiter": "none",
-        "requireLast": false
-      },
-      "singleline": {
-        "delimiter": "none",
-        "requireLast": false
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        },
+        "multilineDetection": "brackets"
       }
-    },
+    ],
     "eqeqeq": "error",
     "no-trailing-spaces": "error",
     "object-curly-spacing": ["error", "always"],
