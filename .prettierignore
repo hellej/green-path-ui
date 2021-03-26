@@ -1,2 +1,3 @@
+.github/workflows/*
 src/components/Button.tsx
 src/scenes/WelcomeInfo/WelcomeInfo.tsx
