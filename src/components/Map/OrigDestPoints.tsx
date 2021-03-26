@@ -5,6 +5,7 @@ import { setMapReferenceForPopups, setSelectLocationsPopup } from './../../reduc
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { clickTol, LayerId } from './../../constants'
 import { utils, turf } from './../../utils/index'
+import { OdPlace, ReduxState } from '../../types'
 
 class OrigDest extends React.Component<PropsFromRedux> {
   layerId = LayerId.ORIG_DEST
@@ -13,13 +14,15 @@ class OrigDest extends React.Component<PropsFromRedux> {
     'circle-color': [
       'match',
       ['get', 'odType'],
-      'orig', '#00fffa',
-      'dest', '#00ff4c',
-            /* other */ '#51ff7c'
+      'orig',
+      '#00fffa',
+      'dest',
+      '#00ff4c',
+      /* other */ '#51ff7c',
     ],
     'circle-stroke-color': 'black',
     'circle-radius': 5,
-    'circle-stroke-width': 2
+    'circle-stroke-width': 2,
   }
 
   loadLayerToMap(map: any) {
@@ -68,7 +71,12 @@ class OrigDest extends React.Component<PropsFromRedux> {
       setMapReferenceForPopups(map)
       map.on('click', (e: MapMouseEvent) => {
         // show popup only if path was not clicked
-        const features = utils.getLayersFeaturesAroundClickE([LayerId.GREEN_PATHS, LayerId.SHORT_PATH], e, clickTol, map)
+        const features = utils.getLayersFeaturesAroundClickE(
+          [LayerId.GREEN_PATHS, LayerId.SHORT_PATH],
+          e,
+          clickTol,
+          map,
+        )
         if (features.length === 0) {
           setSelectLocationsPopup(e.lngLat)
         }
@@ -85,7 +93,6 @@ class OrigDest extends React.Component<PropsFromRedux> {
     if (this.props.basemapChangeId !== prevProps.basemapChangeId) {
       this.loadLayerToMap(map)
     }
-
   }
 
   render() {
@@ -96,7 +103,7 @@ class OrigDest extends React.Component<PropsFromRedux> {
 const mapStateToProps = (state: ReduxState) => ({
   originPoint: state.origin.originObject,
   destinationPoint: state.destination.destObject,
-  basemapChangeId: state.map.basemapChangeId
+  basemapChangeId: state.map.basemapChangeId,
 })
 
 const connector = connect(mapStateToProps, { setSelectLocationsPopup, setLayerLoaded })

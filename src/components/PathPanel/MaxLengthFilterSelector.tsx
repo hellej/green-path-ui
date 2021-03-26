@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { LengthLimit } from '../../types'
 import { CloseButton } from '../Icons'
 import T from './../../utils/translator/Translator'
 
@@ -33,25 +34,27 @@ const StyledMaxLengthOption = styled.div<{ selected?: boolean }>`
   background-color: white;
   border: 1px solid black;
   color: black;
-  ${props => props.selected === true && css`
-    background-color: #0b5d21;
-    border-color: #0b5d21;
-    color: white;
-  `}
+  ${props =>
+    props.selected === true &&
+    css`
+      background-color: #0b5d21;
+      border-color: #0b5d21;
+      color: white;
+    `}
   @media (min-width: 600px) {
-    &:hover { 
+    &:hover {
       margin-left: 6px;
     }
   }
 `
 
-interface MaxLengthOption {
-  ll: LengthLimit,
-  selected: boolean,
+interface IMaxLengthOption {
+  ll: LengthLimit
+  selected: boolean
   setLengthLimit: Function
 }
 
-const MaxLengthOption = ({ ll, selected, setLengthLimit }: MaxLengthOption) => {
+const MaxLengthOption = ({ ll, selected, setLengthLimit }: IMaxLengthOption) => {
   return (
     <StyledMaxLengthOption selected={selected} onClick={() => setLengthLimit(ll)}>
       {ll.label}
@@ -60,25 +63,36 @@ const MaxLengthOption = ({ ll, selected, setLengthLimit }: MaxLengthOption) => {
 }
 
 interface MaxLengthFilterSelectorProps {
-  lengthLimit: LengthLimit,
-  lengthLimits: LengthLimit[],
-  setLengthLimit: Function,
-  showPathList: React.MouseEventHandler<HTMLElement>,
+  lengthLimit: LengthLimit
+  lengthLimits: LengthLimit[]
+  setLengthLimit: Function
+  showPathList: React.MouseEventHandler<HTMLElement>
 }
 
-const MaxLengthFilterSelector = ({ lengthLimit, lengthLimits, setLengthLimit, showPathList }: MaxLengthFilterSelectorProps) => {
+const MaxLengthFilterSelector = ({
+  lengthLimit,
+  lengthLimits,
+  setLengthLimit,
+  showPathList,
+}: MaxLengthFilterSelectorProps) => {
   return (
     <OuterDiv>
       <FlexRow>
-        <TooltipStyle><T>filter_paths_by_distance.tooltip</T></TooltipStyle>
-        <CloseButtonBox id='close-filter-panel'><CloseButton size={50} onClick={showPathList} /> </CloseButtonBox>
+        <TooltipStyle>
+          <T>filter_paths_by_distance.tooltip</T>
+        </TooltipStyle>
+        <CloseButtonBox id="close-filter-panel">
+          <CloseButton size={50} onClick={showPathList} />
+        </CloseButtonBox>
       </FlexRow>
       {lengthLimits.map(ll => (
         <MaxLengthOption
           key={ll.label}
           ll={ll}
           selected={lengthLimit.limit === ll.limit}
-          setLengthLimit={setLengthLimit} />))}
+          setLengthLimit={setLengthLimit}
+        />
+      ))}
     </OuterDiv>
   )
 }

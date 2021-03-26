@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { GeoJSONSource } from 'mapbox-gl'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { LayerId } from '../../constants'
+import { ReduxState } from '../../types'
 
 class UserLocation extends React.Component<PropsFromRedux> {
   layerId = LayerId.USER_LOC
@@ -11,7 +12,7 @@ class UserLocation extends React.Component<PropsFromRedux> {
     'circle-stroke-color': '#ff38ff',
     'circle-color': 'transparent',
     'circle-radius': 10,
-    'circle-stroke-width': 2.5
+    'circle-stroke-width': 2.5,
   }
 
   loadLayerToMap(map: any) {

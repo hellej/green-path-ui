@@ -2,6 +2,7 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 import { Basemap, dBColors } from '../../constants'
+import { DbClass, ReduxState } from '../../types'
 import T from '../../utils/translator/Translator'
 
 const Container = styled.div`
@@ -61,7 +62,7 @@ const NoiseMapLegend = (props: PropsFromRedux) => {
           <T>basemap.traffic_noise.legend.title</T> (dB)
         </TitleRow>
         <ColorRow>
-          {[...Object.keys(dBColors)].map((k) => (
+          {[...Object.keys(dBColors)].map(k => (
             <ColorLabelBox key={k}>
               <ColorBox key={k} style={{ backgroundColor: dBColors[parseInt(k) as DbClass] }} />
               <div>{k}</div>

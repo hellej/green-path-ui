@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { DbClass, PathFeature } from '../../../types'
 import { utils } from '../../../utils/index'
-import { dBColors } from './../../../constants'
+import { dBColors, TravelMode } from './../../../constants'
 
 const StyledOpenedPathNoiseExps = styled.div`
   display: flex;
@@ -54,8 +55,8 @@ const ExposureBox = styled.div`
 `
 
 interface dBExposureRowProps {
-  path: PathFeature,
-  dB: DbClass,
+  path: PathFeature
+  dB: DbClass
   travelMode: TravelMode
 }
 
@@ -64,16 +65,24 @@ const DBExposureRow = ({ path, dB, travelMode }: dBExposureRowProps) => {
   return (
     <KeyValueFlex>
       <DBKeyBox color={dBColors[dB]}>{dB}dB</DBKeyBox>
-      <ExposureBox>{utils.getDurationStringFromDist(dist ? dist : 0, travelMode, true)} </ExposureBox>
+      <ExposureBox>
+        {utils.getDurationStringFromDist(dist ? dist : 0, travelMode, true)}
+      </ExposureBox>
     </KeyValueFlex>
   )
 }
 
-export const OpenedPathNoiseExps = ({ path, travelMode }: { path: PathFeature, travelMode: TravelMode }) => {
+export const OpenedPathNoiseExps = ({
+  path,
+  travelMode,
+}: {
+  path: PathFeature
+  travelMode: TravelMode
+}) => {
   return (
     <StyledOpenedPathNoiseExps>
       <PathPropsRow>
-        <FlexCols >
+        <FlexCols>
           <DBExposureRow path={path} dB={40} travelMode={travelMode} />
           <DBExposureRow path={path} dB={50} travelMode={travelMode} />
           <DBExposureRow path={path} dB={55} travelMode={travelMode} />

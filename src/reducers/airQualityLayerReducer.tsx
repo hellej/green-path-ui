@@ -1,4 +1,5 @@
 import { Action } from 'redux'
+import { AirQualityLayerReducer } from '../types'
 import { showNotification } from './notificationReducer'
 
 const initialAirQualityLayer: AirQualityLayerReducer = {
@@ -22,7 +23,6 @@ const airQualityLayerReducer = (
   action: AqAction,
 ): AirQualityLayerReducer => {
   switch (action.type) {
-
     case 'SET_LOADING_DATA':
       return { ...store, loadingData: action.loadingData }
 

@@ -4,6 +4,7 @@ import { setVisitedStatusVisited, getVisitedStatus } from './visitorReducer'
 import { testGreenPathServiceConnection } from './pathsReducer'
 import { Action } from 'redux'
 import * as urlManager from './../utils/urlManager'
+import { UiReducer } from '../types'
 
 export enum Lang {
   FI = 'fi',

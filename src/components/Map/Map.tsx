@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, ReactElement } from 'react'
 import MapboxGL from 'mapbox-gl'
 import { connect, ConnectedProps } from 'react-redux'
 import { initializeMap, updateCamera, setLayerLoaded } from './../../reducers/mapReducer'
@@ -7,20 +7,22 @@ import { unsetSelectedPath } from './../../reducers/pathsReducer'
 import { initialMapCenter, initialMapZoom, Basemap, LayerId } from './../../constants'
 import { utils } from './../../utils/index'
 import { clickTol } from './../../constants'
+import { MbMap } from '../../types'
 
-MapboxGL.accessToken = process.env.REACT_APP_MB_ACCESS || 'Mapbox token is needed in order to use the map'
+MapboxGL.accessToken =
+  process.env.REACT_APP_MB_ACCESS || 'Mapbox token is needed in order to use the map'
 
 interface PropsType {
-  children: JSX.Element[],
+  children: ReactElement[]
 }
 
 interface Props {
-  basemap: Basemap | undefined
+  basemap: Basemap | undefined
 }
 
 type State = {
-  loaded: boolean,
-  isReady: boolean,
+  loaded: boolean
+  isReady: boolean
   flying: boolean
 }
 
@@ -35,7 +37,6 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
   }
 
   componentDidMount() {
-
     this.setupMapWindow()
 
     this.map = new MapboxGL.Map({
@@ -44,7 +45,7 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
       center: initialMapCenter,
       zoom: initialMapZoom,
       boxZoom: false,
-      trackResize: true
+      trackResize: true,
     })
 
     this.map.on('style.load', () => {
@@ -71,12 +72,16 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
       if (process.env.REACT_APP_DEBUG_GRAPH === 'True') {
         debugNearestEdgeAttrs(e.lngLat)
       }
-      const features = utils.getLayersFeaturesAroundClickE([LayerId.GREEN_PATHS, LayerId.SHORT_PATH], e, clickTol, this.map!)
+      const features = utils.getLayersFeaturesAroundClickE(
+        [LayerId.GREEN_PATHS, LayerId.SHORT_PATH],
+        e,
+        clickTol,
+        this.map!,
+      )
       if (features.length === 0) {
         this.props.unsetSelectedPath()
       }
     })
-
   }
 
   componentDidUpdate(prevProps: PropsFromRedux, prevState: State) {
@@ -91,13 +96,21 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
     window.addEventListener('orientationchange', this.updateWindowDimensions)
-    this.mapContainer.addEventListener('touchmove', (e: any) => { e.preventDefault() }, { passive: false })
+    this.mapContainer.addEventListener(
+      'touchmove',
+      (e: any) => {
+        e.preventDefault()
+      },
+      { passive: false },
+    )
   }
 
   updateWindowDimensions = () => {
     if (!this.map) return
     this.forceUpdate()
-    setTimeout(() => { this.resizeMap() }, 300)
+    setTimeout(() => {
+      this.resizeMap()
+    }, 300)
   }
 
   resizeMap = () => {
@@ -122,14 +135,20 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
       width: '100%',
       height: window.innerHeight,
       overflow: 'hidden',
-      touchAction: 'none'
+      touchAction: 'none',
     }
 
-    const children = React.Children.map(this.props.children, child =>
-      React.cloneElement(child as React.ReactElement<any>, { map: this.map }))
+    const children = React.Children.map(this.props.children, (child: ReactElement) =>
+      React.cloneElement(child, { map: this.map }),
+    )
 
     return (
-      <div style={mapStyle} ref={el => { this.mapContainer = el }}>
+      <div
+        style={mapStyle}
+        ref={el => {
+          this.mapContainer = el
+        }}
+      >
         {this.state.isReady && this.map !== null && children}
       </div>
     )

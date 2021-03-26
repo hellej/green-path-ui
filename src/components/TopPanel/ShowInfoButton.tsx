@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { showInfo } from './../../reducers/uiReducer'
+import { ReduxState } from '../../types'
 
 const StyledButton = styled.div`
   margin: 17px 5px 0px 0px;
@@ -26,13 +27,11 @@ const StyledButton = styled.div`
 `
 
 const ShowInfoButton = (props: PropsFromRedux) => {
-  return (
-    <StyledButton id='show-info-button' onClick={props.showInfo} />
-  )
+  return <StyledButton id="show-info-button" onClick={props.showInfo} />
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  ui: state.ui
+  ui: state.ui,
 })
 
 const connector = connect(mapStateToProps, { showInfo })

@@ -8,6 +8,7 @@ import { CloseButton } from './../Icons'
 import { Basemap } from '../../constants'
 import T from '../../utils/translator/Translator'
 import { useLocation, useHistory } from 'react-router-dom'
+import { ReduxState } from '../../types'
 
 const Wrapper = styled.div`
   margin: 15px 5px 0px 0px;
@@ -37,7 +38,7 @@ const BaseMapOption = styled.div<{ bike?: any; selected: boolean }>`
       border-color: black;
     }
   }
-  ${(props) =>
+  ${props =>
     props.selected === true &&
     css`
       background: #eaf8ff;

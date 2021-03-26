@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { GeoJSONSource } from 'mapbox-gl'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { LayerId } from '../../constants'
+import { ReduxState } from '../../types'
 
 class PathSelected extends React.Component<PropsFromRedux> {
   layerId = LayerId.SELECTED_PATH
@@ -64,7 +65,6 @@ class PathSelected extends React.Component<PropsFromRedux> {
     } else {
       this.updateLayerData(map)
     }
-
   }
 
   render() {
@@ -75,7 +75,7 @@ class PathSelected extends React.Component<PropsFromRedux> {
 const mapStateToProps = (state: ReduxState) => ({
   selPathFC: state.paths.selPathFC,
   lengthLimit: state.paths.lengthLimit,
-  basemapChangeId: state.map.basemapChangeId
+  basemapChangeId: state.map.basemapChangeId,
 })
 
 const connector = connect(mapStateToProps, { setLayerLoaded })

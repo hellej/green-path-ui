@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import OriginInput from './OriginInput'
 import DestinationInput from './DestinationInput'
+import { ReduxState } from '../../types'
 
 const OdContainer = styled.div<{ hide?: boolean }>`
   pointer-events: auto;
@@ -10,9 +11,11 @@ const OdContainer = styled.div<{ hide?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  ${props => props.hide === true && css`
-    display: none;
-  `}
+  ${props =>
+    props.hide === true &&
+    css`
+      display: none;
+    `}
   @media (min-width: 780px) {
     flex-direction: row;
     justify-content: space-evenly;
@@ -23,7 +26,7 @@ const OrigDestPanel = (props: PropsFromRedux) => {
   const { showingPaths, waitingPaths } = props
 
   return (
-    <OdContainer id='od-container' hide={waitingPaths || showingPaths}>
+    <OdContainer id="od-container" hide={waitingPaths || showingPaths}>
       <OriginInput />
       <DestinationInput />
     </OdContainer>
@@ -32,9 +35,8 @@ const OrigDestPanel = (props: PropsFromRedux) => {
 
 const mapStateToProps = (state: ReduxState) => ({
   waitingPaths: state.paths.waitingPaths,
-  showingPaths: state.paths.showingPaths
+  showingPaths: state.paths.showingPaths,
 })
-
 
 const connector = connect(mapStateToProps, {})
 type PropsFromRedux = ConnectedProps<typeof connector>

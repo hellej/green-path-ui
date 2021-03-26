@@ -3,6 +3,7 @@ import { setOdPanelHidden, showInfo } from './uiReducer'
 import { Action } from 'redux'
 import { setBaseMap } from './mapReducer'
 import { defaultBasemap } from '../constants'
+import { OdPlace, UrlState, VisitorReducer } from '../types'
 
 const initialVisitorState: VisitorReducer = {
   visitedBefore: false,
@@ -27,7 +28,7 @@ const visitorReducer = (
 
     case 'SET_USED_OD': {
       const filteredOds = store.usedOds.filter(
-        (od) => od.properties.label !== action.odObject.properties.label,
+        od => od.properties.label !== action.odObject.properties.label,
       )
       filteredOds.unshift(action.odObject)
       return { ...store, usedOds: filteredOds.slice(0, 10) }

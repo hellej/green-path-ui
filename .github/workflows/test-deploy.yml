@@ -11,6 +11,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          build: npm run build
           browser: chrome
           spec: cypress/integration/basic-routing.spec.js
           start: npm start

@@ -1,20 +1,20 @@
 import styled, { css } from 'styled-components'
 
 interface Props {
-  visible?: boolean,
-  border?: any,
-  small?: any,
-  smaller?: any,
-  smallest?: any,
-  green?: any,
-  white?: any,
-  bold?: any,
-  shadow?: any,
+  visible?: boolean
+  border?: any
+  small?: any
+  smaller?: any
+  smallest?: any
+  green?: any
+  white?: any
+  bold?: any
+  shadow?: any
   disabled?: boolean
 }
 
 export const Button = styled.div.attrs((props: Props) => ({
-  style: ({ display: props.visible ? '' : 'none', })
+  style: ({ display: props.visible ? '' : 'none' }),
 })) <Props>`
   cursor: pointer;
   padding: 6px 14px;
@@ -73,5 +73,5 @@ export const Button = styled.div.attrs((props: Props) => ({
 `
 
 Button.defaultProps = {
-  visible: true
+  visible: true,
 }

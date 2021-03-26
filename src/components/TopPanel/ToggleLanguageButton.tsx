@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { toggleLanguage, Lang } from './../../reducers/uiReducer'
+import { ReduxState } from '../../types'
 
 const StyledButton = styled.div`
   pointer-events: auto;
@@ -13,16 +14,14 @@ const StyledButton = styled.div`
 
 const ToggleLanguageButton = (props: PropsFromRedux) => {
   return (
-    <StyledButton
-      id='toggle-lang-button'
-      onClick={() => props.toggleLanguage(props.lang)}>
+    <StyledButton id="toggle-lang-button" onClick={() => props.toggleLanguage(props.lang)}>
       {props.lang === Lang.EN ? 'FI' : props.lang === Lang.FI ? 'SV' : 'EN'}
     </StyledButton>
   )
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  lang: state.ui.lang
+  lang: state.ui.lang,
 })
 
 const connector = connect(mapStateToProps, { toggleLanguage })

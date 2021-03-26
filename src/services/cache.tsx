@@ -1,9 +1,8 @@
-
 const maxCacheSize = 10
 
 interface Cached {
-  timestamp: number,
-  maxAgeS: number | null,
+  timestamp: number
+  maxAgeS: number | null
   data: any
 }
 
@@ -24,9 +23,9 @@ const removeCachedItem = (key: string): void => {
   if (key in cache) {
     delete cache[key]
   }
-  const index = cacheKeys.indexOf(key);
+  const index = cacheKeys.indexOf(key)
   if (index > -1) {
-    cacheKeys.splice(index, 1);
+    cacheKeys.splice(index, 1)
   }
 }
 

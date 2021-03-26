@@ -3,13 +3,29 @@ import * as paths from './../services/paths'
 import * as carTrips from './../services/carTrips'
 import { zoomToFC } from './mapReducer'
 import { setOriginDuringRouting, getOriginFromGeocodingResult, LocationType } from './originReducer'
-import { setDestinationDuringRouting, getDestinationFromGeocodingResult } from './destinationReducer'
+import {
+  setDestinationDuringRouting,
+  getDestinationFromGeocodingResult,
+} from './destinationReducer'
 import { showNotification } from './notificationReducer'
 import { ExposureMode, PathType, TravelMode, StatsType, extentFeat } from './../constants'
 import { utils } from './../utils/index'
 import { Action } from 'redux'
 import * as geocoding from './../services/geocoding'
 import { getErrorNotifKey } from '../utils/translator/dictionary'
+import {
+  PathsReducer,
+  OdCoords,
+  PathFeature,
+  LengthLimit,
+  OdPlace,
+  PathData,
+  EdgeFeatureCollection,
+  PathFeatureCollection,
+  OriginReducer,
+  OdFeatureCollection,
+  DestinationReducer,
+} from './../types'
 
 const initialPaths: PathsReducer = {
   cleanPathsAvailable: false,
@@ -34,40 +50,38 @@ const initialPaths: PathsReducer = {
 }
 
 interface PathsAction extends Action {
-  selectedTravelMode: TravelMode,
-  b_available: boolean,
-  routingId: number,
-  odCoords: OdCoords,
-  shortPath: PathFeature[],
-  lengthLimit: LengthLimit,
-  lengthLimits: LengthLimit[],
-  initialLengthLimit: LengthLimit,
-  origCoords: [number, number],
-  destCoords: [number, number],
-  quietPaths: PathFeature[],
-  cleanPaths: PathFeature[],
-  quietEdgeFC: EdgeFeatureCollection,
-  cleanEdgeFC: EdgeFeatureCollection,
-  carTripInfo: carTrips.CarTripInfo | undefined,
-  selPathId: string,
-  selPath: PathFeature,
+  selectedTravelMode: TravelMode
+  b_available: boolean
+  routingId: number
+  odCoords: OdCoords
+  shortPath: PathFeature[]
+  lengthLimit: LengthLimit
+  lengthLimits: LengthLimit[]
+  initialLengthLimit: LengthLimit
+  origCoords: [number, number]
+  destCoords: [number, number]
+  quietPaths: PathFeature[]
+  cleanPaths: PathFeature[]
+  quietEdgeFC: EdgeFeatureCollection
+  cleanEdgeFC: EdgeFeatureCollection
+  carTripInfo: carTrips.CarTripInfo | undefined
+  selPathId: string
+  selPath: PathFeature
   path: PathFeature
 }
 
 const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): PathsReducer => {
-
   switch (action.type) {
-
     case 'SET_AQI_STATUS':
       return {
         ...store,
-        cleanPathsAvailable: action.b_available
+        cleanPathsAvailable: action.b_available,
       }
 
     case 'SET_TRAVEL_MODE':
       return {
         ...store,
-        selectedTravelMode: action.selectedTravelMode
+        selectedTravelMode: action.selectedTravelMode,
       }
 
     case 'ROUTING_STARTED':
@@ -75,7 +89,7 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
         ...store,
         waitingPaths: true,
         routingId: action.routingId,
-        selectedTravelMode: action.selectedTravelMode
+        selectedTravelMode: action.selectedTravelMode,
       }
 
     case 'SET_SHORTEST_PATH': {
@@ -144,16 +158,20 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
       if (clickedPathAgain(store.selPathFC, action.selPathId)) {
         return {
           ...store,
-          selPathFC: turf.asFeatureCollection([])
+          selPathFC: turf.asFeatureCollection([]),
         }
       } else {
         let selPath: PathFeature[]
         if (action.selPathId === PathType.SHORT) {
           selPath = store.shortPathFC.features
         } else if (store.showingPathsOfExposureMode === ExposureMode.QUIET) {
-          selPath = store.quietPathFC.features.filter(feat => feat.properties!.id === action.selPathId)
+          selPath = store.quietPathFC.features.filter(
+            feat => feat.properties!.id === action.selPathId,
+          )
         } else if (store.showingPathsOfExposureMode === ExposureMode.CLEAN) {
-          selPath = store.cleanPathFC.features.filter(feat => feat.properties!.id === action.selPathId)
+          selPath = store.cleanPathFC.features.filter(
+            feat => feat.properties!.id === action.selPathId,
+          )
         }
         console.log('selecting path:', selPath! ? selPath![0].properties : 'no selection')
         return {
@@ -167,13 +185,14 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
 
     case 'SET_CAR_TRIP_INFO':
       return {
-        ...store, carTripInfo: action.carTripInfo
+        ...store,
+        carTripInfo: action.carTripInfo,
       }
 
     case 'UNSET_SELECTED_PATH':
       return {
         ...store,
-        selPathFC: turf.asFeatureCollection([])
+        selPathFC: turf.asFeatureCollection([]),
       }
 
     case 'SET_OPENED_PATH':
@@ -186,17 +205,19 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
     case 'UNSET_OPENED_PATH':
       return {
         ...store,
-        openedPath: null
+        openedPath: null,
       }
 
     case 'SET_LENGTH_LIMIT':
       return {
         ...store,
-        lengthLimit: action.lengthLimit
+        lengthLimit: action.lengthLimit,
       }
 
     case 'ERROR_IN_ROUTING': {
-      const selectedTravelMode = store.showingPathsOfTravelMode ? store.showingPathsOfTravelMode : store.selectedTravelMode
+      const selectedTravelMode = store.showingPathsOfTravelMode
+        ? store.showingPathsOfTravelMode
+        : store.selectedTravelMode
       return { ...store, waitingPaths: false, selectedTravelMode }
     }
 
@@ -227,7 +248,13 @@ export const testGreenPathServiceConnection = () => {
     try {
       const connTestResponse = await paths.getConnectionTestResponse()
       const tookTime = Math.round(performance.now() - startTime)
-      console.log('connection to gp service ok, response:', connTestResponse, 'took:', tookTime, 'ms')
+      console.log(
+        'connection to gp service ok, response:',
+        connTestResponse,
+        'took:',
+        tookTime,
+        'ms',
+      )
       if (tookTime < 3000) {
         dispatch({ type: 'QP_CONNECTION_OK', tookTime })
       } else {
@@ -275,13 +302,16 @@ export const setTravelMode = (selectedTravelMode: TravelMode) => {
   }
 }
 
-const getRoutingOd = async (origin: OriginReducer, dest: DestinationReducer): Promise<RoutingOd> => {
+const getRoutingOd = async (
+  origin: OriginReducer,
+  dest: DestinationReducer,
+): Promise<RoutingOd> => {
   const routingOd: RoutingOd = {
     error: null,
     originCoords: null,
     destCoords: null,
     newlyGeocodedOrigin: null,
-    newlyGeocodedDest: null
+    newlyGeocodedDest: null,
   }
   if (origin.originObject) {
     routingOd.originCoords = origin.originObject.geometry.coordinates
@@ -318,14 +348,19 @@ const getRoutingOd = async (origin: OriginReducer, dest: DestinationReducer): Pr
   return routingOd
 }
 
-export const getSetQuietPaths = (origin: OriginReducer, dest: DestinationReducer, selectedTravelMode: TravelMode, prevRoutingId: number) => {
+export const getSetQuietPaths = (
+  origin: OriginReducer,
+  dest: DestinationReducer,
+  selectedTravelMode: TravelMode,
+  prevRoutingId: number,
+) => {
   return async (dispatch: any) => {
     const {
       error,
       originCoords,
       destCoords,
       newlyGeocodedOrigin,
-      newlyGeocodedDest
+      newlyGeocodedDest,
     } = await getRoutingOd(origin, dest)
     if (error) {
       dispatch({ type: 'ERROR_IN_ROUTING' })
@@ -334,7 +369,7 @@ export const getSetQuietPaths = (origin: OriginReducer, dest: DestinationReducer
     }
     if (newlyGeocodedOrigin) {
       dispatch(setOriginDuringRouting(newlyGeocodedOrigin))
-      dispatch({ type: 'SET_USED_OD', odObject: (newlyGeocodedOrigin) })
+      dispatch({ type: 'SET_USED_OD', odObject: newlyGeocodedOrigin })
     } else if (origin.originObject?.properties.locationType === LocationType.ADDRESS) {
       dispatch({ type: 'SET_USED_OD', odObject: origin.originObject })
     }
@@ -366,12 +401,19 @@ export const getSetQuietPaths = (origin: OriginReducer, dest: DestinationReducer
   }
 }
 
-export const setQuietPaths = (routingId: number, pathData: PathData, selectedTravelMode: TravelMode, odCoords: OdCoords) => {
+export const setQuietPaths = (
+  routingId: number,
+  pathData: PathData,
+  selectedTravelMode: TravelMode,
+  odCoords: OdCoords,
+) => {
   return async (dispatch: any) => {
     dispatch({ type: 'CLOSE_PATHS' })
     const pathFeats: PathFeature[] = pathData.path_FC.features
     const shortPath = pathFeats.filter(feat => feat.properties.type === 'short')
-    const quietPaths = pathFeats.filter(feat => feat.properties.type === 'quiet' && feat.properties.len_diff !== 0)
+    const quietPaths = pathFeats.filter(
+      feat => feat.properties.type === 'quiet' && feat.properties.len_diff !== 0,
+    )
     const lengthLimits = utils.getLengthLimits(pathFeats)
     const initialLengthLimit = utils.getInitialLengthLimit(lengthLimits, quietPaths.length, 20)
     dispatch({ type: 'SET_LENGTH_LIMITS', lengthLimits, initialLengthLimit, routingId })
@@ -390,14 +432,19 @@ export const setQuietPaths = (routingId: number, pathData: PathData, selectedTra
   }
 }
 
-export const getSetCleanPaths = (origin: OriginReducer, dest: DestinationReducer, selectedTravelMode: TravelMode, prevRoutingId: number) => {
+export const getSetCleanPaths = (
+  origin: OriginReducer,
+  dest: DestinationReducer,
+  selectedTravelMode: TravelMode,
+  prevRoutingId: number,
+) => {
   return async (dispatch: any) => {
     const {
       error,
       originCoords,
       destCoords,
       newlyGeocodedOrigin,
-      newlyGeocodedDest
+      newlyGeocodedDest,
     } = await getRoutingOd(origin, dest)
     if (error) {
       dispatch({ type: 'ERROR_IN_ROUTING' })
@@ -406,7 +453,7 @@ export const getSetCleanPaths = (origin: OriginReducer, dest: DestinationReducer
     }
     if (newlyGeocodedOrigin) {
       dispatch(setOriginDuringRouting(newlyGeocodedOrigin))
-      dispatch({ type: 'SET_USED_OD', odObject: (newlyGeocodedOrigin) })
+      dispatch({ type: 'SET_USED_OD', odObject: newlyGeocodedOrigin })
     } else if (origin.originObject?.properties.locationType === LocationType.ADDRESS) {
       dispatch({ type: 'SET_USED_OD', odObject: origin.originObject })
     }
@@ -438,12 +485,19 @@ export const getSetCleanPaths = (origin: OriginReducer, dest: DestinationReducer
   }
 }
 
-export const setCleanPaths = (routingId: number, pathData: PathData, selectedTravelMode: TravelMode, odCoords: OdCoords) => {
+export const setCleanPaths = (
+  routingId: number,
+  pathData: PathData,
+  selectedTravelMode: TravelMode,
+  odCoords: OdCoords,
+) => {
   return async (dispatch: any) => {
     dispatch({ type: 'CLOSE_PATHS' })
     const pathFeats: PathFeature[] = pathData.path_FC.features
     const shortPath = pathFeats.filter(feat => feat.properties.type === 'short')
-    const cleanPaths = pathFeats.filter(feat => feat.properties.type === 'clean' && feat.properties.len_diff !== 0)
+    const cleanPaths = pathFeats.filter(
+      feat => feat.properties.type === 'clean' && feat.properties.len_diff !== 0,
+    )
     const lengthLimits = utils.getLengthLimits(pathFeats)
     const initialLengthLimit = lengthLimits[lengthLimits.length - 1]
     dispatch({ type: 'SET_LENGTH_LIMITS', lengthLimits, initialLengthLimit, routingId })
@@ -466,7 +520,7 @@ export const setCarTripInfo = (odCoords: OdCoords) => {
   return async (dispatch: any) => {
     const data = await carTrips.getTripInfo(odCoords[0], odCoords[1])
     if (data) {
-      dispatch({type: 'SET_CAR_TRIP_INFO', carTripInfo: data})
+      dispatch({ type: 'SET_CAR_TRIP_INFO', carTripInfo: data })
     } else {
       dispatch(showNotification('notif.error.no_car_trips_found', 'error', 4))
     }
@@ -505,11 +559,11 @@ const clickedPathAgain = (storeSelPathFC: PathFeatureCollection, clickedPathId: 
 }
 
 interface RoutingOd {
-  error: string | null,
-  originCoords: [number, number] | null,
-  destCoords: [number, number] | null,
-  newlyGeocodedOrigin: OdPlace | null,
-  newlyGeocodedDest: OdPlace | null,
+  error: string | null
+  originCoords: [number, number] | null
+  destCoords: [number, number] | null
+  newlyGeocodedOrigin: OdPlace | null
+  newlyGeocodedDest: OdPlace | null
 }
 
 export default pathsReducer

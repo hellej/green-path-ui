@@ -14,7 +14,7 @@ const ArrowForward = styled(IoIosArrowForward)`
 const ArrowBack = styled(IoIosArrowBack)`
   ${iconStyle}
 `
-const StyledOpenClosePathBox = styled.button<{ close?: any, disabled?: boolean }>`
+const StyledOpenClosePathBox = styled.button<{ close?: any; disabled?: boolean }>`
   display: inline-block;
   align-items: center;
   pointer-events: auto;
@@ -29,28 +29,38 @@ const StyledOpenClosePathBox = styled.button<{ close?: any, disabled?: boolean }
   transition-duration: 0.12s;
   box-shadow: 0 -1px 6px 0 rgb(0 0 0 / 8%), 0 3px 4px 0 rgb(0 0 0 / 8%);
   @media (min-width: 600px) {
-    &:hover { 
+    &:hover {
       box-shadow: 0 -1px 7px 0 rgb(0 0 0 / 9%), 0 3px 5px 0 rgb(0 0 0 / 10%);
     }
   }
   @media (max-width: 350px) {
     width: 33px;
   }
-  ${props => props.close && css`
-    padding: 0px 1px 0px 0px;
-    margin-top: 2px;
-  `}
-  ${props => props.disabled === true && css`
-    color: gray;
-    cursor: default;
-    pointer-events: none;
-    &:hover {
-      box-shadow: 0 -1px 6px 0 rgb(0 0 0 / 8%), 0 3px 4px 0 rgb(0 0 0 / 8%);
-    }
-  `}
+  ${props =>
+    props.close &&
+    css`
+      padding: 0px 1px 0px 0px;
+      margin-top: 2px;
+    `}
+  ${props =>
+    props.disabled === true &&
+    css`
+      color: gray;
+      cursor: default;
+      pointer-events: none;
+      &:hover {
+        box-shadow: 0 -1px 6px 0 rgb(0 0 0 / 8%), 0 3px 4px 0 rgb(0 0 0 / 8%);
+      }
+    `}
 `
 
-export const OpenPathBox = ({ disabled, handleClick }: { disabled: boolean, handleClick: React.MouseEventHandler<HTMLElement> }) => {
+export const OpenPathBox = ({
+  disabled,
+  handleClick,
+}: {
+  disabled: boolean
+  handleClick: React.MouseEventHandler<HTMLElement>
+}) => {
   return (
     <StyledOpenClosePathBox className="open-path-button" disabled={disabled} onClick={handleClick}>
       <ArrowForward />
@@ -58,7 +68,11 @@ export const OpenPathBox = ({ disabled, handleClick }: { disabled: boolean, hand
   )
 }
 
-export const ClosePathBox = ({ handleClick }: { handleClick: React.MouseEventHandler<HTMLElement> }) => {
+export const ClosePathBox = ({
+  handleClick,
+}: {
+  handleClick: React.MouseEventHandler<HTMLElement>
+}) => {
   return (
     <StyledOpenClosePathBox className="close-path-button" close onClick={handleClick}>
       <ArrowBack />

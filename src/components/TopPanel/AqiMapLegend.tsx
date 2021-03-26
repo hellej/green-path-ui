@@ -4,6 +4,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { aqiMapColorByAqiClass, Basemap, colorByAqiClass } from '../../constants'
 import LoadAnimation from './../LoadAnimation/LoadAnimation'
 import T from '../../utils/translator/Translator'
+import { AqiClass, ReduxState } from '../../types'
 
 const Container = styled.div`
   margin: 7px 5px 5px 5px;

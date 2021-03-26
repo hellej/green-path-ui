@@ -1,4 +1,5 @@
 import { Basemap, BasemapByUrlId, UrlStateKey } from '../constants'
+import { UrlState } from '../types'
 
 const paramCache: Map<string, string> = new Map()
 

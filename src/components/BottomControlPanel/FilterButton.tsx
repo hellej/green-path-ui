@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { LengthLimit } from '../../types'
 import { Filter } from './../Icons'
 
 const StyledButton = styled.div<{ disabled: boolean }>`
@@ -10,12 +11,14 @@ const StyledButton = styled.div<{ disabled: boolean }>`
   padding: 5px;
   margin-right: -30px;
   color: black;
-  ${props => props.disabled === true && css`
-    color: #989898;
-    pointer-events: none;
-  `}
+  ${props =>
+    props.disabled === true &&
+    css`
+      color: #989898;
+      pointer-events: none;
+    `}
   @media (min-width: 600px) {
-    &:hover { 
+    &:hover {
       padding-top: 3px;
     }
   }
@@ -27,9 +30,9 @@ const FilterCount = styled.div`
 `
 
 interface FilterButtonProps {
-  onClick: any,
-  greenPathCount: number,
-  lengthLimit: LengthLimit,
+  onClick: any
+  greenPathCount: number
+  lengthLimit: LengthLimit
   lengthLimits: LengthLimit[]
 }
 
@@ -37,12 +40,11 @@ const FilterButton = (props: FilterButtonProps) => {
   const { onClick, greenPathCount, lengthLimit, lengthLimits } = props
   const disabled = lengthLimits.length <= 1
   return (
-    <StyledButton
-      id='filter-by-length-button'
-      disabled={disabled}
-      onClick={onClick}>
+    <StyledButton id="filter-by-length-button" disabled={disabled} onClick={onClick}>
       <Filter />
-      <FilterCount>{lengthLimit.count}/{greenPathCount + 1}</FilterCount>
+      <FilterCount>
+        {lengthLimit.count}/{greenPathCount + 1}
+      </FilterCount>
     </StyledButton>
   )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 import { setCarTripInfo } from '../../../reducers/pathsReducer'
+import { ReduxState } from '../../../types'
 import T from './../../../utils/translator/Translator'
 
 const PathRowFlex = styled.div`

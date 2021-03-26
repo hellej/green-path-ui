@@ -12,6 +12,7 @@ import EU from '../Images/EU.png'
 import ToggleLanguageButtons from './ToggleLanguageButtons'
 import T from '../../utils/translator/Translator'
 import { text } from '../../utils/translator/dictionary'
+import { ReduxState } from '../../types'
 
 const InfoWrapper = styled.div`
   position: absolute;
@@ -117,7 +118,7 @@ const WelcomeInfo = () => {
   const visitedBefore = useSelector((state: ReduxState) => state.visitor.visitedBefore)
   const gaDisabled = useSelector((state: ReduxState) => state.visitor.gaDisabled)
   const ui = useSelector((state: ReduxState) => state.ui)
-  
+
   const [raiseLogos, setRaiseLogos] = useState(true)
   useEffect(() => setRaiseLogos(true), [ui.info])
 
@@ -194,7 +195,7 @@ const WelcomeInfo = () => {
                   <img src={HYLogoFi} width="61" height="57" alt='HYLogoFi' />
                 </StyledLogoLink>
               }
-              {(ui.lang === Lang.EN || ui.lang === Lang.SV) &&
+              {(ui.lang === Lang.EN || ui.lang === Lang.SV) &&
                 <StyledLogoLink href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
                   <img src={HYLogoEn} width="69" height="57" alt='HYLogoEn' />
                 </StyledLogoLink>

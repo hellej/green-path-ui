@@ -10,6 +10,7 @@ import {
 } from './../../reducers/airQualityLayerReducer'
 import { aqiMapColorByAqiClass, Basemap, LayerId } from '../../constants'
 import * as aqi from '../../services/aqi'
+import { MbMap, ReduxState } from '../../types'
 
 // prettier-ignore
 const aqiLineColors = [
@@ -24,14 +25,14 @@ const aqiLineColors = [
   7, aqiMapColorByAqiClass[7],
   8, aqiMapColorByAqiClass[8],
   9, aqiMapColorByAqiClass[9],
-  /* other */ '#3d3d3d'
+  /* other */ '#3d3d3d',
 ]
 
 const getUniqueFeatureIds = (features: any[]) => {
   const existingFeatureKeys: Map<number, boolean> = new Map()
   return features
-    .map((feat) => feat.id)
-    .filter((id) => {
+    .map(feat => feat.id)
+    .filter(id => {
       if (existingFeatureKeys.has(id)) {
         return false
       } else {
@@ -59,7 +60,7 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
     const uniqIds = getUniqueFeatureIds(features)
 
     // update feature states with new AQI values
-    uniqIds.forEach((id) => {
+    uniqIds.forEach(id => {
       const aqi = this.data!.get(id)
       if (aqi) {
         map.setFeatureState(
@@ -108,7 +109,7 @@ class AirQuality extends Component<PropsFromRedux & { map?: MbMap }> {
 
   componentDidMount = async () => {
     setTimeout(this.maybeUpdateAqiData, 4000)
-    this.props.map!.on('sourcedata', (e) => {
+    this.props.map!.on('sourcedata', e => {
       if (
         e.isSourceLoaded &&
         e.sourceId === this.source &&

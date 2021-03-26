@@ -1,4 +1,5 @@
 import hmaPoly from './HMA.json'
+import { AqiClass, GviClass, PolygonFeature } from './types'
 
 export const extentFeat = hmaPoly.features[0] as PolygonFeature
 
@@ -17,13 +18,13 @@ export enum Basemap {
 
 export const defaultBasemap = Basemap.STREETS
 
-export const UrlIdByBasemap = {
+export const UrlIdByBasemap: Record<Basemap, string> = {
   [Basemap.STREETS]: 'streets',
   [Basemap.NOISE]: 'noise',
   [Basemap.AIR_QUALITY]: 'airquality',
   [Basemap.GVI]: 'gvi',
   [Basemap.SATELLITE]: 'satellite',
-} as Record<Basemap, string>
+}
 
 export const BasemapByUrlId = new Map([
   ['streets', Basemap.STREETS],
@@ -67,7 +68,7 @@ export enum StatsType {
 
 export type DbClass = 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75
 
-export const dBColors = {
+export const dBColors: Record<DbClass, string> = {
   40: '#00f000',
   45: '#00f000',
   50: '#74f000',
@@ -76,9 +77,9 @@ export const dBColors = {
   65: '#ff6913',
   70: '#FF270E',
   75: '#FF270E',
-} as Record<DbClass, string>
+}
 
-export const labelByAqiClass = {
+export const labelByAqiClass: Record<AqiClass, string> = {
   1: 'air_quality_label.good_1',
   2: 'air_quality_label.good_2',
   3: 'air_quality_label.satisfactory_3',
@@ -88,9 +89,9 @@ export const labelByAqiClass = {
   7: 'air_quality_label.poor_7',
   8: 'air_quality_label.poor_8',
   9: 'air_quality_label.very_poor',
-} as Record<AqiClass, string>
+}
 
-export const colorByAqiClass = {
+export const colorByAqiClass: Record<AqiClass, string> = {
   1: '#31A354',
   2: '#A1D99B',
   3: '#e9cfb8',
@@ -100,9 +101,9 @@ export const colorByAqiClass = {
   7: '#E6550D',
   8: '#A63603',
   9: '#A63603',
-} as Record<AqiClass, string>
+}
 
-export const aqiMapColorByAqiClass = {
+export const aqiMapColorByAqiClass: Record<AqiClass, string> = {
   1: '#038a37',
   2: '#459255',
   3: '#b4a75c',
@@ -112,9 +113,9 @@ export const aqiMapColorByAqiClass = {
   7: '#ff4c15',
   8: '#ff2f20',
   9: '#ff2f20',
-} as Record<AqiClass, string>
+}
 
-export const gviMapColorByGviClass = {
+export const gviMapColorByGviClass: Record<GviClass, string> = {
   1: '#606060',
   2: '#616e5b',
   3: '#607d56',
@@ -125,7 +126,7 @@ export const gviMapColorByGviClass = {
   8: '#3ac62a',
   9: '#1dd513',
   10: '#1dd513',
-} as Record<GviClass, string>
+}
 
 export const menu = {
   lengthLimitSelector: 'length_limit_selector',

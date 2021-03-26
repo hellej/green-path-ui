@@ -6,6 +6,7 @@ import { scrollToPath } from '../../reducers/pathListReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { clickTol, ExposureMode, LayerId } from '../../constants'
 import { utils } from '../../utils/index'
+import { PathFeatureCollection, ReduxState } from '../../types'
 
 class PathsGreen extends React.Component<PropsFromRedux> {
   layerId = LayerId.GREEN_PATHS
@@ -65,8 +66,12 @@ class PathsGreen extends React.Component<PropsFromRedux> {
     map.once('load', () => {
       this.loadLayerToMap(map)
 
-      map.on('mouseenter', this.layerId, () => { map.getCanvas().style.cursor = 'pointer' })
-      map.on('mouseleave', this.layerId, () => { map.getCanvas().style.cursor = '' })
+      map.on('mouseenter', this.layerId, () => {
+        map.getCanvas().style.cursor = 'pointer'
+      })
+      map.on('mouseleave', this.layerId, () => {
+        map.getCanvas().style.cursor = ''
+      })
       map.on('click', (e: MapMouseEvent) => {
         const features = utils.getLayersFeaturesAroundClickE([this.layerId], e, clickTol, map)
         if (features.length > 0) {
@@ -88,7 +93,6 @@ class PathsGreen extends React.Component<PropsFromRedux> {
     } else {
       this.updateLayerData(map)
     }
-
   }
 
   render() {

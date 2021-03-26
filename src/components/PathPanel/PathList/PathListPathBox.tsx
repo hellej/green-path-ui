@@ -4,6 +4,7 @@ import { utils } from '../../../utils/index'
 import ExposureScoreBar from './../ExposureScoreBar'
 import { ExposureMode, TravelMode } from '../../../constants'
 import { OpenPathBox } from '../OpenClosePathBoxes'
+import { PathFeature, PathProperties } from '../../../types'
 
 type PathBoxProps = {
   selected: boolean

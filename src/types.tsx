@@ -1,111 +1,57 @@
-interface LngLat {
+import { Feature, Geometry, Point, Polygon } from '@turf/helpers'
+import { Map } from 'mapbox-gl'
+import { Basemap, ExposureMode, LayerId, PathType, StatsType, TravelMode } from './constants'
+import { LocationType, OdType } from './reducers/originReducer'
+import { Lang } from './reducers/uiReducer'
+import { CarTripInfo } from './services/carTrips'
+
+export interface LngLat {
   lng: number
   lat: number
 }
 
-type Feature = import('@turf/helpers').Feature
-
-type GeoJSONType = 'FeatureCollection'
-
-interface FeatureCollection {
-  type: GeoJSONType
+export interface FeatureCollection {
+  type: 'FeatureCollection'
   features: Feature[]
 }
 
-type MbMap = import('mapbox-gl').Map | null
+export type MbMap = Map | null
 
-interface PointFeature extends Feature {
-  geometry: import('@turf/helpers').Point
+export interface PointFeature extends Feature {
+  geometry: Point
   properties: { type: string }
 }
 
-interface PointFeatureCollection extends FeatureCollection {
+export interface PointFeatureCollection extends FeatureCollection {
   features: PointFeature[]
 }
 
-interface OdFeatureCollection extends FeatureCollection {
+export interface OdFeatureCollection extends FeatureCollection {
   features: OdPlace[]
 }
 
-interface PolygonFeature extends Feature {
-  geometry: import('@turf/helpers').Polygon
+export interface PolygonFeature extends Feature {
+  geometry: Polygon
 }
 
-interface PolygonFeatureCollection extends FeatureCollection {
-  features: PolygonFeature[]
-}
-
-type Properties = import('@turf/helpers').Properties
-
-enum TravelMode {
-  WALK = 'walk',
-  BIKE = 'bike',
-}
-
-enum ExposureMode {
-  CLEAN = 'clean',
-  QUIET = 'quiet',
-}
-
-enum PathType {
-  SHORT = 'short',
-  CLEAN = 'clean',
-  QUIET = 'quiet',
-}
-
-enum StatsType {
-  AQ = 'air quality',
-  NOISE = 'noise',
-}
-
-interface LengthLimit {
+export interface LengthLimit {
   limit: number
   count: number
   label: string
   cost_coeff: number
 }
 
-type Coords = [number, number]
+export type Coords = [number, number]
 
-type OdCoords = [Coords, Coords]
+export type OdCoords = [Coords, Coords]
 
-enum AqiClass {
-  1 = 1,
-  2 = 2,
-  3 = 3,
-  4 = 4,
-  5 = 5,
-  6 = 6,
-  7 = 7,
-  8 = 8,
-  9 = 9,
-}
+export type DbClass = 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75
 
-enum GviClass {
-  1 = 1,
-  2 = 2,
-  3 = 3,
-  4 = 4,
-  5 = 5,
-  6 = 6,
-  7 = 7,
-  8 = 8,
-  9 = 9,
-  10 = 10,
-}
+export type GviClass = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 
-enum DbClass {
-  40 = 40,
-  45 = 45,
-  50 = 50,
-  55 = 55,
-  60 = 60,
-  65 = 65,
-  70 = 70,
-  75 = 75,
-}
+export type AqiClass = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-interface RawPathProperties extends Properties {
+export interface RawPathProperties {
   aqc: number
   aqc_diff: number
   aqc_diff_rat: number
@@ -141,7 +87,7 @@ interface RawPathProperties extends Properties {
 }
 
 interface RawPathFeature extends Feature {
-  geometry: import('@turf/helpers').Geometry
+  geometry: Geometry
   properties: RawPathProperties
 }
 
@@ -149,52 +95,52 @@ interface RawPathFeatureCollection extends FeatureCollection {
   features: RawPathFeature[]
 }
 
-interface PathProperties extends RawPathProperties {
+export interface PathProperties extends RawPathProperties {
   aqScore: number | null
   greeneryScore: number | null
   noisinessScore: number | null
   quietnessScore: number | null
 }
 
-interface PathFeature extends Feature {
-  geometry: import('@turf/helpers').Geometry
+export interface PathFeature extends Feature {
+  geometry: Geometry
   properties: PathProperties
 }
 
-interface PathFeatureCollection extends FeatureCollection {
+export interface PathFeatureCollection extends FeatureCollection {
   features: PathFeature[]
 }
 
-interface EdgeFeature extends Feature {
-  geometry: import('@turf/helpers').Geometry
+export interface EdgeFeature extends Feature {
+  geometry: Geometry
   properties: { value: number; p_length: number }
 }
 
-interface EdgeFeatureCollection extends FeatureCollection {
+export interface EdgeFeatureCollection extends FeatureCollection {
   features: EdgeFeature[]
 }
 
-interface PathDataResponse {
+export interface PathDataResponse {
   edge_FC: FeatureCollection
   path_FC: RawPathFeatureCollection
 }
 
-interface PathData {
+export interface PathData {
   edge_FC: FeatureCollection
   path_FC: PathFeatureCollection
 }
 
-interface MapReducer {
+export interface MapReducer {
   initialized: boolean
   zoomToBbox: [number, number, number, number]
-  basemap: import('./constants').Basemap | undefined
+  basemap: Basemap | undefined
   basemapChangeId: number
-  loadedLayers: import('./constants').LayerId[]
+  loadedLayers: LayerId[]
   center: LngLat | {}
   zoom: number
 }
 
-interface AirQualityLayerReducer {
+export interface AirQualityLayerReducer {
   hasData: boolean
   loadingData: boolean
   dataTimeUtcSecs: number | undefined
@@ -203,7 +149,7 @@ interface AirQualityLayerReducer {
   updatingStyle: boolean
 }
 
-interface UserLocationReducer {
+export interface UserLocationReducer {
   watchId: number
   expireTime: string
   error: string | null
@@ -212,18 +158,12 @@ interface UserLocationReducer {
   userLocHistory: [number, number][]
 }
 
-interface NotificationReducer {
+export interface NotificationReducer {
   text: string | null
   look: string | null
 }
 
-interface PathDataCache {
-  od: OdCoords
-  data: PathDataResponse
-  travelMode: TravelMode
-}
-
-interface PathsReducer {
+export interface PathsReducer {
   cleanPathsAvailable: boolean
   selectedTravelMode: TravelMode
   showingPathsOfTravelMode: TravelMode | null
@@ -241,11 +181,11 @@ interface PathsReducer {
   lengthLimits: LengthLimit[]
   waitingPaths: boolean
   showingPaths: boolean
-  carTripInfo: import('./services/carTrips').CarTripInfo | undefined
+  carTripInfo: CarTripInfo | undefined
   routingId: number
 }
 
-interface PathListReducer {
+export interface PathListReducer {
   scrollToPath: string
   routingId: number
 }
@@ -263,24 +203,24 @@ interface GeocodingProps {
   lngLat: LngLat
 }
 
-interface GeocodingResult {
+export interface GeocodingResult {
   geometry: { type: 'Point'; coordinates: [number, number] }
   properties: GeocodingProps
   type: 'Feature'
 }
 
-interface OdPlace {
+export interface OdPlace {
   geometry: { type: 'Point'; coordinates: [number, number] }
   properties: {
     label: string
     name: string
-    locationType: import('./reducers/originReducer').LocationType
-    odType: import('./reducers/originReducer').OdType
+    locationType: LocationType
+    odType: OdType
   }
   type: 'Feature'
 }
 
-interface OriginReducer {
+export interface OriginReducer {
   error: string | null
   originInputText: string
   originOptions: GeocodingResult[]
@@ -289,7 +229,7 @@ interface OriginReducer {
   originObject: OdPlace | null
 }
 
-interface DestinationReducer {
+export interface DestinationReducer {
   error: string | null
   destInputText: string
   destOptions: GeocodingResult[]
@@ -297,26 +237,26 @@ interface DestinationReducer {
   destObject: OdPlace | null
 }
 
-interface MapPopupReducer {
+export interface MapPopupReducer {
   visible: boolean
   lngLat: LngLat | {}
 }
 
-interface VisitorReducer {
+export interface VisitorReducer {
   visitedBefore: boolean
   usedOds: OdPlace[]
   gaDisabled: boolean
 }
 
-interface UiReducer {
-  lang: import('./reducers/uiReducer').Lang
+export interface UiReducer {
+  lang: Lang
   info: boolean
   odPanelHidden: boolean
   pathPanel: boolean
   pathPanelContent: string | null
 }
 
-interface ReduxState {
+export interface ReduxState {
   map: MapReducer
   airQualityLayer: AirQualityLayerReducer
   userLocation: UserLocationReducer
@@ -330,7 +270,7 @@ interface ReduxState {
   ui: UiReducer
 }
 
-interface UrlState {
-  basemap: import('./constants').Basemap | undefined
+export interface UrlState {
+  basemap: Basemap | undefined
   odPanelVisible: boolean
 }

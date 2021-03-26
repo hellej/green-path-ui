@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { showInfo } from './../../reducers/uiReducer'
 import { FaLayerGroup } from 'react-icons/fa'
+import { ReduxState } from '../../types'
 
 const StyledLayersIcon = styled(FaLayerGroup)`
   font-size: 23px;
@@ -34,14 +35,14 @@ const StyledButton = styled.div<{ onClick: Function }>`
 
 const BasemapSelectorButton = (props: PropsFromRedux & { handleClick: MouseEventHandler }) => {
   return (
-    <StyledButton id='show-basemap-selector-button' onClick={props.handleClick}>
+    <StyledButton id="show-basemap-selector-button" onClick={props.handleClick}>
       <StyledLayersIcon />
     </StyledButton>
   )
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  ui: state.ui
+  ui: state.ui,
 })
 
 const connector = connect(mapStateToProps, { showInfo })

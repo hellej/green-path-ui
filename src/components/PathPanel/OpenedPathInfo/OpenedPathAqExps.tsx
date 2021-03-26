@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { AqiClass, PathFeature } from '../../../types'
 import { utils } from '../../../utils/index'
-import { labelByAqiClass, colorByAqiClass } from './../../../constants'
+import { labelByAqiClass, colorByAqiClass, TravelMode } from './../../../constants'
 import T from './../../../utils/translator/Translator'
 
 const StyledOpenedPathExposures = styled.div`
@@ -36,7 +37,7 @@ const StyledAqiLabelBox = styled.div<{ aqiCl: AqiClass }>`
   border-radius: 8px;
   margin: 0px 3px 0px 3px;
   padding: 5px 7px;
-  background-color: ${(props) => colorByAqiClass[props.aqiCl] || 'grey'};
+  background-color: ${props => colorByAqiClass[props.aqiCl] || 'grey'};
 `
 const StyledAqiExposureBox = styled.div`
   border-radius: 8px;
@@ -83,13 +84,14 @@ export const OpenedPathAqExps = ({
 }) => {
   const aqiClExps = path.properties.aqi_cl_exps
   const aqiKeys = Object.keys(aqiClExps)
-  const aqiCls: AqiClass[] = aqiKeys.map((aqi) => Number(aqi)).sort()
+  const aqiCls = aqiKeys.map(aqi => Number(aqi)).sort() as AqiClass[]
+
   return (
     <StyledOpenedPathExposures>
       <StyledOpenedPathExposures>
         <PathPropsRow>
           <FlexCols>
-            {aqiCls.map((aqiCL) => (
+            {aqiCls.map(aqiCL => (
               <AqExposureRow
                 key={aqiCL}
                 aqiCl={aqiCL}

@@ -1,4 +1,5 @@
-import { Action } from "redux"
+import { Action } from 'redux'
+import { PathListReducer } from '../types'
 
 const initialPathList: PathListReducer = {
   scrollToPath: '',
@@ -9,11 +10,13 @@ interface PathListAction extends Action {
   pathId: string
 }
 
-const pathListReducer = (store: PathListReducer = initialPathList, action: PathListAction): PathListReducer => {
-
+const pathListReducer = (
+  store: PathListReducer = initialPathList,
+  action: PathListAction,
+): PathListReducer => {
   switch (action.type) {
-
-    case 'SCROLL_TO_PATH': return { ...store, scrollToPath: action.pathId }
+    case 'SCROLL_TO_PATH':
+      return { ...store, scrollToPath: action.pathId }
 
     default:
       return store

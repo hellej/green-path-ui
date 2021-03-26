@@ -8,6 +8,7 @@ import ToggleLanguageButton from './ToggleLanguageButton'
 import ToggleOdPanelButton from './ToggleOdPanelButton'
 import { setOdPanelHidden } from './../../reducers/uiReducer'
 import { useLocation, useHistory } from 'react-router-dom'
+import { ReduxState } from '../../types'
 
 const OuterContainer = styled.div`
   display: flex;

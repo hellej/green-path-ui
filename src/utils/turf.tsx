@@ -6,6 +6,17 @@ import distance from '@turf/distance'
 import booleanWithin from '@turf/boolean-within'
 import { Feature } from '@turf/helpers'
 import { point } from '@turf/helpers'
+import {
+  EdgeFeature,
+  EdgeFeatureCollection,
+  FeatureCollection,
+  OdFeatureCollection,
+  OdPlace,
+  PathFeature,
+  PathFeatureCollection,
+  PointFeature,
+  PointFeatureCollection,
+} from '../types'
 
 export const asPoint = (coords: [number, number], properties?: {}): PointFeature => {
   return point(coords, { type: '', ...properties })
@@ -13,7 +24,7 @@ export const asPoint = (coords: [number, number], properties?: {}): PointFeature
 
 type FeatureCollectionReturnTypes = {
   (features: PathFeature[]): PathFeatureCollection
-  (features: EdgeFeature[]): EdgeFeatureCollection
+  (features: EdgeFeature): EdgeFeatureCollection
   (features: PointFeature[]): PointFeatureCollection
   (features: OdPlace[]): OdFeatureCollection
 }
