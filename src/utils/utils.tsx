@@ -1,6 +1,7 @@
-import { walkSpeed, bikeSpeed, TravelMode } from './../constants'
+import { walkSpeed, bikeSpeed } from './../constants'
 import { MapMouseEvent, Map, PointLike } from 'mapbox-gl'
 import { LengthLimit, PathFeature } from '../types'
+import { TravelMode } from '../services/paths'
 
 const concatSign = (number: number): string => {
   if (number < 0) {

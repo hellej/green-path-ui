@@ -1,10 +1,21 @@
 import axios from 'axios'
 import { analytics } from './../firebase/firebase'
-import { ExposureMode, TravelMode } from '../constants'
 import * as cache from './cache'
 import { LngLat, PathData, RawPathProperties, PathProperties, PathDataResponse } from '../types'
 
 const serverUrl = process.env.REACT_APP_GP_SERVER || 'http://localhost:5000/'
+
+export enum ExposureMode {
+  QUIET = 'quiet',
+  GREEN = 'green',
+  CLEAN = 'clean',
+  SHORT = 'short',
+}
+
+export enum TravelMode {
+  WALK = 'walk',
+  BIKE = 'bike',
+}
 
 export interface AqiStatus {
   aqi_data_updated: boolean
@@ -22,58 +33,34 @@ export const getCleanPathServiceStatus = async (): Promise<AqiStatus> => {
   return response.data as AqiStatus
 }
 
-const formCoordinateString = (originCoords: number[], destinationCoords: number[]): string => {
-  const fromC = originCoords.map(coord => String(coord))
-  const toC = destinationCoords.map(coord => String(coord))
-  return fromC[1].concat(',', fromC[0], '/', toC[1], ',', toC[0])
+const formCoordinateString = (oCoords: number[], dCoords: number[]): string => {
+  return `${oCoords[1]},${oCoords[0]}/${dCoords[1]},${dCoords[0]}`
 }
 
-export const getQuietPaths = async (
-  travelMode: TravelMode,
+export const getPaths = async (
   originCoords: number[],
   destinationCoords: number[],
+  travelMode: TravelMode,
+  exposureMode: ExposureMode,
 ): Promise<PathData> => {
   const coordString = formCoordinateString(originCoords, destinationCoords)
-  const queryUrl = serverUrl.concat('paths/', travelMode, '/', ExposureMode.QUIET, '/', coordString)
+  const queryUrl = `${serverUrl}/paths/${travelMode}/${exposureMode}/${coordString}`
   const cached = cache.getFromCache(queryUrl)
   if (cached) {
     console.log('Found quiet paths from cache:', queryUrl)
     return processPathData(cached)
-  } else {
-    console.log('Querying quiet paths from server:', queryUrl)
-    const response = await axios.get(queryUrl)
-    if (response.data.error_key) {
-      analytics.logEvent('routing_error_quiet_paths')
-      throw response.data.error_key
-    }
-    analytics.logEvent('routed_quiet_paths')
-    cache.setToCacheWithExpiry(queryUrl, response.data, 3600)
-    return processPathData(response.data)
   }
-}
-
-export const getCleanPaths = async (
-  travelMode: TravelMode,
-  originCoords: number[],
-  destinationCoords: number[],
-): Promise<PathData> => {
-  const coordString = formCoordinateString(originCoords, destinationCoords)
-  const queryUrl = serverUrl.concat('paths/', travelMode, '/', ExposureMode.CLEAN, '/', coordString)
-  const cached = cache.getFromCache(queryUrl)
-  if (cached) {
-    console.log('Found clean paths from cache:', queryUrl)
-    return processPathData(cached)
-  } else {
-    console.log('Querying clean paths from server:', queryUrl)
-    const response = await axios.get(queryUrl)
-    if (response.data.error_key) {
-      analytics.logEvent('routing_error_clean_paths')
-      throw response.data.error_key
-    }
-    analytics.logEvent('routed_clean_paths')
-    cache.setToCacheWithExpiry(queryUrl, response.data, 900)
-    return processPathData(response.data)
+  console.log('Querying quiet paths from server:', queryUrl)
+  const response = await axios.get(queryUrl)
+  if (response.status >= 400 || response.data.error_key) {
+    analytics.logEvent(`routing_error_${travelMode}_${exposureMode}_paths`)
+    throw response.data.error_key
+      ? response.data.error_key
+      : 'notif.error.routing.general_routing_error'
   }
+  analytics.logEvent('routed_quiet_paths')
+  cache.setToCacheWithExpiry(queryUrl, response.data, 3600)
+  return processPathData(response.data)
 }
 
 export const debugNearestEdgeAttrs = async (lngLat: LngLat): Promise<void> => {
@@ -125,7 +112,7 @@ const processPathData = (pathData: PathDataResponse): PathData => {
   }
 
   return {
-    edge_FC: pathData.edge_FC,
+    ...pathData,
     path_FC,
   }
 }

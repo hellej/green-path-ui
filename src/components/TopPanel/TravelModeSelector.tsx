@@ -4,8 +4,8 @@ import { connect, ConnectedProps } from 'react-redux'
 import { MdDirectionsBike } from 'react-icons/md'
 import { MdDirectionsWalk } from 'react-icons/md'
 import { setTravelMode, getSetQuietPaths, getSetCleanPaths } from './../../reducers/pathsReducer'
-import { TravelMode, ExposureMode } from '../../constants'
 import { ReduxState } from '../../types'
+import { ExposureMode, TravelMode } from '../../services/paths'
 
 const StyledBikeI = styled(MdDirectionsBike)`
   font-size: 23px;

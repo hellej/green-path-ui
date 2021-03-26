@@ -4,9 +4,10 @@ import { GeoJSONSource, MapMouseEvent } from 'mapbox-gl'
 import { setSelectedPath } from '../../reducers/pathsReducer'
 import { scrollToPath } from '../../reducers/pathListReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
-import { clickTol, ExposureMode, LayerId } from '../../constants'
+import { clickTol, LayerId } from '../../constants'
 import { utils } from '../../utils/index'
 import { PathFeatureCollection, ReduxState } from '../../types'
+import { ExposureMode } from '../../services/paths'
 
 class PathsGreen extends React.Component<PropsFromRedux> {
   layerId = LayerId.GREEN_PATHS

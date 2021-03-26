@@ -9,8 +9,9 @@ import BasemapSelector from './BasemapSelector'
 import AqiMapLegend from './AqiMapLegend'
 import NoiseMapLegend from './NoiseMapLegend'
 import GviMapLegend from './GviMapLegend'
-import { Basemap, ExposureMode } from '../../constants'
+import { Basemap } from '../../constants'
 import { ReduxState } from '../../types'
+import { ExposureMode } from '../../services/paths'
 
 const VisiblePanel = styled.div`
   background-color: rgba(255, 255, 255, 0.98);

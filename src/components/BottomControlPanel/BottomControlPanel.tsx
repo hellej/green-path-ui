@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
-import { menu, ExposureMode } from './../../constants'
+import { menu } from './../../constants'
 import FilterButton from './FilterButton'
 import { ListButton } from './../Icons'
 import ToggleBottomPanelButton from './ToggleBottomPanelButton'
@@ -12,6 +12,7 @@ import {
   showMaxLengthFilterSelector,
 } from './../../reducers/uiReducer'
 import { ReduxState } from '../../types'
+import { ExposureMode } from '../../services/paths'
 
 const ControlPanel = styled.div<{ pathPanelVisible: boolean }>`
   background: rgba(255, 255, 255, 0.98);
@@ -94,5 +95,6 @@ const connector = connect(mapStateToProps, {
   showPathList,
   showMaxLengthFilterSelector,
 })
+
 type propsFromRedux = ConnectedProps<typeof connector>
 export default connector(BottomControlPanel)

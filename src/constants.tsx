@@ -45,16 +45,6 @@ export enum LayerId {
   AQI_LAYER = 'aqistreetshma',
 }
 
-export enum TravelMode {
-  WALK = 'walk',
-  BIKE = 'bike',
-}
-
-export enum ExposureMode {
-  CLEAN = 'clean',
-  QUIET = 'quiet',
-}
-
 export enum PathType {
   SHORT = 'short',
   CLEAN = 'clean',

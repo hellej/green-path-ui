@@ -3,8 +3,9 @@ import { connect, ConnectedProps } from 'react-redux'
 import { GeoJSONSource } from 'mapbox-gl'
 import { setSelectedPath } from '../../reducers/pathsReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
-import { dBColors, colorByAqiClass, ExposureMode, LayerId } from '../../constants'
+import { dBColors, colorByAqiClass, LayerId } from '../../constants'
 import { ReduxState } from '../../types'
+import { ExposureMode } from '../../services/paths'
 
 // prettier-ignore
 const dbLineColors = [

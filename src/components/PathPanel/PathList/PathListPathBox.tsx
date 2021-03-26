@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { utils } from '../../../utils/index'
 import ExposureScoreBar from './../ExposureScoreBar'
-import { ExposureMode, TravelMode } from '../../../constants'
 import { OpenPathBox } from '../OpenClosePathBoxes'
 import { PathFeature, PathProperties } from '../../../types'
+import { ExposureMode, TravelMode } from '../../../services/paths'
 
 type PathBoxProps = {
   selected: boolean

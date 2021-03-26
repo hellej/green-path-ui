@@ -1,5 +1,6 @@
 import { turf } from '../utils/index'
 import * as paths from './../services/paths'
+import { ExposureMode, TravelMode } from './../services/paths'
 import * as carTrips from './../services/carTrips'
 import { zoomToFC } from './mapReducer'
 import { setOriginDuringRouting, getOriginFromGeocodingResult, LocationType } from './originReducer'
@@ -8,7 +9,7 @@ import {
   getDestinationFromGeocodingResult,
 } from './destinationReducer'
 import { showNotification } from './notificationReducer'
-import { ExposureMode, PathType, TravelMode, StatsType, extentFeat } from './../constants'
+import { PathType, StatsType, extentFeat } from './../constants'
 import { utils } from './../utils/index'
 import { Action } from 'redux'
 import * as geocoding from './../services/geocoding'
@@ -386,7 +387,12 @@ export const getSetQuietPaths = (
     dispatch({ type: 'CLOSE_PATHS' })
     dispatch({ type: 'ROUTING_STARTED', originCoords, destCoords, routingId, selectedTravelMode })
     try {
-      const pathData = await paths.getQuietPaths(selectedTravelMode, originCoords!, destCoords!)
+      const pathData = await paths.getPaths(
+        originCoords!,
+        destCoords!,
+        selectedTravelMode,
+        ExposureMode.QUIET,
+      )
       dispatch(setQuietPaths(routingId, pathData, selectedTravelMode, [originCoords!, destCoords!]))
     } catch (error) {
       console.log('caught error:', error)
@@ -470,7 +476,12 @@ export const getSetCleanPaths = (
     dispatch({ type: 'CLOSE_PATHS' })
     dispatch({ type: 'ROUTING_STARTED', originCoords, destCoords, routingId, selectedTravelMode })
     try {
-      const pathData = await paths.getCleanPaths(selectedTravelMode, originCoords!, destCoords!)
+      const pathData = await paths.getPaths(
+        originCoords!,
+        destCoords!,
+        selectedTravelMode,
+        ExposureMode.CLEAN,
+      )
       dispatch(setCleanPaths(routingId, pathData, selectedTravelMode, [originCoords!, destCoords!]))
     } catch (error) {
       console.log('caught error:', error)

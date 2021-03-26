@@ -7,9 +7,10 @@ import { PathAqiBar } from './../PathAqiBar'
 import { OpenedPathNoiseExps } from './OpenedPathNoiseExps'
 import { OpenedPathAqExps } from './OpenedPathAqExps'
 import { ClosePathBox } from './../OpenClosePathBoxes'
-import { PathType, StatsType, TravelMode } from './../../../constants'
+import { PathType, StatsType } from './../../../constants'
 import T from './../../../utils/translator/Translator'
 import { PathFeature, ReduxState } from '../../../types'
+import { TravelMode } from '../../../services/paths'
 
 const PathRowFlex = styled.div`
   display: flex;

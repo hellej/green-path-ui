@@ -1,9 +1,10 @@
 import { Feature, Geometry, Point, Polygon } from '@turf/helpers'
 import { Map } from 'mapbox-gl'
-import { Basemap, ExposureMode, LayerId, PathType, StatsType, TravelMode } from './constants'
+import { Basemap, LayerId, PathType, StatsType } from './constants'
 import { LocationType, OdType } from './reducers/originReducer'
 import { Lang } from './reducers/uiReducer'
 import { CarTripInfo } from './services/carTrips'
+import { ExposureMode, TravelMode } from './services/paths'
 
 export interface LngLat {
   lng: number
