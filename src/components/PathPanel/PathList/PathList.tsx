@@ -2,7 +2,6 @@ import React, { createRef, Fragment, RefObject } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 import { setSelectedPath, setOpenedPath } from '../../../reducers/pathsReducer'
-import { ExposureMode } from '../../../services/paths'
 import { ReduxState } from '../../../types'
 import CarTripInfo from './CarTripInfo'
 import PathListPathBox from './PathListPathBox'
@@ -27,14 +26,11 @@ class PathList extends React.Component<PropsFromRedux, State> {
   }
 
   componentDidUpdate(prevProps: PropsFromRedux) {
-    const { quietPathFC, cleanPathFC, showingPathsOfExposureMode } = this.props.paths
+    const { envOptimizedPathFC } = this.props.paths
     let pathRefs = this.state.pathRefs
     let updateRefs = false
 
-    const greenPathFC =
-      showingPathsOfExposureMode === ExposureMode.CLEAN ? cleanPathFC : quietPathFC
-
-    for (let feat of greenPathFC.features) {
+    for (let feat of envOptimizedPathFC.features) {
       if (!(feat.properties.id in pathRefs)) {
         pathRefs[feat.properties.id] = createRef()
         updateRefs = true
@@ -58,19 +54,15 @@ class PathList extends React.Component<PropsFromRedux, State> {
       showingPathsOfExposureMode,
       showingPathsOfTravelMode,
       shortPathFC,
-      cleanPathFC,
-      quietPathFC,
+      envOptimizedPathFC,
       selPathFC,
       lengthLimit,
     } = paths
 
     const selPathId = selPathFC.features.length > 0 ? selPathFC.features[0].properties.id : 'none'
 
-    const greenPathFC =
-      showingPathsOfExposureMode === ExposureMode.CLEAN ? cleanPathFC : quietPathFC
-
     const shortPath = shortPathFC.features[0]
-    const greenPaths = greenPathFC.features.filter(
+    const envOptimizedPaths = envOptimizedPathFC.features.filter(
       path => path.properties.length <= lengthLimit.limit,
     )
 
@@ -86,9 +78,9 @@ class PathList extends React.Component<PropsFromRedux, State> {
             setOpenedPath={() => setOpenedPath(shortPath)}
           />
         </PathRowFlex>
-        {greenPaths.map(path => (
+        {envOptimizedPaths.map(path => (
           <PathRowFlex
-            data-cy="green-path-box"
+            data-cy="env-optimized-path-box"
             key={path.properties.id}
             ref={this.state.pathRefs[path.properties.id]}
           >

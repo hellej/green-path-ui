@@ -14,8 +14,10 @@
   "notif.error.origin_not_found": "Origin was not found.",
   "notif.error.origin_outside_extent": "Origin is outside the supported area.",
   "notif.error.destination_outside_extent": "Destination is outside the supported area.",
-  "notif.error.no_alternative_quiet_paths_found": "No alternative quiet paths found.",
-  "notif.error.no_alternative_clean_paths_found": "No alternative fresh air paths found due to little variation in the real-time air quality data.",
+  "notif.error.no_shortest_path_found": "No paths found.",
+  "notif.warn.no_alternative_quiet_paths_found": "No alternative quiet paths found.",
+  "notif.warn.no_alternative_clean_paths_found": "No alternative fresh air paths found due to little variation in the real-time air quality data.",
+  "notif.warn.no_alternative_green_paths_found": "No alternative green paths found.",
   "notif.error.no_aqi_map_data_available": "Air quality data is currently unavailable.",
   "notif.error.no_car_trips_found": "Could not find routes.",
 

@@ -14,8 +14,10 @@
   "notif.error.origin_not_found": "Lähtöpaikkaa ei löytynyt.",
   "notif.error.origin_outside_extent": "Lähtöpaikka on tuetun alueen ulkopuolella.",
   "notif.error.destination_outside_extent": "Määränpää on tuetun alueen ulkopuolella.",
-  "notif.error.no_alternative_quiet_paths_found": "Vaihtoehtoisia hiljaisia reittejä ei löytynyt.",
-  "notif.error.no_alternative_clean_paths_found": "Vaihtoehtoisia puhtaan ilman reittejä ei löytynyt.",
+  "notif.error.no_shortest_path_found": "Reittejä ei löytynyt.",
+  "notif.warn.no_alternative_quiet_paths_found": "Vaihtoehtoisia hiljaisia reittejä ei löytynyt.",
+  "notif.warn.no_alternative_clean_paths_found": "Vaihtoehtoisia puhtaan ilman reittejä ei löytynyt.",
+  "notif.warn.no_alternative_green_paths_found": "Vaihtoehtoisia vihreämpiä reittejä ei löytynyt.",
   "notif.error.no_aqi_map_data_available": "Ilmanlaatudataa ei ole juuri nyt saatavilla.",
   "notif.error.no_car_trips_found": "Reittejä ei löytynyt.",
 

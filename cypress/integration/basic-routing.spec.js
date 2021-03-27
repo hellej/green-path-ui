@@ -1,6 +1,6 @@
 describe('Page load', () => {
   it('opens the page', () => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('/')
     cy.get('#set-lang-en-button').click({ force: true })
     cy.contains('Welcome')
   })
@@ -100,7 +100,7 @@ describe('Find quiet paths', () => {
     cy.contains('Find quiet paths').click()
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.gte', 3)
     cy.get('[data-cy=shortest-path-box').should('have.length', 1)
-    cy.get('[data-cy=green-path-box').its('length').should('be.gte', 1)
+    cy.get('[data-cy=env-optimized-path-box').its('length').should('be.gte', 1)
     cy.get('#reset-paths-container').click()
   })
 
@@ -135,18 +135,16 @@ describe('Find quiet paths', () => {
     cy.contains('Typical daily traffic noise (dB)')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.gte', 3)
     cy.get('[data-cy=shortest-path-box').should('have.length', 1)
-    cy.get('[data-cy=green-path-box').its('length').should('be.gte', 1)
+    cy.get('[data-cy=env-optimized-path-box').its('length').should('be.gte', 1)
     cy.get('#reset-paths-container').click()
   })
-
 })
 
 describe('Find fresh air paths', () => {
   it('finds fresh air paths (only shortest path)', () => {
-    cy.intercept(
-      '**/paths/walk/clean/60.202413,24.957558/60.21612,24.98068',
-      { fixture: 'clean_paths_1.json' },
-    )
+    cy.intercept('**/paths/walk/clean/60.202413,24.957558/60.21612,24.98068', {
+      fixture: 'clean_paths_1.json',
+    })
     cy.contains('Find fresh air paths').click()
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 2)
     cy.get('[data-cy=shortest-path-box').should('have.length', 1)
@@ -163,7 +161,7 @@ describe('Find fresh air paths', () => {
       cy.get('li').contains('Kellomäki').first().click()
     })
   })
-  
+
   it('sets destination', () => {
     cy.intercept('geocoding', { fixture: 'geocode_physicum.json' })
     cy.get('#reset-destination-button').click()
@@ -175,53 +173,46 @@ describe('Find fresh air paths', () => {
   })
 
   it('finds fresh air paths (shortest + 1 fresh air path)', () => {
-    cy.intercept(
-      '**/paths/walk/clean/60.215723,24.978641/60.205098,24.962761',
-      { fixture: 'clean_paths_2.json' },
-    )
+    cy.intercept('**/paths/walk/clean/60.215723,24.978641/60.205098,24.962761', {
+      fixture: 'clean_paths_2.json',
+    })
     cy.contains('Find fresh air paths').click()
     cy.contains('Air quality')
     cy.contains('22 min')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 3)
     cy.get('[data-cy=shortest-path-box').should('have.length', 1)
-    cy.get('[data-cy=green-path-box').its('length').should('be.eq', 1)
+    cy.get('[data-cy=env-optimized-path-box').its('length').should('be.eq', 1)
   })
-
 })
 
 describe('Toggle routing mode: fresh air -> quiet', () => {
   it('switches to showing quiet air paths', () => {
-    cy.intercept(
-      '**/paths/walk/quiet/60.215723,24.978641/60.205098,24.962761',
-      { fixture: 'quiet_paths_1.json' },
-    )
+    cy.intercept('**/paths/walk/quiet/60.215723,24.978641/60.205098,24.962761', {
+      fixture: 'quiet_paths_1.json',
+    })
     cy.get('[data-cy=toggle-paths-exposure]').click()
     cy.contains('22 min')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 4)
     cy.contains('Typical daily traffic noise (dB')
   })
-
 })
 
 describe('Toggle routing mode: walk -> bike', () => {
   it('switches to showing paths for biking', () => {
-    cy.intercept(
-      '**/paths/bike/quiet/60.215723,24.978641/60.205098,24.962761',
-      { fixture: 'quiet_paths_2.json' },
-    )
+    cy.intercept('**/paths/bike/quiet/60.215723,24.978641/60.205098,24.962761', {
+      fixture: 'quiet_paths_2.json',
+    })
     cy.get('[data-cy=toggle-to-bike-button]').click()
     cy.contains('7 min')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 4)
   })
 
   it('switches to showing paths for walking', () => {
-    cy.intercept(
-      '**/paths/walk/quiet/60.215723,24.978641/60.205098,24.962761',
-      { fixture: 'quiet_paths_1.json' },
-    )
+    cy.intercept('**/paths/walk/quiet/60.215723,24.978641/60.205098,24.962761', {
+      fixture: 'quiet_paths_1.json',
+    })
     cy.get('[data-cy=toggle-to-walk-button]').click()
     cy.contains('22 min')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 4)
   })
-
 })

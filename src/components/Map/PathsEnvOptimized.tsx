@@ -6,10 +6,10 @@ import { scrollToPath } from '../../reducers/pathListReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { clickTol, LayerId } from '../../constants'
 import { utils } from '../../utils/index'
-import { PathFeatureCollection, ReduxState } from '../../types'
-import { ExposureMode } from '../../services/paths'
+import { ReduxState } from '../../types'
+import GeoJSON from 'geojson'
 
-class PathsGreen extends React.Component<PropsFromRedux> {
+class PathsEnvOptimized extends React.Component<PropsFromRedux> {
   layerId = LayerId.GREEN_PATHS
   source: GeoJSONSource | undefined
   paint = {
@@ -23,7 +23,7 @@ class PathsGreen extends React.Component<PropsFromRedux> {
   }
 
   loadLayerToMap(map: any) {
-    map.addSource(this.layerId, { type: 'geojson', data: this.props.quietPathFC })
+    map.addSource(this.layerId, { type: 'geojson', data: this.props.envOptimizedPathFC })
     this.source = map.getSource(this.layerId)
     map.addLayer({
       id: this.layerId,
@@ -36,23 +36,15 @@ class PathsGreen extends React.Component<PropsFromRedux> {
   }
 
   updateLayerData(map: any) {
-    const { showingPathsOfExposureMode, quietPathFC, cleanPathFC, lengthLimit } = this.props
-    let greenPathsFC: PathFeatureCollection
-    if (showingPathsOfExposureMode === ExposureMode.CLEAN) {
-      greenPathsFC = cleanPathFC
-    } else {
-      greenPathsFC = quietPathFC
-    }
+    const { envOptimizedPathFC, lengthLimit } = this.props
 
     if (this.source !== undefined) {
-      // @ts-ignore - it's valid geojson
-      this.source.setData(greenPathsFC)
+      this.source.setData(envOptimizedPathFC as GeoJSON.FeatureCollection<GeoJSON.Geometry>)
       map.setFilter(this.layerId, ['<=', 'length', lengthLimit.limit])
     } else {
       map.once('sourcedata', () => {
         if (this.source) {
-          // @ts-ignore - it's valid geojson
-          this.source.setData(greenPathsFC)
+          this.source.setData(envOptimizedPathFC as GeoJSON.FeatureCollection<GeoJSON.Geometry>)
         }
       })
       map.setFilter(this.layerId, ['<=', 'length', lengthLimit.limit])
@@ -103,12 +95,11 @@ class PathsGreen extends React.Component<PropsFromRedux> {
 
 const mapStateToProps = (state: ReduxState) => ({
   showingPathsOfExposureMode: state.paths.showingPathsOfExposureMode,
-  quietPathFC: state.paths.quietPathFC,
-  cleanPathFC: state.paths.cleanPathFC,
+  envOptimizedPathFC: state.paths.envOptimizedPathFC,
   lengthLimit: state.paths.lengthLimit,
   basemapChangeId: state.map.basemapChangeId,
 })
 
 const connector = connect(mapStateToProps, { setSelectedPath, scrollToPath, setLayerLoaded })
 type PropsFromRedux = ConnectedProps<typeof connector>
-export default connector(PathsGreen)
+export default connector(PathsEnvOptimized)

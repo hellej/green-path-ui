@@ -14,8 +14,10 @@
   "notif.error.origin_not_found": "Startpunkten hittades inte.",
   "notif.error.origin_outside_extent": "Startpunkten är utanför applikationens karta.",
   "notif.error.destination_outside_extent": "Målet är utanför applikationens karta.",
-  "notif.error.no_alternative_quiet_paths_found": "Alternativa tysta rutter kunde inte hittas.",
-  "notif.error.no_alternative_clean_paths_found": "Alternativa rutter med ren luft kunde inte hittas.",
+  "notif.error.no_shortest_path_found": "Rutter kunde inte hittas.",
+  "notif.warn.no_alternative_quiet_paths_found": "Alternativa tysta rutter kunde inte hittas.",
+  "notif.warn.no_alternative_clean_paths_found": "Alternativa rutter med ren luft kunde inte hittas.",
+  "notif.warn.no_alternative_green_paths_found": "Alternativa grön rutter kunde inte hittas.",
   "notif.error.no_aqi_map_data_available": "Luftkvalitetsdata fås inte just nu.",
 
   "find_quiet_paths_btn": "Sök tysta rutter",

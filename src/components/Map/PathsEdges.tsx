@@ -5,6 +5,7 @@ import { setSelectedPath } from '../../reducers/pathsReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
 import { dBColors, colorByAqiClass, LayerId } from '../../constants'
 import { ReduxState } from '../../types'
+import GeoJSON from 'geojson'
 import { ExposureMode } from '../../services/paths'
 
 // prettier-ignore
@@ -51,7 +52,7 @@ class PathsEdges extends React.Component<PropsFromRedux> {
 
   loadLayerToMap(map: any) {
     // Add layer
-    map.addSource(this.layerId, { type: 'geojson', data: this.props.quietEdgeFC })
+    map.addSource(this.layerId, { type: 'geojson', data: this.props.pathEdgeFC })
     this.source = map.getSource(this.layerId)
     map.addLayer({
       id: this.layerId,
@@ -64,25 +65,22 @@ class PathsEdges extends React.Component<PropsFromRedux> {
   }
 
   updateLayerData(map: any) {
-    const { showingPathsOfExposureMode, quietEdgeFC, cleanEdgeFC, lengthLimit } = this.props
-    let greenEdgeFC: any
+    const { showingPathsOfExposureMode, pathEdgeFC, lengthLimit } = this.props
     let lineColor
     if (showingPathsOfExposureMode === ExposureMode.CLEAN) {
-      greenEdgeFC = cleanEdgeFC
       lineColor = aqiLineColors
     } else {
-      greenEdgeFC = quietEdgeFC
       lineColor = dbLineColors
     }
 
     if (this.source !== undefined) {
-      this.source.setData(greenEdgeFC)
+      this.source.setData(pathEdgeFC as GeoJSON.FeatureCollection<GeoJSON.Geometry>)
       map.setFilter(this.layerId, ['<=', 'p_length', lengthLimit.limit])
       map.setPaintProperty(this.layerId, 'line-color', lineColor)
     } else {
       map.once('sourcedata', () => {
         if (this.source) {
-          this.source.setData(greenEdgeFC)
+          this.source.setData(pathEdgeFC as GeoJSON.FeatureCollection<GeoJSON.Geometry>)
         }
       })
       map.setFilter(this.layerId, ['<=', 'p_length', lengthLimit.limit])
@@ -117,8 +115,7 @@ class PathsEdges extends React.Component<PropsFromRedux> {
 
 const mapStateToProps = (state: ReduxState) => ({
   showingPathsOfExposureMode: state.paths.showingPathsOfExposureMode,
-  quietEdgeFC: state.paths.quietEdgeFC,
-  cleanEdgeFC: state.paths.cleanEdgeFC,
+  pathEdgeFC: state.paths.pathEdgeFC,
   lengthLimit: state.paths.lengthLimit,
   basemapChangeId: state.map.basemapChangeId,
 })

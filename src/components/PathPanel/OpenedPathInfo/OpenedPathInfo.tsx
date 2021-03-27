@@ -7,10 +7,9 @@ import { PathAqiBar } from './../PathAqiBar'
 import { OpenedPathNoiseExps } from './OpenedPathNoiseExps'
 import { OpenedPathAqExps } from './OpenedPathAqExps'
 import { ClosePathBox } from './../OpenClosePathBoxes'
-import { PathType, StatsType } from './../../../constants'
 import T from './../../../utils/translator/Translator'
 import { PathFeature, ReduxState } from '../../../types'
-import { TravelMode } from '../../../services/paths'
+import { ExposureMode, TravelMode } from '../../../services/paths'
 
 const PathRowFlex = styled.div`
   display: flex;
@@ -33,8 +32,8 @@ const OpenedPathInfo = ({ paths, unsetOpenedPath }: PropsFromRedux) => {
   const { shortPathFC, openedPath, showingStatsType, showingPathsOfTravelMode } = paths
   const shortPath = shortPathFC.features[0]
 
-  if (openedPath!.properties.type === PathType.SHORT) {
-    if (showingStatsType === StatsType.AQ) {
+  if (openedPath!.properties.type === ExposureMode.SHORT) {
+    if (showingStatsType === ExposureMode.CLEAN) {
       return (
         <ShortPathAqiExposures
           path={openedPath!}
@@ -51,7 +50,7 @@ const OpenedPathInfo = ({ paths, unsetOpenedPath }: PropsFromRedux) => {
         />
       )
     }
-  } else if (showingStatsType === StatsType.AQ) {
+  } else if (showingStatsType === ExposureMode.CLEAN) {
     return (
       <PathAqiExposures
         path={openedPath!}

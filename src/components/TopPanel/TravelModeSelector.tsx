@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
 import { MdDirectionsBike } from 'react-icons/md'
 import { MdDirectionsWalk } from 'react-icons/md'
-import { setTravelMode, getSetQuietPaths, getSetCleanPaths } from './../../reducers/pathsReducer'
+import { setTravelMode, routeEnvOptimizedPaths } from './../../reducers/pathsReducer'
 import { ReduxState } from '../../types'
 import { ExposureMode, TravelMode } from '../../services/paths'
 
@@ -64,14 +64,26 @@ const getSetTravelModeFunction = (props: PropsFromRedux, travelModeOfTheButton: 
   if (props.waitingPaths) {
     return null
   }
-  if (!props.showingPaths) {
+  if (!props.showingPathsOfExposureMode) {
     return props.setTravelMode(travelModeOfTheButton)
   } else {
     const { origin, destination } = props
     if (props.showingPathsOfExposureMode === ExposureMode.QUIET) {
-      return props.getSetQuietPaths(origin, destination, travelModeOfTheButton, props.routingId)
+      return props.routeEnvOptimizedPaths(
+        origin,
+        destination,
+        travelModeOfTheButton,
+        props.showingPathsOfExposureMode,
+        props.routingId,
+      )
     } else {
-      return props.getSetCleanPaths(origin, destination, travelModeOfTheButton, props.routingId)
+      return props.routeEnvOptimizedPaths(
+        origin,
+        destination,
+        travelModeOfTheButton,
+        props.showingPathsOfExposureMode,
+        props.routingId,
+      )
     }
   }
 }
@@ -82,14 +94,14 @@ const TravelModeSelector = (props: PropsFromRedux) => {
       <StyledIconContainer
         data-cy="toggle-to-walk-button"
         onClick={() => getSetTravelModeFunction(props, TravelMode.WALK)}
-        selected={props.selectedTravelMode === TravelMode.WALK}
+        selected={props.travelMode === TravelMode.WALK}
       >
         <StyledWalkI />
       </StyledIconContainer>
       <StyledIconContainer
         data-cy="toggle-to-bike-button"
         onClick={() => getSetTravelModeFunction(props, TravelMode.BIKE)}
-        selected={props.selectedTravelMode === TravelMode.BIKE}
+        selected={props.travelMode === TravelMode.BIKE}
         bike
       >
         <StyledBikeI />
@@ -101,13 +113,13 @@ const TravelModeSelector = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   showingPaths: state.paths.showingPaths,
   waitingPaths: state.paths.waitingPaths,
-  selectedTravelMode: state.paths.selectedTravelMode,
+  travelMode: state.paths.travelMode,
   showingPathsOfExposureMode: state.paths.showingPathsOfExposureMode,
   origin: state.origin,
   destination: state.destination,
   routingId: state.paths.routingId,
 })
 
-const connector = connect(mapStateToProps, { setTravelMode, getSetQuietPaths, getSetCleanPaths })
+const connector = connect(mapStateToProps, { setTravelMode, routeEnvOptimizedPaths })
 type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(TravelModeSelector)

@@ -1,12 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
-import {
-  getSetQuietPaths,
-  getSetCleanPaths,
-  setQuietPaths,
-  setCleanPaths,
-} from '../../reducers/pathsReducer'
+import { routeEnvOptimizedPaths } from '../../reducers/pathsReducer'
 import T from './../../utils/translator/Translator'
 import { ReduxState } from '../../types'
 import { ExposureMode } from '../../services/paths'
@@ -68,11 +63,8 @@ const StyledPathTypeLabel = styled.span<LabelProps>`
 `
 
 const getPathToggleFunc = (toggleToPathType: ExposureMode, props: PropsFromRedux) => {
-  const { selectedTravelMode, origin, destination, routingId } = props
-  const { getSetQuietPaths, getSetCleanPaths } = props
-  return toggleToPathType === ExposureMode.QUIET
-    ? getSetQuietPaths(origin, destination, selectedTravelMode, routingId)
-    : getSetCleanPaths(origin, destination, selectedTravelMode, routingId)
+  const { routeEnvOptimizedPaths, travelMode, origin, destination, routingId } = props
+  return routeEnvOptimizedPaths(origin, destination, travelMode, toggleToPathType, routingId)
 }
 
 const TogglePathsButton = (props: PropsFromRedux) => {
@@ -106,19 +98,12 @@ const TogglePathsButton = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   cleanPathsAvailable: state.paths.cleanPathsAvailable,
   routingId: state.paths.routingId,
-  selectedTravelMode: state.paths.selectedTravelMode,
+  travelMode: state.paths.travelMode,
   showingPathsOfExposureMode: state.paths.showingPathsOfExposureMode,
   origin: state.origin,
   destination: state.destination,
 })
 
-const mapDispatchToProps = {
-  getSetQuietPaths,
-  getSetCleanPaths,
-  setQuietPaths,
-  setCleanPaths,
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
+const connector = connect(mapStateToProps, { routeEnvOptimizedPaths })
 type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(TogglePathsButton)

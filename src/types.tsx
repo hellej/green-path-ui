@@ -1,6 +1,6 @@
 import { Feature, Geometry, Point, Polygon } from '@turf/helpers'
 import { Map } from 'mapbox-gl'
-import { Basemap, LayerId, PathType, StatsType } from './constants'
+import { Basemap, LayerId } from './constants'
 import { LocationType, OdType } from './reducers/originReducer'
 import { Lang } from './reducers/uiReducer'
 import { CarTripInfo } from './services/carTrips'
@@ -84,7 +84,7 @@ export interface RawPathProperties {
   noise_range_exps: { [key in DbClass]: number }
   noises: { [key: number]: number }
   path_score: number
-  type: PathType
+  type: ExposureMode
 }
 
 interface RawPathFeature extends Feature {
@@ -166,17 +166,15 @@ export interface NotificationReducer {
 
 export interface PathsReducer {
   cleanPathsAvailable: boolean
-  selectedTravelMode: TravelMode
+  travelMode: TravelMode
   showingPathsOfTravelMode: TravelMode | null
   showingPathsOfExposureMode: ExposureMode | null
-  showingStatsType: StatsType | null
+  showingStatsType: ExposureMode | null
   odCoords: OdCoords | null
   selPathFC: PathFeatureCollection
   shortPathFC: PathFeatureCollection
-  quietPathFC: PathFeatureCollection
-  cleanPathFC: PathFeatureCollection
-  quietEdgeFC: EdgeFeatureCollection
-  cleanEdgeFC: EdgeFeatureCollection
+  envOptimizedPathFC: PathFeatureCollection
+  pathEdgeFC: EdgeFeatureCollection
   openedPath: PathFeature | null
   lengthLimit: LengthLimit
   lengthLimits: LengthLimit[]

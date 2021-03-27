@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
-import { getSetCleanPaths, getSetQuietPaths } from '../reducers/pathsReducer'
+import { routeEnvOptimizedPaths } from '../reducers/pathsReducer'
 import T from './../utils/translator/Translator'
 import { ReduxState } from '../types'
+import { ExposureMode } from '../services/paths'
 
 const OuterFlex = styled.div`
   display: flex;
@@ -54,12 +55,11 @@ const FindPathsButtons = (props: PropsFromRedux) => {
     cleanPathsAvailable,
     origin,
     destination,
-    selectedTravelMode,
+    travelMode,
     routingId,
     waitingPaths,
     showingPaths,
-    getSetCleanPaths,
-    getSetQuietPaths,
+    routeEnvOptimizedPaths,
   } = props
 
   const { originObject } = origin
@@ -75,7 +75,11 @@ const FindPathsButtons = (props: PropsFromRedux) => {
 
   return (
     <OuterFlex>
-      <Button onClick={() => getSetQuietPaths(origin, destination, selectedTravelMode, routingId)}>
+      <Button
+        onClick={() =>
+          routeEnvOptimizedPaths(origin, destination, travelMode, ExposureMode.QUIET, routingId)
+        }
+      >
         <T>find_quiet_paths_btn</T>
         <Tooltip>
           <T>find_quiet_paths_btn.tooltip</T>
@@ -83,7 +87,9 @@ const FindPathsButtons = (props: PropsFromRedux) => {
       </Button>
       {cleanPathsAvailable ? (
         <Button
-          onClick={() => getSetCleanPaths(origin, destination, selectedTravelMode, routingId)}
+          onClick={() =>
+            routeEnvOptimizedPaths(origin, destination, travelMode, ExposureMode.CLEAN, routingId)
+          }
         >
           <T>find_fresh_air_paths_btn</T>
           <Tooltip>
@@ -98,13 +104,13 @@ const FindPathsButtons = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   origin: state.origin,
   destination: state.destination,
-  selectedTravelMode: state.paths.selectedTravelMode,
+  travelMode: state.paths.travelMode,
   waitingPaths: state.paths.waitingPaths,
   showingPaths: state.paths.showingPaths,
   routingId: state.paths.routingId,
   cleanPathsAvailable: state.paths.cleanPathsAvailable,
 })
 
-const connector = connect(mapStateToProps, { getSetCleanPaths, getSetQuietPaths })
+const connector = connect(mapStateToProps, { routeEnvOptimizedPaths })
 type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(FindPathsButtons)

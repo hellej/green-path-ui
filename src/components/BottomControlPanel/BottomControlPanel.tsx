@@ -12,7 +12,6 @@ import {
   showMaxLengthFilterSelector,
 } from './../../reducers/uiReducer'
 import { ReduxState } from '../../types'
-import { ExposureMode } from '../../services/paths'
 
 const ControlPanel = styled.div<{ pathPanelVisible: boolean }>`
   background: rgba(255, 255, 255, 0.98);
@@ -39,11 +38,9 @@ const ButtonFlex = styled.div`
 const BottomControlPanel = (props: propsFromRedux) => {
   const {
     showingPaths,
-    showingPathsOfExposureMode,
     pathPanelVisible,
     pathPanelContent,
-    quietPathCount,
-    cleanPathCount,
+    envOptimizedPathCount,
     lengthLimit,
     lengthLimits,
     togglePathPanel,
@@ -53,9 +50,6 @@ const BottomControlPanel = (props: propsFromRedux) => {
 
   if (!showingPaths) return null
 
-  const greenPathCount =
-    showingPathsOfExposureMode === ExposureMode.CLEAN ? cleanPathCount : quietPathCount
-
   return (
     <ControlPanel pathPanelVisible={pathPanelVisible}>
       <ButtonFlex>
@@ -63,7 +57,7 @@ const BottomControlPanel = (props: propsFromRedux) => {
           <ListButton onClick={showPathList} />
         ) : (
           <FilterButton
-            greenPathCount={greenPathCount}
+            envOptimizedPathCount={envOptimizedPathCount}
             lengthLimit={lengthLimit}
             lengthLimits={lengthLimits}
             onClick={showMaxLengthFilterSelector}
@@ -84,8 +78,7 @@ const mapStateToProps = (state: ReduxState) => ({
   showingPathsOfExposureMode: state.paths.showingPathsOfExposureMode,
   pathPanelVisible: state.ui.pathPanel,
   pathPanelContent: state.ui.pathPanelContent,
-  quietPathCount: state.paths.quietPathFC.features.length,
-  cleanPathCount: state.paths.cleanPathFC.features.length,
+  envOptimizedPathCount: state.paths.envOptimizedPathFC.features.length,
   lengthLimit: state.paths.lengthLimit,
   lengthLimits: state.paths.lengthLimits,
 })

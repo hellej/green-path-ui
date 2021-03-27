@@ -1,7 +1,7 @@
 import { walkSpeed, bikeSpeed } from './../constants'
 import { MapMouseEvent, Map, PointLike } from 'mapbox-gl'
 import { LengthLimit, PathFeature } from '../types'
-import { TravelMode } from '../services/paths'
+import { ExposureMode, TravelMode } from '../services/paths'
 
 const concatSign = (number: number): string => {
   if (number < 0) {
@@ -89,9 +89,14 @@ export const getLengthLimits = (greenPathFeatures: PathFeature[]): LengthLimit[]
 
 export const getInitialLengthLimit = (
   lengthLimits: LengthLimit[],
+  exposureMode: ExposureMode,
   pathCount: number,
-  costCoeffLimit: number,
+  costCoeffLimit = 20,
 ): LengthLimit => {
+  if (exposureMode === ExposureMode.CLEAN) {
+    // disable initial length limit for fresh air paths
+    return lengthLimits[lengthLimits.length - 1]
+  }
   // return length limit that filters out paths with cost_coeff higher than 20
   if (lengthLimits.length > 1 && pathCount > 3) {
     let prevDl = lengthLimits[0]

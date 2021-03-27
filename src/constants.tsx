@@ -1,4 +1,5 @@
 import hmaPoly from './HMA.json'
+import { ExposureMode } from './services/paths'
 import { AqiClass, GviClass, PolygonFeature } from './types'
 
 export const extentFeat = hmaPoly.features[0] as PolygonFeature
@@ -43,17 +44,6 @@ export enum LayerId {
   PATHS_EDGES = 'pathsEdges',
   BASEMAP = 'baseMapLayer',
   AQI_LAYER = 'aqistreetshma',
-}
-
-export enum PathType {
-  SHORT = 'short',
-  CLEAN = 'clean',
-  QUIET = 'quiet',
-}
-
-export enum StatsType {
-  AQ = 'air quality',
-  NOISE = 'noise',
 }
 
 export type DbClass = 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75
@@ -128,6 +118,13 @@ export const walkSpeed = 1.33
 export const bikeSpeed = 4.15
 
 export const clickTol = 12
+
+export const noPathsErrorByExposureMode: Record<ExposureMode, string> = {
+  [ExposureMode.SHORT]: 'notif.error.no_shortest_path_found',
+  [ExposureMode.QUIET]: 'notif.warn.no_alternative_quiet_paths_found',
+  [ExposureMode.CLEAN]: 'notif.warn.no_alternative_clean_paths_found',
+  [ExposureMode.GREEN]: 'notif.warn.no_alternative_green_paths_found',
+}
 
 export const initialMapCenter =
   process.env.REACT_APP_DEV_MAP_VIEW === 'True'
