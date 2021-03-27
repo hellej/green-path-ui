@@ -82,7 +82,11 @@ const showNoiseMapLegend = (props: PropsFromRedux): boolean => {
 }
 
 const showGviMapLegend = (props: PropsFromRedux): boolean => {
-  return props.basemap === Basemap.GVI
+  return (
+    props.basemap === Basemap.GVI ||
+    (props.showingPathsOfExposureMode === ExposureMode.GREEN &&
+      (props.basemap === Basemap.STREETS || props.basemap === Basemap.SATELLITE))
+  )
 }
 
 const TopPanel = (props: PropsFromRedux) => {
