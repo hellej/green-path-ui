@@ -65,9 +65,10 @@
 
   "toggle_paths_exposure.label.show": "Visa",
   "toggle_paths_exposure.label.quiet": "tysta",
+  "toggle_paths_exposure.label.green": "gröna",
   "toggle_paths_exposure.label.fresh_air": "renluftsrutter",
   "toggle_paths_exposure.label.(fresh_air).paths": "",
-  "toggle_paths_exposure.label.(quiet).paths": "rutter",
+  "toggle_paths_exposure.label.paths": "rutter",
 
   "exposure_score_label.greenery": "Grönska",
   "exposure_score_label.quietness": "Tystnad",

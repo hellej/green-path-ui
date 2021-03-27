@@ -26,6 +26,7 @@ import {
   OriginReducer,
   OdFeatureCollection,
   DestinationReducer,
+  EnvExposureMode,
 } from './../types'
 
 const initialPaths: PathsReducer = {
@@ -50,7 +51,7 @@ const initialPaths: PathsReducer = {
 
 interface PathsAction extends Action {
   travelMode: TravelMode
-  exposureMode: ExposureMode
+  exposureMode: EnvExposureMode
   b_available: boolean
   routingId: number
   odCoords: OdCoords

@@ -164,12 +164,14 @@ export interface NotificationReducer {
   look: string | null
 }
 
+export type EnvExposureMode = Exclude<ExposureMode, ExposureMode.SHORT>
+
 export interface PathsReducer {
   cleanPathsAvailable: boolean
   travelMode: TravelMode
   showingPathsOfTravelMode: TravelMode | null
-  showingPathsOfExposureMode: ExposureMode | null
-  showingStatsType: ExposureMode | null
+  showingPathsOfExposureMode: EnvExposureMode | null
+  showingStatsType: EnvExposureMode | null
   odCoords: OdCoords | null
   selPathFC: PathFeatureCollection
   shortPathFC: PathFeatureCollection

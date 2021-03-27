@@ -23,6 +23,8 @@
 
   "find_quiet_paths_btn": "Etsi hiljaiset reitit",
   "find_quiet_paths_btn.tooltip": "tyypillisillä melutasoilla",
+  "find_green_paths_btn": "Etsi vihreät reitit",
+  "find_green_paths_btn.tooltip": "kasvillisuuden vihernäkymillä",
   "find_fresh_air_paths_btn": "Etsi hyvän ilman reitit",
   "find_fresh_air_paths_btn.tooltip": "reaaliaikaisella ilmanlaadulla",
 
@@ -69,9 +71,10 @@
 
   "toggle_paths_exposure.label.show": "Näytä",
   "toggle_paths_exposure.label.quiet": "hiljaiset",
+  "toggle_paths_exposure.label.green": "vihreät",
   "toggle_paths_exposure.label.fresh_air": "hyvän ilman",
   "toggle_paths_exposure.label.(fresh_air).paths": "reitit",
-  "toggle_paths_exposure.label.(quiet).paths": "reitit",
+  "toggle_paths_exposure.label.paths": "reitit",
 
   "exposure_score_label.greenery": "Vihreys",
   "exposure_score_label.quietness": "Hiljaisuus",

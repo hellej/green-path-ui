@@ -23,6 +23,8 @@
 
   "find_quiet_paths_btn": "Find quiet paths",
   "find_quiet_paths_btn.tooltip": "by typical traffic noise",
+  "find_green_paths_btn": "Find green paths",
+  "find_green_paths_btn.tooltip": "by green vegetation views",
   "find_fresh_air_paths_btn": "Find fresh air paths",
   "find_fresh_air_paths_btn.tooltip": "by real-time air quality",
 
@@ -69,9 +71,10 @@
 
   "toggle_paths_exposure.label.show": "Show",
   "toggle_paths_exposure.label.quiet": "quiet",
+  "toggle_paths_exposure.label.green": "green",
   "toggle_paths_exposure.label.fresh_air": "fresh air",
   "toggle_paths_exposure.label.(fresh_air).paths": "paths",
-  "toggle_paths_exposure.label.(quiet).paths": "paths",
+  "toggle_paths_exposure.label.paths": "paths",
 
   "exposure_score_label.greenery": "Greenery",
   "exposure_score_label.quietness": "Quietness",

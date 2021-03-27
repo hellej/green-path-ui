@@ -95,6 +95,19 @@ export const aqiMapColorByAqiClass: Record<AqiClass, string> = {
   9: '#ff2f20',
 }
 
+export const colorByGviClass: Record<GviClass, string> = {
+  1: '#b0b0b0',
+  2: '#a3b89c',
+  3: '#94be87',
+  4: '#83c571',
+  5: '#6eca5a',
+  6: '#52d03e',
+  7: '#1dd513',
+  8: '#1dd513',
+  9: '#1dd513',
+  10: '#1dd513',
+}
+
 export const gviMapColorByGviClass: Record<GviClass, string> = {
   1: '#606060',
   2: '#616e5b',

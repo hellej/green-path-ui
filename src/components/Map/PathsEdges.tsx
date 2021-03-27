@@ -3,10 +3,27 @@ import { connect, ConnectedProps } from 'react-redux'
 import { GeoJSONSource } from 'mapbox-gl'
 import { setSelectedPath } from '../../reducers/pathsReducer'
 import { setLayerLoaded } from './../../reducers/mapReducer'
-import { dBColors, colorByAqiClass, LayerId } from '../../constants'
-import { ReduxState } from '../../types'
+import { dBColors, colorByAqiClass, colorByGviClass, LayerId } from '../../constants'
+import { EnvExposureMode, ReduxState } from '../../types'
 import GeoJSON from 'geojson'
 import { ExposureMode } from '../../services/paths'
+
+// prettier-ignore
+const gviLineColors = [
+  'match',
+  ['get', 'value'],
+  1, colorByGviClass[1],
+  2, colorByGviClass[2],
+  3, colorByGviClass[3],
+  4, colorByGviClass[4],
+  5, colorByGviClass[5],
+  6, colorByGviClass[6],
+  7, colorByGviClass[7],
+  8, colorByGviClass[8],
+  9, colorByGviClass[9],
+  10, colorByGviClass[10],
+  /* other */ 'white',
+]
 
 // prettier-ignore
 const dbLineColors = [
@@ -37,6 +54,14 @@ const aqiLineColors = [
   /* other */ 'white',
 ]
 
+type EdgeColors = typeof gviLineColors
+
+const colorScaleByExposureMode: Record<EnvExposureMode, EdgeColors> = {
+  [ExposureMode.GREEN]: gviLineColors,
+  [ExposureMode.QUIET]: dbLineColors,
+  [ExposureMode.CLEAN]: aqiLineColors,
+}
+
 class PathsEdges extends React.Component<PropsFromRedux> {
   layerId = LayerId.PATHS_EDGES
   source: GeoJSONSource | undefined
@@ -66,12 +91,10 @@ class PathsEdges extends React.Component<PropsFromRedux> {
 
   updateLayerData(map: any) {
     const { showingPathsOfExposureMode, pathEdgeFC, lengthLimit } = this.props
-    let lineColor
-    if (showingPathsOfExposureMode === ExposureMode.CLEAN) {
-      lineColor = aqiLineColors
-    } else {
-      lineColor = dbLineColors
-    }
+
+    const lineColor = showingPathsOfExposureMode
+      ? colorScaleByExposureMode[showingPathsOfExposureMode]
+      : 'white'
 
     if (this.source !== undefined) {
       this.source.setData(pathEdgeFC as GeoJSON.FeatureCollection<GeoJSON.Geometry>)

@@ -9,6 +9,7 @@ import { ExposureMode } from '../services/paths'
 const OuterFlex = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   margin: 0 10px 13px 10px;
   align-items: center;
   @media (min-width: 550px) {
@@ -16,20 +17,18 @@ const OuterFlex = styled.div`
     justify-content: center;
   }
 `
-const Button = styled.div`
+const Button = styled.button`
   cursor: pointer;
-  padding: 7px 18px;
   color: white;
-  border-radius: 70px;
-  margin: 5px 6px;
-  font-weight: 400;
+  padding: 7px 18px !important;
+  border-radius: 70px !important;
+  margin: 5px 6px !important;
+  font-weight: 400 !important;
+  text-align: center !important;
+  width: max-content !important;
+  letter-spacing: 0.4 !important;
   font-size: 28px;
-  text-align: center;
-  width: max-content;
-  letter-spacing: 0.4;
   max-width: 90%;
-  overflow: auto;
-  height: auto;
   pointer-events: auto;
   transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s; /* Safari */
@@ -75,6 +74,16 @@ const FindPathsButtons = (props: PropsFromRedux) => {
 
   return (
     <OuterFlex>
+      <Button
+        onClick={() =>
+          routeEnvOptimizedPaths(origin, destination, travelMode, ExposureMode.GREEN, routingId)
+        }
+      >
+        <T>find_green_paths_btn</T>
+        <Tooltip>
+          <T>find_green_paths_btn.tooltip</T>
+        </Tooltip>
+      </Button>
       <Button
         onClick={() =>
           routeEnvOptimizedPaths(origin, destination, travelMode, ExposureMode.QUIET, routingId)
