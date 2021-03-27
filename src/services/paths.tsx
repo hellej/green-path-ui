@@ -51,16 +51,16 @@ export const getPaths = async (
     return processPathData(cached)
   }
   console.log('Querying quiet paths from server:', queryUrl)
-  const response = await axios.get(queryUrl)
-  if (response.status >= 400 || response.data.error_key) {
+  const response = await fetch(queryUrl)
+  const data = await response.json()
+  if (response.status >= 400 || data.error_key) {
     analytics.logEvent(`routing_error_${travelMode}_${exposureMode}_paths`)
-    throw response.data.error_key
-      ? response.data.error_key
-      : 'notif.error.routing.general_routing_error'
+    throw data.error_key ? data.error_key : 'notif.error.routing.general_routing_error'
   }
   analytics.logEvent('routed_quiet_paths')
-  cache.setToCacheWithExpiry(queryUrl, response.data, 3600)
-  return processPathData(response.data)
+  const cacheTtlSecs = exposureMode === ExposureMode.CLEAN ? 300 : 3600
+  cache.setToCacheWithExpiry(queryUrl, data, cacheTtlSecs)
+  return processPathData(data)
 }
 
 export const debugNearestEdgeAttrs = async (lngLat: LngLat): Promise<void> => {
