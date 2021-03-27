@@ -185,15 +185,22 @@ describe('Find fresh air paths', () => {
   })
 })
 
-describe('Toggle routing mode: fresh air -> quiet', () => {
-  it('switches to showing quiet air paths', () => {
+describe('Toggle routing mode: fresh air -> green -> quiet', () => {
+  it('switches to showing green and then quiet paths', () => {
     cy.intercept('**/paths/walk/quiet/60.215723,24.978641/60.205098,24.962761', {
       fixture: 'quiet_paths_1.json',
     })
+    cy.intercept('**/paths/walk/green/60.215723,24.978641/60.205098,24.962761', {
+      fixture: 'green_paths_1.json',
+    })
+    // -> green
     cy.get('[data-cy=toggle-paths-exposure]').click()
-    cy.contains('22 min')
+    cy.contains('Greenery (vegetation)')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 4)
+    // -> quiet
+    cy.get('[data-cy=toggle-paths-exposure]').click()
     cy.contains('Typical daily traffic noise (dB')
+    cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 4)
   })
 })
 
