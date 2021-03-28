@@ -31,19 +31,19 @@ const FilterCount = styled.div`
 
 interface FilterButtonProps {
   onClick: any
-  greenPathCount: number
+  envOptimizedPathCount: number
   lengthLimit: LengthLimit
   lengthLimits: LengthLimit[]
 }
 
 const FilterButton = (props: FilterButtonProps) => {
-  const { onClick, greenPathCount, lengthLimit, lengthLimits } = props
+  const { onClick, envOptimizedPathCount, lengthLimit, lengthLimits } = props
   const disabled = lengthLimits.length <= 1
   return (
-    <StyledButton id="filter-by-length-button" disabled={disabled} onClick={onClick}>
+    <StyledButton data-cy="filter-by-length-button" disabled={disabled} onClick={onClick}>
       <Filter />
       <FilterCount>
-        {lengthLimit.count}/{greenPathCount + 1}
+        {lengthLimit.count}/{envOptimizedPathCount + 1}
       </FilterCount>
     </StyledButton>
   )

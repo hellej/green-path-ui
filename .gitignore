@@ -32,3 +32,4 @@ yarn-error.log*
 firebase-debug.log
 src/react-app-env.d.ts
 build-serve-prod.sh
+cypress/screenshots/*

@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { utils } from '../../../utils/index'
 import ExposureScoreBar from './../ExposureScoreBar'
-import { ExposureMode, TravelMode } from '../../../constants'
 import { OpenPathBox } from '../OpenClosePathBoxes'
 import { PathFeature, PathProperties } from '../../../types'
+import { ExposureMode, TravelMode } from '../../../services/paths'
 
 type PathBoxProps = {
   selected: boolean
@@ -142,8 +142,17 @@ const PathListPathBox = ({
   handleClick,
   setOpenedPath,
 }: PathBoxProperties) => {
+  const handleSetOpenedPath = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.stopPropagation()
+    setOpenedPath(e)
+  }
+
   return (
-    <StyledPathListPathBox selected={selected} onClick={handleClick}>
+    <StyledPathListPathBox
+      selected={selected}
+      data-cy={`path-box-selected-${selected}`}
+      onClick={handleClick}
+    >
       <TripInfo>
         <TravelTime>
           {utils.getDurationStringFromDist(path.properties.length, travelMode)}
@@ -177,7 +186,7 @@ const PathListPathBox = ({
         )}
         <OpenPathInfoWrapper>
           <OpenPathBox
-            handleClick={setOpenedPath}
+            handleClick={handleSetOpenedPath}
             disabled={openPathDisabled(showingPathsOfExposureMode, path.properties)}
           />
         </OpenPathInfoWrapper>

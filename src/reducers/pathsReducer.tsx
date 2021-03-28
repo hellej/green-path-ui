@@ -1,5 +1,6 @@
 import { turf } from '../utils/index'
 import * as paths from './../services/paths'
+import { ExposureMode, TravelMode } from './../services/paths'
 import * as carTrips from './../services/carTrips'
 import { zoomToFC } from './mapReducer'
 import { setOriginDuringRouting, getOriginFromGeocodingResult, LocationType } from './originReducer'
@@ -8,7 +9,7 @@ import {
   getDestinationFromGeocodingResult,
 } from './destinationReducer'
 import { showNotification } from './notificationReducer'
-import { ExposureMode, PathType, TravelMode, StatsType, extentFeat } from './../constants'
+import { extentFeat, noPathsErrorByExposureMode } from './../constants'
 import { utils } from './../utils/index'
 import { Action } from 'redux'
 import * as geocoding from './../services/geocoding'
@@ -25,21 +26,20 @@ import {
   OriginReducer,
   OdFeatureCollection,
   DestinationReducer,
+  EnvExposureMode,
 } from './../types'
 
 const initialPaths: PathsReducer = {
   cleanPathsAvailable: false,
-  selectedTravelMode: TravelMode.WALK,
+  travelMode: TravelMode.WALK,
   showingPathsOfTravelMode: null,
   showingPathsOfExposureMode: null,
   showingStatsType: null,
   odCoords: null,
   selPathFC: { type: 'FeatureCollection', features: [] },
   shortPathFC: { type: 'FeatureCollection', features: [] },
-  quietPathFC: { type: 'FeatureCollection', features: [] },
-  cleanPathFC: { type: 'FeatureCollection', features: [] },
-  quietEdgeFC: { type: 'FeatureCollection', features: [] },
-  cleanEdgeFC: { type: 'FeatureCollection', features: [] },
+  envOptimizedPathFC: { type: 'FeatureCollection', features: [] },
+  pathEdgeFC: { type: 'FeatureCollection', features: [] },
   openedPath: null,
   lengthLimit: { limit: 0, count: 0, label: '', cost_coeff: 0 },
   lengthLimits: [],
@@ -50,7 +50,8 @@ const initialPaths: PathsReducer = {
 }
 
 interface PathsAction extends Action {
-  selectedTravelMode: TravelMode
+  travelMode: TravelMode
+  exposureMode: EnvExposureMode
   b_available: boolean
   routingId: number
   odCoords: OdCoords
@@ -60,14 +61,20 @@ interface PathsAction extends Action {
   initialLengthLimit: LengthLimit
   origCoords: [number, number]
   destCoords: [number, number]
-  quietPaths: PathFeature[]
-  cleanPaths: PathFeature[]
-  quietEdgeFC: EdgeFeatureCollection
-  cleanEdgeFC: EdgeFeatureCollection
+  envOptimizedPaths: PathFeature[]
+  pathEdgeFC: EdgeFeatureCollection
   carTripInfo: carTrips.CarTripInfo | undefined
   selPathId: string
   selPath: PathFeature
   path: PathFeature
+}
+
+interface RoutingOd {
+  error: string | null
+  originCoords: [number, number] | null
+  destCoords: [number, number] | null
+  newlyGeocodedOrigin: OdPlace | null
+  newlyGeocodedDest: OdPlace | null
 }
 
 const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): PathsReducer => {
@@ -81,7 +88,7 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
     case 'SET_TRAVEL_MODE':
       return {
         ...store,
-        selectedTravelMode: action.selectedTravelMode,
+        travelMode: action.travelMode,
       }
 
     case 'ROUTING_STARTED':
@@ -89,7 +96,7 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
         ...store,
         waitingPaths: true,
         routingId: action.routingId,
-        selectedTravelMode: action.selectedTravelMode,
+        travelMode: action.travelMode,
       }
 
     case 'SET_SHORTEST_PATH': {
@@ -115,27 +122,15 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
       }
     }
 
-    case 'SET_QUIET_PATHS': {
+    case 'SET_ENV_OPTIMIZED_PATHS': {
       const cancelledRouting = store.routingId !== action.routingId
       if (cancelledRouting) return store
       return {
         ...store,
-        showingPathsOfTravelMode: action.selectedTravelMode,
-        showingPathsOfExposureMode: ExposureMode.QUIET,
-        showingStatsType: StatsType.NOISE,
-        quietPathFC: turf.asFeatureCollection(action.quietPaths),
-      }
-    }
-
-    case 'SET_CLEAN_PATHS': {
-      const cancelledRouting = store.routingId !== action.routingId
-      if (cancelledRouting) return store
-      return {
-        ...store,
-        showingPathsOfTravelMode: action.selectedTravelMode,
-        showingPathsOfExposureMode: ExposureMode.CLEAN,
-        showingStatsType: StatsType.AQ,
-        cleanPathFC: turf.asFeatureCollection(action.cleanPaths),
+        showingPathsOfTravelMode: action.travelMode,
+        showingPathsOfExposureMode: action.exposureMode,
+        showingStatsType: action.exposureMode,
+        envOptimizedPathFC: turf.asFeatureCollection(action.envOptimizedPaths),
       }
     }
 
@@ -144,8 +139,7 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
       if (cancelledRouting) return store
       return {
         ...store,
-        quietEdgeFC: action.quietEdgeFC ? action.quietEdgeFC : store.quietEdgeFC,
-        cleanEdgeFC: action.cleanEdgeFC ? action.cleanEdgeFC : store.cleanEdgeFC,
+        pathEdgeFC: action.pathEdgeFC ? action.pathEdgeFC : store.pathEdgeFC,
       }
     }
 
@@ -162,14 +156,10 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
         }
       } else {
         let selPath: PathFeature[]
-        if (action.selPathId === PathType.SHORT) {
+        if (action.selPathId === 'short') {
           selPath = store.shortPathFC.features
-        } else if (store.showingPathsOfExposureMode === ExposureMode.QUIET) {
-          selPath = store.quietPathFC.features.filter(
-            feat => feat.properties!.id === action.selPathId,
-          )
-        } else if (store.showingPathsOfExposureMode === ExposureMode.CLEAN) {
-          selPath = store.cleanPathFC.features.filter(
+        } else {
+          selPath = store.envOptimizedPathFC.features.filter(
             feat => feat.properties!.id === action.selPathId,
           )
         }
@@ -215,10 +205,10 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
       }
 
     case 'ERROR_IN_ROUTING': {
-      const selectedTravelMode = store.showingPathsOfTravelMode
+      const travelMode = store.showingPathsOfTravelMode
         ? store.showingPathsOfTravelMode
-        : store.selectedTravelMode
-      return { ...store, waitingPaths: false, selectedTravelMode }
+        : store.travelMode
+      return { ...store, waitingPaths: false, travelMode }
     }
 
     case 'CLOSE_PATHS': {
@@ -233,7 +223,7 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
       return {
         ...initialPaths,
         cleanPathsAvailable: store.cleanPathsAvailable,
-        selectedTravelMode: store.selectedTravelMode,
+        travelMode: store.travelMode,
         routingId: store.routingId + 1,
       }
 
@@ -296,10 +286,8 @@ const confirmLongDistance = (origCoords: [number, number], destCoords: [number, 
   return true
 }
 
-export const setTravelMode = (selectedTravelMode: TravelMode) => {
-  return async (dispatch: any) => {
-    dispatch({ type: 'SET_TRAVEL_MODE', selectedTravelMode })
-  }
+export const setTravelMode = (travelMode: TravelMode) => {
+  return { type: 'SET_TRAVEL_MODE', travelMode }
 }
 
 const getRoutingOd = async (
@@ -348,10 +336,11 @@ const getRoutingOd = async (
   return routingOd
 }
 
-export const getSetQuietPaths = (
+export const routeEnvOptimizedPaths = (
   origin: OriginReducer,
   dest: DestinationReducer,
-  selectedTravelMode: TravelMode,
+  travelMode: TravelMode,
+  exposureMode: ExposureMode,
   prevRoutingId: number,
 ) => {
   return async (dispatch: any) => {
@@ -384,10 +373,15 @@ export const getSetQuietPaths = (
     }
     const routingId = prevRoutingId + 1
     dispatch({ type: 'CLOSE_PATHS' })
-    dispatch({ type: 'ROUTING_STARTED', originCoords, destCoords, routingId, selectedTravelMode })
+    dispatch({ type: 'ROUTING_STARTED', originCoords, destCoords, routingId, travelMode })
     try {
-      const pathData = await paths.getQuietPaths(selectedTravelMode, originCoords!, destCoords!)
-      dispatch(setQuietPaths(routingId, pathData, selectedTravelMode, [originCoords!, destCoords!]))
+      const pathData = await paths.getPaths(originCoords!, destCoords!, travelMode, exposureMode)
+      dispatch(
+        setEnvOptimizedPaths(routingId, pathData, travelMode, exposureMode, [
+          originCoords!,
+          destCoords!,
+        ]),
+      )
     } catch (error) {
       console.log('caught error:', error)
       dispatch({ type: 'ERROR_IN_ROUTING' })
@@ -401,117 +395,45 @@ export const getSetQuietPaths = (
   }
 }
 
-export const setQuietPaths = (
+export const setEnvOptimizedPaths = (
   routingId: number,
   pathData: PathData,
-  selectedTravelMode: TravelMode,
+  travelMode: TravelMode,
+  exposureMode: ExposureMode,
   odCoords: OdCoords,
 ) => {
   return async (dispatch: any) => {
     dispatch({ type: 'CLOSE_PATHS' })
     const pathFeats: PathFeature[] = pathData.path_FC.features
     const shortPath = pathFeats.filter(feat => feat.properties.type === 'short')
-    const quietPaths = pathFeats.filter(
-      feat => feat.properties.type === 'quiet' && feat.properties.len_diff !== 0,
+    const envOptimizedPaths = pathFeats.filter(
+      feat => feat.properties.type === exposureMode && feat.properties.len_diff !== 0,
     )
     const lengthLimits = utils.getLengthLimits(pathFeats)
-    const initialLengthLimit = utils.getInitialLengthLimit(lengthLimits, quietPaths.length, 20)
-    dispatch({ type: 'SET_LENGTH_LIMITS', lengthLimits, initialLengthLimit, routingId })
-    dispatch({ type: 'SET_SHORTEST_PATH', shortPath, odCoords, routingId })
-    dispatch({ type: 'SET_QUIET_PATHS', quietPaths: quietPaths, routingId, selectedTravelMode })
-    dispatch({ type: 'SET_EDGE_FC', quietEdgeFC: pathData.edge_FC, routingId })
-    const bestPath = utils.getBestPath(quietPaths)
-    if (bestPath) {
-      dispatch({ type: 'SET_SELECTED_PATH', selPathId: bestPath.properties.id, routingId })
-    } else if (quietPaths.length > 0) {
-      dispatch({ type: 'SET_SELECTED_PATH', selPathId: 'short', routingId })
-    }
-    if (quietPaths.length === 0) {
-      dispatch(showNotification('notif.error.no_alternative_quiet_paths_found', 'info', 5))
-    }
-  }
-}
-
-export const getSetCleanPaths = (
-  origin: OriginReducer,
-  dest: DestinationReducer,
-  selectedTravelMode: TravelMode,
-  prevRoutingId: number,
-) => {
-  return async (dispatch: any) => {
-    const {
-      error,
-      originCoords,
-      destCoords,
-      newlyGeocodedOrigin,
-      newlyGeocodedDest,
-    } = await getRoutingOd(origin, dest)
-    if (error) {
-      dispatch({ type: 'ERROR_IN_ROUTING' })
-      dispatch(showNotification(error, 'error', 8))
-      return
-    }
-    if (newlyGeocodedOrigin) {
-      dispatch(setOriginDuringRouting(newlyGeocodedOrigin))
-      dispatch({ type: 'SET_USED_OD', odObject: newlyGeocodedOrigin })
-    } else if (origin.originObject?.properties.locationType === LocationType.ADDRESS) {
-      dispatch({ type: 'SET_USED_OD', odObject: origin.originObject })
-    }
-    if (newlyGeocodedDest) {
-      dispatch(setDestinationDuringRouting(newlyGeocodedDest))
-      dispatch({ type: 'SET_USED_OD', odObject: newlyGeocodedDest })
-    } else if (dest.destObject?.properties.locationType === LocationType.ADDRESS) {
-      dispatch({ type: 'SET_USED_OD', odObject: dest.destObject })
-    }
-    if (!confirmLongDistance(originCoords!, destCoords!)) {
-      return
-    }
-    const routingId = prevRoutingId + 1
-    dispatch({ type: 'CLOSE_PATHS' })
-    dispatch({ type: 'ROUTING_STARTED', originCoords, destCoords, routingId, selectedTravelMode })
-    try {
-      const pathData = await paths.getCleanPaths(selectedTravelMode, originCoords!, destCoords!)
-      dispatch(setCleanPaths(routingId, pathData, selectedTravelMode, [originCoords!, destCoords!]))
-    } catch (error) {
-      console.log('caught error:', error)
-      dispatch({ type: 'ERROR_IN_ROUTING' })
-      if (typeof error === 'string') {
-        dispatch(showNotification(getErrorNotifKey(error), 'error', 8))
-      } else {
-        dispatch(showNotification('notif.error.routing.general_routing_error', 'error', 8))
-      }
-      return
-    }
-  }
-}
-
-export const setCleanPaths = (
-  routingId: number,
-  pathData: PathData,
-  selectedTravelMode: TravelMode,
-  odCoords: OdCoords,
-) => {
-  return async (dispatch: any) => {
-    dispatch({ type: 'CLOSE_PATHS' })
-    const pathFeats: PathFeature[] = pathData.path_FC.features
-    const shortPath = pathFeats.filter(feat => feat.properties.type === 'short')
-    const cleanPaths = pathFeats.filter(
-      feat => feat.properties.type === 'clean' && feat.properties.len_diff !== 0,
+    const initialLengthLimit = utils.getInitialLengthLimit(
+      lengthLimits,
+      exposureMode,
+      envOptimizedPaths.length,
     )
-    const lengthLimits = utils.getLengthLimits(pathFeats)
-    const initialLengthLimit = lengthLimits[lengthLimits.length - 1]
     dispatch({ type: 'SET_LENGTH_LIMITS', lengthLimits, initialLengthLimit, routingId })
     dispatch({ type: 'SET_SHORTEST_PATH', shortPath, odCoords, routingId })
-    dispatch({ type: 'SET_CLEAN_PATHS', cleanPaths: cleanPaths, routingId, selectedTravelMode })
-    dispatch({ type: 'SET_EDGE_FC', cleanEdgeFC: pathData.edge_FC, routingId })
-    const bestPath = utils.getBestPath(cleanPaths)
+    dispatch({
+      type: 'SET_ENV_OPTIMIZED_PATHS',
+      routingId,
+      travelMode,
+      exposureMode,
+      envOptimizedPaths,
+    })
+    dispatch({ type: 'SET_EDGE_FC', pathEdgeFC: pathData.edge_FC, routingId })
+    const bestPath = utils.getBestPath(envOptimizedPaths)
     if (bestPath) {
       dispatch({ type: 'SET_SELECTED_PATH', selPathId: bestPath.properties.id, routingId })
-    } else if (cleanPaths.length > 0) {
+    } else if (envOptimizedPaths.length > 0) {
       dispatch({ type: 'SET_SELECTED_PATH', selPathId: 'short', routingId })
     }
-    if (cleanPaths.length === 0) {
-      dispatch(showNotification('notif.error.no_alternative_clean_paths_found', 'info', 10))
+    if (envOptimizedPaths.length === 0) {
+      const warn_key = noPathsErrorByExposureMode[exposureMode]
+      dispatch(showNotification(warn_key, 'info', 7))
     }
   }
 }
@@ -556,14 +478,6 @@ export const resetPaths = (odFc: OdFeatureCollection) => {
 
 const clickedPathAgain = (storeSelPathFC: PathFeatureCollection, clickedPathId: string) => {
   return storeSelPathFC.features[0] && clickedPathId === storeSelPathFC.features[0].properties.id
-}
-
-interface RoutingOd {
-  error: string | null
-  originCoords: [number, number] | null
-  destCoords: [number, number] | null
-  newlyGeocodedOrigin: OdPlace | null
-  newlyGeocodedDest: OdPlace | null
 }
 
 export default pathsReducer

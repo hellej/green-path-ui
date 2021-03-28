@@ -1,4 +1,5 @@
 import hmaPoly from './HMA.json'
+import { ExposureMode } from './services/paths'
 import { AqiClass, GviClass, PolygonFeature } from './types'
 
 export const extentFeat = hmaPoly.features[0] as PolygonFeature
@@ -43,27 +44,6 @@ export enum LayerId {
   PATHS_EDGES = 'pathsEdges',
   BASEMAP = 'baseMapLayer',
   AQI_LAYER = 'aqistreetshma',
-}
-
-export enum TravelMode {
-  WALK = 'walk',
-  BIKE = 'bike',
-}
-
-export enum ExposureMode {
-  CLEAN = 'clean',
-  QUIET = 'quiet',
-}
-
-export enum PathType {
-  SHORT = 'short',
-  CLEAN = 'clean',
-  QUIET = 'quiet',
-}
-
-export enum StatsType {
-  AQ = 'air quality',
-  NOISE = 'noise',
 }
 
 export type DbClass = 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75
@@ -115,6 +95,19 @@ export const aqiMapColorByAqiClass: Record<AqiClass, string> = {
   9: '#ff2f20',
 }
 
+export const colorByGviClass: Record<GviClass, string> = {
+  1: '#b0b0b0',
+  2: '#a3b89c',
+  3: '#94be87',
+  4: '#83c571',
+  5: '#6eca5a',
+  6: '#52d03e',
+  7: '#1dd513',
+  8: '#1dd513',
+  9: '#1dd513',
+  10: '#1dd513',
+}
+
 export const gviMapColorByGviClass: Record<GviClass, string> = {
   1: '#606060',
   2: '#616e5b',
@@ -138,6 +131,13 @@ export const walkSpeed = 1.33
 export const bikeSpeed = 4.15
 
 export const clickTol = 12
+
+export const noPathsErrorByExposureMode: Record<ExposureMode, string> = {
+  [ExposureMode.SHORT]: 'notif.error.no_shortest_path_found',
+  [ExposureMode.QUIET]: 'notif.warn.no_alternative_quiet_paths_found',
+  [ExposureMode.CLEAN]: 'notif.warn.no_alternative_clean_paths_found',
+  [ExposureMode.GREEN]: 'notif.warn.no_alternative_green_paths_found',
+}
 
 export const initialMapCenter =
   process.env.REACT_APP_DEV_MAP_VIEW === 'True'

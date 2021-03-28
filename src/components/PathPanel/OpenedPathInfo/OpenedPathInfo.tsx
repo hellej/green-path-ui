@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 import { unsetOpenedPath } from '../../../reducers/pathsReducer'
+import { PathGviBar } from './../PathGviBar'
 import { PathNoisesBar } from './../PathNoisesBar'
 import { PathAqiBar } from './../PathAqiBar'
 import { OpenedPathNoiseExps } from './OpenedPathNoiseExps'
 import { OpenedPathAqExps } from './OpenedPathAqExps'
 import { ClosePathBox } from './../OpenClosePathBoxes'
-import { PathType, StatsType, TravelMode } from './../../../constants'
 import T from './../../../utils/translator/Translator'
 import { PathFeature, ReduxState } from '../../../types'
+import { ExposureMode, TravelMode } from '../../../services/paths'
 
-const PathRowFlex = styled.div`
+const PathRowFlex = styled.div<{ padding?: string }>`
   display: flex;
   justify-content: space-around;
+  padding: ${props => (props.padding ? props.padding : 'initial')};
 `
 const ExposureBarsFlex = styled.div`
   display: flex;
@@ -30,129 +32,134 @@ const BarsLabel = styled.div`
 
 const OpenedPathInfo = ({ paths, unsetOpenedPath }: PropsFromRedux) => {
   const { shortPathFC, openedPath, showingStatsType, showingPathsOfTravelMode } = paths
+  const openedIsShortest = openedPath!.properties.type === ExposureMode.SHORT
   const shortPath = shortPathFC.features[0]
 
-  if (openedPath!.properties.type === PathType.SHORT) {
-    if (showingStatsType === StatsType.AQ) {
+  switch (showingStatsType) {
+    case ExposureMode.GREEN: {
       return (
-        <ShortPathAqiExposures
+        <PathGviExposures
+          openedIsShortest={openedIsShortest}
           path={openedPath!}
-          travelMode={showingPathsOfTravelMode!}
+          shortPath={openedIsShortest ? null : shortPath}
           unsetOpenedPath={unsetOpenedPath}
         />
       )
-    } else {
+    }
+    case ExposureMode.CLEAN: {
       return (
-        <ShortPathNoiseExposures
+        <PathAqiExposures
+          openedIsShortest={openedIsShortest}
           path={openedPath!}
+          shortPath={openedIsShortest ? null : shortPath}
           travelMode={showingPathsOfTravelMode!}
           unsetOpenedPath={unsetOpenedPath}
         />
       )
     }
-  } else if (showingStatsType === StatsType.AQ) {
-    return (
-      <PathAqiExposures
-        path={openedPath!}
-        shortPath={shortPath}
-        travelMode={showingPathsOfTravelMode!}
-        unsetOpenedPath={unsetOpenedPath}
-      />
-    )
-  } else {
-    return (
-      <PathNoiseExposures
-        path={openedPath!}
-        shortPath={shortPath}
-        travelMode={showingPathsOfTravelMode!}
-        unsetOpenedPath={unsetOpenedPath}
-      />
-    )
+    case ExposureMode.QUIET: {
+      return (
+        <PathNoiseExposures
+          openedIsShortest={openedIsShortest}
+          path={openedPath!}
+          shortPath={openedIsShortest ? null : shortPath}
+          travelMode={showingPathsOfTravelMode!}
+          unsetOpenedPath={unsetOpenedPath}
+        />
+      )
+    }
+    default:
+      return null
   }
 }
 
-interface ShortPathExposureProps {
+interface PathExposureProps {
+  openedIsShortest: boolean
   path: PathFeature
+  shortPath: PathFeature | null
   travelMode: TravelMode
   unsetOpenedPath: React.MouseEventHandler<HTMLElement>
 }
 
-const ShortPathAqiExposures = ({ path, travelMode, unsetOpenedPath }: ShortPathExposureProps) => {
+const PathGviExposures = ({
+  openedIsShortest,
+  path,
+  shortPath,
+  unsetOpenedPath,
+}: Omit<PathExposureProps, 'travelMode'>) => {
   return (
-    <div>
-      <PathRowFlex>
-        <ClosePathBox handleClick={unsetOpenedPath} />
-        <ExposureBarsFlex>
-          <BarsLabel>
-            <T>opened_shortest_clean_path.tooltip</T>
-          </BarsLabel>
-          <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_cl_pcts} />
-        </ExposureBarsFlex>
-      </PathRowFlex>
-      <OpenedPathAqExps path={path} travelMode={travelMode} />
-    </div>
+    <PathRowFlex padding="3px 0px 7px 0px">
+      <ClosePathBox handleClick={unsetOpenedPath} />
+      <ExposureBarsFlex>
+        <BarsLabel>
+          <T>{openedIsShortest ? 'opened_shortest_gvi_path.tooltip' : 'opened_gvi_path.tooltip'}</T>
+        </BarsLabel>
+        <PathGviBar withMargins={true} gviPcts={path.properties.gvi_cl_pcts} />
+        {!openedIsShortest && shortPath && (
+          <PathGviBar withMargins={true} gviPcts={shortPath.properties.gvi_cl_pcts} />
+        )}
+      </ExposureBarsFlex>
+    </PathRowFlex>
   )
 }
 
-const ShortPathNoiseExposures = ({ path, travelMode, unsetOpenedPath }: ShortPathExposureProps) => {
-  return (
-    <div>
-      <PathRowFlex>
-        <ClosePathBox handleClick={unsetOpenedPath} />
-        <ExposureBarsFlex>
-          <BarsLabel>
-            <T>opened_shortest_quiet_path.tooltip</T>
-          </BarsLabel>
-          <PathNoisesBar withMargins={true} noisePcts={path.properties.noise_pcts} />
-        </ExposureBarsFlex>
-      </PathRowFlex>
-      <OpenedPathNoiseExps path={path} travelMode={travelMode} />
-    </div>
-  )
-}
-
-interface PathExposureProps extends ShortPathExposureProps {
-  shortPath: PathFeature
-}
-
-const PathAqiExposures = ({ path, shortPath, travelMode, unsetOpenedPath }: PathExposureProps) => {
-  return (
-    <div>
-      <PathRowFlex>
-        <ClosePathBox handleClick={unsetOpenedPath} />
-        <ExposureBarsFlex>
-          <BarsLabel>
-            <T>opened_clean_path.tooltip</T>
-          </BarsLabel>
-          <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_cl_pcts} />
-          <PathAqiBar withMargins={true} aqiPcts={shortPath.properties.aqi_cl_pcts} />
-        </ExposureBarsFlex>
-      </PathRowFlex>
-      <OpenedPathAqExps path={path} travelMode={travelMode} />
-    </div>
-  )
-}
-
-const PathNoiseExposures = ({
+const PathAqiExposures = ({
+  openedIsShortest,
   path,
   shortPath,
   travelMode,
   unsetOpenedPath,
 }: PathExposureProps) => {
   return (
-    <div>
+    <Fragment>
       <PathRowFlex>
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
           <BarsLabel>
-            <T>opened_quiet_path.tooltip</T>
+            <T>
+              {openedIsShortest
+                ? 'opened_shortest_clean_path.tooltip'
+                : 'opened_clean_path.tooltip'}
+            </T>
+          </BarsLabel>
+          <PathAqiBar withMargins={true} aqiPcts={path.properties.aqi_cl_pcts} />
+          {!openedIsShortest && shortPath && (
+            <PathAqiBar withMargins={true} aqiPcts={shortPath.properties.aqi_cl_pcts} />
+          )}
+        </ExposureBarsFlex>
+      </PathRowFlex>
+      <OpenedPathAqExps path={path} travelMode={travelMode} />
+    </Fragment>
+  )
+}
+
+const PathNoiseExposures = ({
+  openedIsShortest,
+  path,
+  shortPath,
+  travelMode,
+  unsetOpenedPath,
+}: PathExposureProps) => {
+  return (
+    <Fragment>
+      <PathRowFlex>
+        <ClosePathBox handleClick={unsetOpenedPath} />
+        <ExposureBarsFlex>
+          <BarsLabel>
+            <T>
+              {openedIsShortest
+                ? 'opened_shortest_quiet_path.tooltip'
+                : 'opened_quiet_path.tooltip'}
+            </T>
           </BarsLabel>
           <PathNoisesBar withMargins={true} noisePcts={path.properties.noise_pcts} />
-          <PathNoisesBar withMargins={true} noisePcts={shortPath.properties.noise_pcts} />
+          {!openedIsShortest && shortPath && (
+            <PathNoisesBar withMargins={true} noisePcts={shortPath.properties.noise_pcts} />
+          )}
         </ExposureBarsFlex>
       </PathRowFlex>
       <OpenedPathNoiseExps path={path} travelMode={travelMode} />
-    </div>
+    </Fragment>
   )
 }
 

@@ -1,13 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
-import { getSetCleanPaths, getSetQuietPaths } from '../reducers/pathsReducer'
+import { routeEnvOptimizedPaths } from '../reducers/pathsReducer'
 import T from './../utils/translator/Translator'
 import { ReduxState } from '../types'
+import { ExposureMode } from '../services/paths'
 
 const OuterFlex = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   margin: 0 10px 13px 10px;
   align-items: center;
   @media (min-width: 550px) {
@@ -15,26 +17,24 @@ const OuterFlex = styled.div`
     justify-content: center;
   }
 `
-const Button = styled.div`
+const Button = styled.button`
   cursor: pointer;
-  padding: 7px 18px;
   color: white;
-  border-radius: 70px;
-  margin: 5px 6px;
-  font-weight: 400;
+  padding: 7px 18px !important;
+  border-radius: 70px !important;
+  margin: 5px 6px !important;
+  font-weight: 400 !important;
+  text-align: center !important;
+  width: max-content !important;
+  letter-spacing: 0.4 !important;
   font-size: 28px;
-  text-align: center;
-  width: max-content;
-  letter-spacing: 0.4;
   max-width: 90%;
-  overflow: auto;
-  height: auto;
   pointer-events: auto;
   transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s; /* Safari */
   border: 2px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.22), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
-  background-color: #10a538ed;
+  background-color: #0eb139;
   color: white;
   &:hover {
     background-color: #0fb93d;
@@ -54,12 +54,11 @@ const FindPathsButtons = (props: PropsFromRedux) => {
     cleanPathsAvailable,
     origin,
     destination,
-    selectedTravelMode,
+    travelMode,
     routingId,
     waitingPaths,
     showingPaths,
-    getSetCleanPaths,
-    getSetQuietPaths,
+    routeEnvOptimizedPaths,
   } = props
 
   const { originObject } = origin
@@ -75,7 +74,21 @@ const FindPathsButtons = (props: PropsFromRedux) => {
 
   return (
     <OuterFlex>
-      <Button onClick={() => getSetQuietPaths(origin, destination, selectedTravelMode, routingId)}>
+      <Button
+        onClick={() =>
+          routeEnvOptimizedPaths(origin, destination, travelMode, ExposureMode.GREEN, routingId)
+        }
+      >
+        <T>find_green_paths_btn</T>
+        <Tooltip>
+          <T>find_green_paths_btn.tooltip</T>
+        </Tooltip>
+      </Button>
+      <Button
+        onClick={() =>
+          routeEnvOptimizedPaths(origin, destination, travelMode, ExposureMode.QUIET, routingId)
+        }
+      >
         <T>find_quiet_paths_btn</T>
         <Tooltip>
           <T>find_quiet_paths_btn.tooltip</T>
@@ -83,7 +96,9 @@ const FindPathsButtons = (props: PropsFromRedux) => {
       </Button>
       {cleanPathsAvailable ? (
         <Button
-          onClick={() => getSetCleanPaths(origin, destination, selectedTravelMode, routingId)}
+          onClick={() =>
+            routeEnvOptimizedPaths(origin, destination, travelMode, ExposureMode.CLEAN, routingId)
+          }
         >
           <T>find_fresh_air_paths_btn</T>
           <Tooltip>
@@ -98,13 +113,13 @@ const FindPathsButtons = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   origin: state.origin,
   destination: state.destination,
-  selectedTravelMode: state.paths.selectedTravelMode,
+  travelMode: state.paths.travelMode,
   waitingPaths: state.paths.waitingPaths,
   showingPaths: state.paths.showingPaths,
   routingId: state.paths.routingId,
   cleanPathsAvailable: state.paths.cleanPathsAvailable,
 })
 
-const connector = connect(mapStateToProps, { getSetCleanPaths, getSetQuietPaths })
+const connector = connect(mapStateToProps, { routeEnvOptimizedPaths })
 type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(FindPathsButtons)

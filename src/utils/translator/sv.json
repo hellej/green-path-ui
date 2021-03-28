@@ -14,8 +14,10 @@
   "notif.error.origin_not_found": "Startpunkten hittades inte.",
   "notif.error.origin_outside_extent": "Startpunkten är utanför applikationens karta.",
   "notif.error.destination_outside_extent": "Målet är utanför applikationens karta.",
-  "notif.error.no_alternative_quiet_paths_found": "Alternativa tysta rutter kunde inte hittas.",
-  "notif.error.no_alternative_clean_paths_found": "Alternativa rutter med ren luft kunde inte hittas.",
+  "notif.error.no_shortest_path_found": "Rutter kunde inte hittas.",
+  "notif.warn.no_alternative_quiet_paths_found": "Alternativa tysta rutter kunde inte hittas.",
+  "notif.warn.no_alternative_clean_paths_found": "Alternativa rutter med ren luft kunde inte hittas.",
+  "notif.warn.no_alternative_green_paths_found": "Alternativa grön rutter kunde inte hittas.",
   "notif.error.no_aqi_map_data_available": "Luftkvalitetsdata fås inte just nu.",
 
   "find_quiet_paths_btn": "Sök tysta rutter",
@@ -63,9 +65,10 @@
 
   "toggle_paths_exposure.label.show": "Visa",
   "toggle_paths_exposure.label.quiet": "tysta",
+  "toggle_paths_exposure.label.green": "gröna",
   "toggle_paths_exposure.label.fresh_air": "renluftsrutter",
   "toggle_paths_exposure.label.(fresh_air).paths": "",
-  "toggle_paths_exposure.label.(quiet).paths": "rutter",
+  "toggle_paths_exposure.label.paths": "rutter",
 
   "exposure_score_label.greenery": "Grönska",
   "exposure_score_label.quietness": "Tystnad",
@@ -73,10 +76,10 @@
 
   "filter_paths_by_distance.tooltip": "Visa bara rutter som är kortare än",
 
-  "opened_shortest_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den kortaste (valda) rutten",
-  "opened_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den valda och den kortaste rutten:",
-  "opened_shortest_clean_path.tooltip": "Exponeringen för olika luftföroreningshalter på den kortaste (valda) rutten:",
-  "opened_clean_path.tooltip": "Exponeringen för olika luftföroreningshalter på den valda och den kortaste rutten:",
+  "opened_shortest_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den valda (kortaste) rutten",
+  "opened_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den valda (1) och den kortaste (2) rutten:",
+  "opened_shortest_clean_path.tooltip": "Exponeringen för olika luftföroreningshalter på den valda (kortaste) rutten:",
+  "opened_clean_path.tooltip": "Exponeringen för olika luftföroreningshalter på den valda (1) och den kortaste (2) rutten:",
 
   "info_modal.welcome.title": "Välkommen till Green Paths ruttplanerare",
   "info_modal.cookie.info": "Denna webbplats använder kakor för att samla information om användarmängden. På grund av detta sänds en del information (t.ex. IP-adressen) till Google. Genom att klicka OK nedan tillåter du användningen av kakor. Alernativt kan du blockera användningen av kakor och hindra analytiken:",

@@ -14,13 +14,17 @@
   "notif.error.origin_not_found": "Origin was not found.",
   "notif.error.origin_outside_extent": "Origin is outside the supported area.",
   "notif.error.destination_outside_extent": "Destination is outside the supported area.",
-  "notif.error.no_alternative_quiet_paths_found": "No alternative quiet paths found.",
-  "notif.error.no_alternative_clean_paths_found": "No alternative fresh air paths found due to little variation in the real-time air quality data.",
+  "notif.error.no_shortest_path_found": "No paths found.",
+  "notif.warn.no_alternative_quiet_paths_found": "No alternative quiet paths found.",
+  "notif.warn.no_alternative_clean_paths_found": "No alternative fresh air paths found due to little variation in the real-time air quality data.",
+  "notif.warn.no_alternative_green_paths_found": "No alternative green paths found.",
   "notif.error.no_aqi_map_data_available": "Air quality data is currently unavailable.",
   "notif.error.no_car_trips_found": "Could not find routes.",
 
   "find_quiet_paths_btn": "Find quiet paths",
   "find_quiet_paths_btn.tooltip": "by typical traffic noise",
+  "find_green_paths_btn": "Find green paths",
+  "find_green_paths_btn.tooltip": "by green vegetation views",
   "find_fresh_air_paths_btn": "Find fresh air paths",
   "find_fresh_air_paths_btn.tooltip": "by real-time air quality",
 
@@ -67,9 +71,10 @@
 
   "toggle_paths_exposure.label.show": "Show",
   "toggle_paths_exposure.label.quiet": "quiet",
+  "toggle_paths_exposure.label.green": "green",
   "toggle_paths_exposure.label.fresh_air": "fresh air",
   "toggle_paths_exposure.label.(fresh_air).paths": "paths",
-  "toggle_paths_exposure.label.(quiet).paths": "paths",
+  "toggle_paths_exposure.label.paths": "paths",
 
   "exposure_score_label.greenery": "Greenery",
   "exposure_score_label.quietness": "Quietness",
@@ -81,10 +86,12 @@
   "compare-to-car-trip.with-car.label": "With car",
   "compare-to-car-trip.duration.label": "Duration",
 
-  "opened_shortest_quiet_path.tooltip": "Exposure to different traffic noise levels on the shortest (selected) path:",
-  "opened_quiet_path.tooltip": "Exposure to different traffic noise levels on the selected and the shortest path:",
-  "opened_shortest_clean_path.tooltip": "Exposure to different air quality classes on the shortest (selected) path:",
-  "opened_clean_path.tooltip": "Exposure to different air quality classes on the selected and the shortest path:",
+  "opened_shortest_gvi_path.tooltip": "Shares of green vegetation views (%) on the selected (shortest) path:",
+  "opened_gvi_path.tooltip": "Shares of green vegetation views (%) on the selected (1) and the shortest (2) path:",
+  "opened_shortest_quiet_path.tooltip": "Shares of different traffic noise levels on the selected (shortest) path:",
+  "opened_quiet_path.tooltip": "Shares of different traffic noise levels on the selected (1) and the shortest (2) path:",
+  "opened_shortest_clean_path.tooltip": "Shares of different air quality classes on the selected (shortest) path:",
+  "opened_clean_path.tooltip": "Shares of different air quality classes on the selected (1) and the shortest (2) path:",
 
   "info_modal.welcome.title": "Welcome to Green Paths",
   "info_modal.cookie.info": "This site uses cookies to log anonymous visitor counts via Google Analytics, and thus some information of your browser (e.g. IP address) is shared with Google. By clicking OK below, you accept this use of cookies. Alternatively, you can disable analytics & cookies:",

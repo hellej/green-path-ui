@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
-import { menu, ExposureMode } from './../../constants'
+import { menu } from './../../constants'
 import FilterButton from './FilterButton'
 import { ListButton } from './../Icons'
 import ToggleBottomPanelButton from './ToggleBottomPanelButton'
@@ -38,11 +38,9 @@ const ButtonFlex = styled.div`
 const BottomControlPanel = (props: propsFromRedux) => {
   const {
     showingPaths,
-    showingPathsOfExposureMode,
     pathPanelVisible,
     pathPanelContent,
-    quietPathCount,
-    cleanPathCount,
+    envOptimizedPathCount,
     lengthLimit,
     lengthLimits,
     togglePathPanel,
@@ -52,9 +50,6 @@ const BottomControlPanel = (props: propsFromRedux) => {
 
   if (!showingPaths) return null
 
-  const greenPathCount =
-    showingPathsOfExposureMode === ExposureMode.CLEAN ? cleanPathCount : quietPathCount
-
   return (
     <ControlPanel pathPanelVisible={pathPanelVisible}>
       <ButtonFlex>
@@ -62,7 +57,7 @@ const BottomControlPanel = (props: propsFromRedux) => {
           <ListButton onClick={showPathList} />
         ) : (
           <FilterButton
-            greenPathCount={greenPathCount}
+            envOptimizedPathCount={envOptimizedPathCount}
             lengthLimit={lengthLimit}
             lengthLimits={lengthLimits}
             onClick={showMaxLengthFilterSelector}
@@ -83,8 +78,7 @@ const mapStateToProps = (state: ReduxState) => ({
   showingPathsOfExposureMode: state.paths.showingPathsOfExposureMode,
   pathPanelVisible: state.ui.pathPanel,
   pathPanelContent: state.ui.pathPanelContent,
-  quietPathCount: state.paths.quietPathFC.features.length,
-  cleanPathCount: state.paths.cleanPathFC.features.length,
+  envOptimizedPathCount: state.paths.envOptimizedPathFC.features.length,
   lengthLimit: state.paths.lengthLimit,
   lengthLimits: state.paths.lengthLimits,
 })
@@ -94,5 +88,6 @@ const connector = connect(mapStateToProps, {
   showPathList,
   showMaxLengthFilterSelector,
 })
+
 type propsFromRedux = ConnectedProps<typeof connector>
 export default connector(BottomControlPanel)

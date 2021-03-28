@@ -62,7 +62,7 @@ export const OpenPathBox = ({
   handleClick: React.MouseEventHandler<HTMLElement>
 }) => {
   return (
-    <StyledOpenClosePathBox className="open-path-button" disabled={disabled} onClick={handleClick}>
+    <StyledOpenClosePathBox data-cy="open-path-button" disabled={disabled} onClick={handleClick}>
       <ArrowForward />
     </StyledOpenClosePathBox>
   )
@@ -74,7 +74,7 @@ export const ClosePathBox = ({
   handleClick: React.MouseEventHandler<HTMLElement>
 }) => {
   return (
-    <StyledOpenClosePathBox className="close-path-button" close onClick={handleClick}>
+    <StyledOpenClosePathBox data-cy="close-path-button" close onClick={handleClick}>
       <ArrowBack />
     </StyledOpenClosePathBox>
   )

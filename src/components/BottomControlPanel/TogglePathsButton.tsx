@@ -1,17 +1,12 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { connect, ConnectedProps } from 'react-redux'
-import {
-  getSetQuietPaths,
-  getSetCleanPaths,
-  setQuietPaths,
-  setCleanPaths,
-} from '../../reducers/pathsReducer'
-import { ExposureMode } from '../../constants'
+import { routeEnvOptimizedPaths } from '../../reducers/pathsReducer'
 import T from './../../utils/translator/Translator'
-import { ReduxState } from '../../types'
+import { EnvExposureMode, ReduxState } from '../../types'
+import { ExposureMode } from '../../services/paths'
 
-const Button = styled.div<{ disabled: boolean }>`
+const Button = styled.div`
   cursor: pointer;
   padding: 5px 11px;
   color: white;
@@ -34,71 +29,77 @@ const Button = styled.div<{ disabled: boolean }>`
       margin-bottom: 3px;
     }
   }
-  ${props =>
-    props.disabled === true &&
-    css`
-      cursor: default;
-      pointer-events: none;
-      background-color: #d2d2d2;
-    `}
 `
 
 interface LabelProps {
-  disabled: boolean
-  toggleToPathType: ExposureMode
+  toggleToExposureMode: ExposureMode
 }
 
 const StyledPathTypeLabel = styled.span<LabelProps>`
   color: green;
   ${props =>
-    props.toggleToPathType === ExposureMode.QUIET &&
+    props.toggleToExposureMode === ExposureMode.QUIET &&
     css`
       color: #6ff7ff;
     `}
   ${props =>
-    props.toggleToPathType === ExposureMode.CLEAN &&
+    props.toggleToExposureMode === ExposureMode.GREEN &&
     css`
       color: #74ff74;
     `}
   ${props =>
-    props.disabled === true &&
+    props.toggleToExposureMode === ExposureMode.CLEAN &&
     css`
-      color: white;
+      color: #baff4f;
     `}
 `
 
-const getPathToggleFunc = (toggleToPathType: ExposureMode, props: PropsFromRedux) => {
-  const { selectedTravelMode, origin, destination, routingId } = props
-  const { getSetQuietPaths, getSetCleanPaths } = props
-  return toggleToPathType === ExposureMode.QUIET
-    ? getSetQuietPaths(origin, destination, selectedTravelMode, routingId)
-    : getSetCleanPaths(origin, destination, selectedTravelMode, routingId)
+const getToggleToExposureMode = (
+  showingPathsOfExposureMode: EnvExposureMode,
+  cleanPathsAvailable: boolean,
+): EnvExposureMode => {
+  if (showingPathsOfExposureMode === ExposureMode.GREEN) {
+    return ExposureMode.QUIET
+  }
+  if (showingPathsOfExposureMode === ExposureMode.QUIET && cleanPathsAvailable) {
+    return ExposureMode.CLEAN
+  }
+  return ExposureMode.GREEN
+}
+
+const buttonLabelByExposureMode: Record<EnvExposureMode, string> = {
+  [ExposureMode.GREEN]: 'toggle_paths_exposure.label.green',
+  [ExposureMode.QUIET]: 'toggle_paths_exposure.label.quiet',
+  [ExposureMode.CLEAN]: 'toggle_paths_exposure.label.fresh_air',
+}
+
+const getPathToggleFunc = (toggleToPathType: EnvExposureMode, props: PropsFromRedux) => {
+  const { routeEnvOptimizedPaths, travelMode, origin, destination, routingId } = props
+  return routeEnvOptimizedPaths(origin, destination, travelMode, toggleToPathType, routingId)
 }
 
 const TogglePathsButton = (props: PropsFromRedux) => {
   const { cleanPathsAvailable, showingPathsOfExposureMode } = props
-  const toggleToPathType =
-    showingPathsOfExposureMode === ExposureMode.CLEAN ? ExposureMode.QUIET : ExposureMode.CLEAN
-  const disabled = !cleanPathsAvailable && showingPathsOfExposureMode === ExposureMode.QUIET
-  const toggleLabel =
-    toggleToPathType === ExposureMode.QUIET
-      ? 'toggle_paths_exposure.label.quiet'
-      : 'toggle_paths_exposure.label.fresh_air'
+  const toggleToExposureMode = getToggleToExposureMode(
+    showingPathsOfExposureMode!,
+    cleanPathsAvailable,
+  )
+  const toggleLabel = buttonLabelByExposureMode[toggleToExposureMode]
   return (
     <Button
-      disabled={disabled}
       data-cy="toggle-paths-exposure"
-      onClick={() => getPathToggleFunc(toggleToPathType, props)}
+      onClick={() => getPathToggleFunc(toggleToExposureMode, props)}
     >
       <T>toggle_paths_exposure.label.show</T>
-      <StyledPathTypeLabel disabled={disabled} toggleToPathType={toggleToPathType}>
+      <StyledPathTypeLabel toggleToExposureMode={toggleToExposureMode}>
         {' '}
         <T>{toggleLabel}</T>{' '}
       </StyledPathTypeLabel>
-      {toggleToPathType === ExposureMode.CLEAN && (
+      {toggleToExposureMode === ExposureMode.CLEAN && (
         <T>toggle_paths_exposure.label.(fresh_air).paths</T>
       )}
-      {toggleToPathType === ExposureMode.QUIET && <T>toggle_paths_exposure.label.(quiet).paths</T>}
+      {(toggleToExposureMode === ExposureMode.QUIET ||
+        toggleToExposureMode === ExposureMode.GREEN) && <T>toggle_paths_exposure.label.paths</T>}
     </Button>
   )
 }
@@ -106,19 +107,12 @@ const TogglePathsButton = (props: PropsFromRedux) => {
 const mapStateToProps = (state: ReduxState) => ({
   cleanPathsAvailable: state.paths.cleanPathsAvailable,
   routingId: state.paths.routingId,
-  selectedTravelMode: state.paths.selectedTravelMode,
+  travelMode: state.paths.travelMode,
   showingPathsOfExposureMode: state.paths.showingPathsOfExposureMode,
   origin: state.origin,
   destination: state.destination,
 })
 
-const mapDispatchToProps = {
-  getSetQuietPaths,
-  getSetCleanPaths,
-  setQuietPaths,
-  setCleanPaths,
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
+const connector = connect(mapStateToProps, { routeEnvOptimizedPaths })
 type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(TogglePathsButton)

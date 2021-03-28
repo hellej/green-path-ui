@@ -35,7 +35,7 @@ const StyledButton = styled.div<{ onClick: Function }>`
 
 const BasemapSelectorButton = (props: PropsFromRedux & { handleClick: MouseEventHandler }) => {
   return (
-    <StyledButton id="show-basemap-selector-button" onClick={props.handleClick}>
+    <StyledButton data-cy="show-basemap-selector-button" onClick={props.handleClick}>
       <StyledLayersIcon />
     </StyledButton>
   )

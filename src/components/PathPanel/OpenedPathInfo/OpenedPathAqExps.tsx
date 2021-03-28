@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { TravelMode } from '../../../services/paths'
 import { AqiClass, PathFeature } from '../../../types'
 import { utils } from '../../../utils/index'
-import { labelByAqiClass, colorByAqiClass, TravelMode } from './../../../constants'
+import { labelByAqiClass, colorByAqiClass } from './../../../constants'
 import T from './../../../utils/translator/Translator'
 
 const StyledOpenedPathExposures = styled.div`

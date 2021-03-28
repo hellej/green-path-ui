@@ -14,7 +14,7 @@ import AirQuality from './components/Map/AirQuality'
 import UserLocation from './components/Map/UserLocation'
 import PathShort from './components/Map/PathShort'
 import PathSelected from './components/Map/PathSelected'
-import PathsGreen from './components/Map/PathsGreen'
+import PathsEnvOptimized from './components/Map/PathsEnvOptimized'
 import PathsEdges from './components/Map/PathsEdges'
 import OrigDestPoints from './components/Map/OrigDestPoints'
 import WelcomeInfo from './scenes/WelcomeInfo/WelcomeInfo'
@@ -77,7 +77,7 @@ class App extends Component<PropsFromRedux & RouteComponentProps, State> {
             <MapControl />
             <AirQuality />
             <PathSelected />
-            <PathsGreen />
+            <PathsEnvOptimized />
             <PathShort />
             <PathsEdges />
             <OrigDestPoints />

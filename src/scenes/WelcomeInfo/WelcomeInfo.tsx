@@ -127,7 +127,7 @@ const WelcomeInfo = () => {
   return (
     <InfoWrapper>
       <InfoContainer gaDisabled={gaDisabled}>
-        <ContentContainer onClick={() => setRaiseLogos(false)} onScroll={() => setRaiseLogos(false)}>
+        <ContentContainer data-cy="welcome-info-content" onClick={() => setRaiseLogos(false)} onScroll={() => setRaiseLogos(false)}>
           <ToggleLanguageButtons size={16} />
           <Title><T>info_modal.welcome.title</T> (demo)!</Title>
           {!visitedBefore && !gaDisabled && <P><CookieConsent /></P>}
@@ -166,7 +166,7 @@ const WelcomeInfo = () => {
               <T>info_modal.method.content.noise_data.Lden</T></Link>.
           </P>
           <P>
-            <T>info_modal.method.content.gvi.description_1</T> <Link href='https://doi.org/10.1016/j.dib.2020.105601' target='_blank' rel='noopener noreferrer'>
+            <T>info_modal.method.content.gvi.description_1</T>{' '} <Link href='https://doi.org/10.1016/j.dib.2020.105601' target='_blank' rel='noopener noreferrer'>
               <T>info_modal.method.content.gvi.gsv_link_label</T></Link> <T>info_modal.method.content.gvi.land_cover</T> <Link href='https://hri.fi/data/en_GB/dataset/paakaupunkiseudun-maanpeiteaineisto' target='_blank' rel='noopener noreferrer'>
             <T>info_modal.method.content.gvi.land_cover_link_label</T></Link>.
           </P>
@@ -176,7 +176,7 @@ const WelcomeInfo = () => {
               Digital Geography Lab</Link><T>info_modal.team.content.developed_by.suffix</T> <T>info_modal.team.content.within_the</T> <Link href='https://ilmanlaatu.eu/briefly-in-english/' target='_blank' rel='noopener noreferrer'>
               Urban Innovative Action: HOPE</Link>{' '} – <T>info_modal.team.content.hope_description</T>
           </P>
-          <SubHeading> <T>info_modal.code.title</T> </SubHeading>
+          <SubHeading data-cy="info-code-title"> <T>info_modal.code.title</T> </SubHeading>
           <P>
             <Link href='https://github.com/DigitalGeographyLab/green-paths' target='_blank' rel='noopener noreferrer'>DigitalGeographyLab/green-paths</Link>{' '}
             <br />
@@ -188,8 +188,8 @@ const WelcomeInfo = () => {
           <SmallText style={{ marginTop: '8px' }}>
             <T>info_modal.funded_by</T>
           </SmallText>
-          <SponsorsDiv raiseLogos={raiseLogos}>
-            <LogoFlex>
+          <SponsorsDiv data-cy="sponsor-logos" raiseLogos={raiseLogos}>
+            <LogoFlex >
               {ui.lang === Lang.FI &&
                 <StyledLogoLink href='https://www.helsinki.fi/en/researchgroups/digital-geography-lab' target='_blank' rel='noopener noreferrer'>
                   <img src={HYLogoFi} width="61" height="57" alt='HYLogoFi' />
@@ -210,7 +210,7 @@ const WelcomeInfo = () => {
             </LogoFlex>
           </SponsorsDiv>
         </ContentContainer>
-        <ButtonDiv id='hide-welcome-button'>
+        <ButtonDiv data-cy='hide-welcome-button'>
           <Button small green onClick={() => dispatch(hideInfo())}>OK</Button>
         </ButtonDiv>
     </InfoContainer>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
-import { Basemap, gviMapColorByGviClass } from '../../constants'
+import { Basemap, colorByGviClass, gviMapColorByGviClass } from '../../constants'
 import { GviClass, ReduxState } from '../../types'
 import T from '../../utils/translator/Translator'
 
@@ -48,6 +48,10 @@ const ZoomTooltipBox = styled.div`
 
 const GviMapLegend = (props: PropsFromRedux) => {
   const { mapZoom, basemap } = props
+
+  const gviRange = Array.from({ length: basemap === Basemap.GVI ? 9 : 7 }, (_, i) => i + 1)
+  const colors = basemap === Basemap.GVI ? gviMapColorByGviClass : colorByGviClass
+
   return (
     <Container>
       <LegendBox>
@@ -55,11 +59,8 @@ const GviMapLegend = (props: PropsFromRedux) => {
           <T>basemap.gvi.legend.title</T>
         </TitleRow>
         <ColorRow>
-          {Array.from({ length: 9 }, (_, i) => i + 1).map((k: number) => (
-            <ColorBox
-              key={k.toString()}
-              style={{ backgroundColor: gviMapColorByGviClass[k as GviClass] }}
-            />
+          {gviRange.map((k: number) => (
+            <ColorBox key={k.toString()} style={{ backgroundColor: colors[k as GviClass] }} />
           ))}
         </ColorRow>
       </LegendBox>

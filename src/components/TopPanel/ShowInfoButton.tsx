@@ -27,7 +27,7 @@ const StyledButton = styled.div`
 `
 
 const ShowInfoButton = (props: PropsFromRedux) => {
-  return <StyledButton id="show-info-button" onClick={props.showInfo} />
+  return <StyledButton data-cy="show-info-button" onClick={props.showInfo} />
 }
 
 const mapStateToProps = (state: ReduxState) => ({
