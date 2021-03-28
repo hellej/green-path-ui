@@ -166,7 +166,7 @@ const WelcomeInfo = () => {
               <T>info_modal.method.content.noise_data.Lden</T></Link>.
           </P>
           <P>
-            <T>info_modal.method.content.gvi.description_1</T> <Link href='https://doi.org/10.1016/j.dib.2020.105601' target='_blank' rel='noopener noreferrer'>
+            <T>info_modal.method.content.gvi.description_1</T>{' '} <Link href='https://doi.org/10.1016/j.dib.2020.105601' target='_blank' rel='noopener noreferrer'>
               <T>info_modal.method.content.gvi.gsv_link_label</T></Link> <T>info_modal.method.content.gvi.land_cover</T> <Link href='https://hri.fi/data/en_GB/dataset/paakaupunkiseudun-maanpeiteaineisto' target='_blank' rel='noopener noreferrer'>
             <T>info_modal.method.content.gvi.land_cover_link_label</T></Link>.
           </P>
