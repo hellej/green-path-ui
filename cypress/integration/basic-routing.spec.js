@@ -71,6 +71,33 @@ describe('Language', () => {
 })
 
 describe('Select origin and destination', () => {
+  before(() => {
+    // reset default OD (in dev mode)
+    cy.get('[data-cy=reset-origin-button]').click()
+    cy.get('[data-cy=reset-destination-button]').click()
+  })
+
+  it('selects origin & destination from the map', () => {
+    cy.get('#root').click(400, 400)
+    cy.get('[data-cy=popup]').within(() => {
+      cy.contains('Set origin').click()
+    })
+    cy.get('#root').click(500, 500)
+    cy.get('[data-cy=popup]').within(() => {
+      cy.contains('Set destination').click()
+    })
+    cy.get('[data-cy=origin-input]')
+      .invoke('val')
+      .should(text => {
+        expect(text.length).to.be.gt(10)
+      })
+    cy.get('[data-cy=destination-input]')
+      .invoke('val')
+      .should(text => {
+        expect(text.length).to.be.gt(10)
+      })
+  })
+
   it('shows "use current location" option in origin input dropdown', () => {
     cy.get('[data-cy=reset-origin-button]').click()
     cy.get('[data-cy=origin-input-container]').within(() => {
