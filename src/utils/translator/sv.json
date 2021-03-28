@@ -76,10 +76,10 @@
 
   "filter_paths_by_distance.tooltip": "Visa bara rutter som är kortare än",
 
-  "opened_shortest_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den kortaste (valda) rutten",
-  "opened_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den valda och den kortaste rutten:",
-  "opened_shortest_clean_path.tooltip": "Exponeringen för olika luftföroreningshalter på den kortaste (valda) rutten:",
-  "opened_clean_path.tooltip": "Exponeringen för olika luftföroreningshalter på den valda och den kortaste rutten:",
+  "opened_shortest_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den valda (kortaste) rutten",
+  "opened_quiet_path.tooltip": "Exponeringen för olika bullernivåer på den valda (1) och den kortaste (2) rutten:",
+  "opened_shortest_clean_path.tooltip": "Exponeringen för olika luftföroreningshalter på den valda (kortaste) rutten:",
+  "opened_clean_path.tooltip": "Exponeringen för olika luftföroreningshalter på den valda (1) och den kortaste (2) rutten:",
 
   "info_modal.welcome.title": "Välkommen till Green Paths ruttplanerare",
   "info_modal.cookie.info": "Denna webbplats använder kakor för att samla information om användarmängden. På grund av detta sänds en del information (t.ex. IP-adressen) till Google. Genom att klicka OK nedan tillåter du användningen av kakor. Alernativt kan du blockera användningen av kakor och hindra analytiken:",

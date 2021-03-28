@@ -86,10 +86,10 @@
   "compare-to-car-trip.with-car.label": "Autolla",
   "compare-to-car-trip.duration.label": "Kesto",
 
-  "opened_shortest_quiet_path.tooltip": "Altistus eri melutasoille lyhyimmällä (valitulla) reitillä:",
-  "opened_quiet_path.tooltip": "Altistus eri melutasoille valitulla ja lyhyimmällä reitillä:",
-  "opened_shortest_clean_path.tooltip": "Altistus eri ilmansaastepitoisuuksille lyhyimmällä (valitulla) reitillä:",
-  "opened_clean_path.tooltip": "Altistus eri ilmansaastepitoisuuksille valitulla ja lyhyimmällä reitillä:",
+  "opened_shortest_quiet_path.tooltip": "Eri melutasojen osuudet valitulla (lyhyimmällä) reitillä:",
+  "opened_quiet_path.tooltip": "Eri melutasojen osuudet valitulla (1) ja lyhyimmällä (2) reitillä:",
+  "opened_shortest_clean_path.tooltip": "Eri ilmanlaatuvyöhykkeiden osuudet valitulla (lyhyimmällä) reitillä:",
+  "opened_clean_path.tooltip": "Eri ilmanlaatuvyöhykkeiden osuudet valitulla (1) ja lyhyimmällä (2) reitillä:",
 
   "info_modal.welcome.title": "Tervetuloa Green Paths reittioppaaseen",
   "info_modal.cookie.info": "Tämä sivusto käyttää evästeitä kerätäkseen tietoja käyttäjämääristä. Tämän takia joitain selaimen tietoja (esim. IP osoite) lähetetään Googlelle. Klikkaamalla alta OK, hyväksyt tämän evästeiden käytön. Vaihtoehtoisesti voit estää analytiikan ja evästeet:",

@@ -50,7 +50,7 @@ const StyledPathTypeLabel = styled.span<LabelProps>`
   ${props =>
     props.toggleToExposureMode === ExposureMode.CLEAN &&
     css`
-      color: #c3ffe6;
+      color: #baff4f;
     `}
 `
 

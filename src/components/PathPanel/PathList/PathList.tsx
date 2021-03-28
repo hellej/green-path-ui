@@ -90,7 +90,7 @@ class PathList extends React.Component<PropsFromRedux, State> {
               showingPathsOfExposureMode={showingPathsOfExposureMode!}
               handleClick={() => setSelectedPath(path.properties.id)}
               selected={path.properties.id === selPathId}
-              setOpenedPath={() => setOpenedPath(shortPath)}
+              setOpenedPath={() => setOpenedPath(path)}
             />
           </PathRowFlex>
         ))}

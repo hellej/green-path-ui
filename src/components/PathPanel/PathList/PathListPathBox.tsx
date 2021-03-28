@@ -142,6 +142,11 @@ const PathListPathBox = ({
   handleClick,
   setOpenedPath,
 }: PathBoxProperties) => {
+  const handleSetOpenedPath = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.stopPropagation()
+    setOpenedPath(e)
+  }
+
   return (
     <StyledPathListPathBox selected={selected} onClick={handleClick}>
       <TripInfo>
@@ -177,7 +182,7 @@ const PathListPathBox = ({
         )}
         <OpenPathInfoWrapper>
           <OpenPathBox
-            handleClick={setOpenedPath}
+            handleClick={handleSetOpenedPath}
             disabled={openPathDisabled(showingPathsOfExposureMode, path.properties)}
           />
         </OpenPathInfoWrapper>

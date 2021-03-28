@@ -86,10 +86,10 @@
   "compare-to-car-trip.with-car.label": "With car",
   "compare-to-car-trip.duration.label": "Duration",
 
-  "opened_shortest_quiet_path.tooltip": "Exposure to different traffic noise levels on the shortest (selected) path:",
-  "opened_quiet_path.tooltip": "Exposure to different traffic noise levels on the selected and the shortest path:",
-  "opened_shortest_clean_path.tooltip": "Exposure to different air quality classes on the shortest (selected) path:",
-  "opened_clean_path.tooltip": "Exposure to different air quality classes on the selected and the shortest path:",
+  "opened_shortest_quiet_path.tooltip": "Shares of different traffic noise levels on the selected (shortest) path:",
+  "opened_quiet_path.tooltip": "Shares of different traffic noise levels on the selected (1) and the shortest (2) path:",
+  "opened_shortest_clean_path.tooltip": "Shares of different air quality classes on the selected (shortest) path:",
+  "opened_clean_path.tooltip": "Shares of different air quality classes on the selected (1) and the shortest (2) path:",
 
   "info_modal.welcome.title": "Welcome to Green Paths",
   "info_modal.cookie.info": "This site uses cookies to log anonymous visitor counts via Google Analytics, and thus some information of your browser (e.g. IP address) is shared with Google. By clicking OK below, you accept this use of cookies. Alternatively, you can disable analytics & cookies:",

@@ -20,7 +20,7 @@ const PathPanelContainer = styled.div<{ showingOpenedPath?: boolean }>`
   box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.07), 0 -6px 20px 0 rgba(0, 0, 0, 0.04);
   @media (min-width: 600px) {
     width: 380px;
-    max-height: calc(100vh - 121px);
+    max-height: calc(100vh - 230px);
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
   }
