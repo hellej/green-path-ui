@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import styled from 'styled-components'
 import { unsetOpenedPath } from '../../../reducers/pathsReducer'
+import { PathGviBar } from './../PathGviBar'
 import { PathNoisesBar } from './../PathNoisesBar'
 import { PathAqiBar } from './../PathAqiBar'
 import { OpenedPathNoiseExps } from './OpenedPathNoiseExps'
@@ -11,9 +12,10 @@ import T from './../../../utils/translator/Translator'
 import { PathFeature, ReduxState } from '../../../types'
 import { ExposureMode, TravelMode } from '../../../services/paths'
 
-const PathRowFlex = styled.div`
+const PathRowFlex = styled.div<{ padding?: string }>`
   display: flex;
   justify-content: space-around;
+  padding: ${props => (props.padding ? props.padding : 'initial')};
 `
 const ExposureBarsFlex = styled.div`
   display: flex;
@@ -35,7 +37,14 @@ const OpenedPathInfo = ({ paths, unsetOpenedPath }: PropsFromRedux) => {
 
   switch (showingStatsType) {
     case ExposureMode.GREEN: {
-      return <div>GVI INFO (TODO)</div>
+      return (
+        <PathGviExposures
+          openedIsShortest={openedIsShortest}
+          path={openedPath!}
+          shortPath={openedIsShortest ? null : shortPath}
+          unsetOpenedPath={unsetOpenedPath}
+        />
+      )
     }
     case ExposureMode.CLEAN: {
       return (
@@ -72,6 +81,28 @@ interface PathExposureProps {
   unsetOpenedPath: React.MouseEventHandler<HTMLElement>
 }
 
+const PathGviExposures = ({
+  openedIsShortest,
+  path,
+  shortPath,
+  unsetOpenedPath,
+}: Omit<PathExposureProps, 'travelMode'>) => {
+  return (
+    <PathRowFlex padding="3px 0px 7px 0px">
+      <ClosePathBox handleClick={unsetOpenedPath} />
+      <ExposureBarsFlex>
+        <BarsLabel>
+          <T>{openedIsShortest ? 'opened_shortest_gvi_path.tooltip' : 'opened_gvi_path.tooltip'}</T>
+        </BarsLabel>
+        <PathGviBar withMargins={true} gviPcts={path.properties.gvi_cl_pcts} />
+        {!openedIsShortest && shortPath && (
+          <PathGviBar withMargins={true} gviPcts={shortPath.properties.gvi_cl_pcts} />
+        )}
+      </ExposureBarsFlex>
+    </PathRowFlex>
+  )
+}
+
 const PathAqiExposures = ({
   openedIsShortest,
   path,
@@ -80,7 +111,7 @@ const PathAqiExposures = ({
   unsetOpenedPath,
 }: PathExposureProps) => {
   return (
-    <div>
+    <Fragment>
       <PathRowFlex>
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
@@ -98,7 +129,7 @@ const PathAqiExposures = ({
         </ExposureBarsFlex>
       </PathRowFlex>
       <OpenedPathAqExps path={path} travelMode={travelMode} />
-    </div>
+    </Fragment>
   )
 }
 
@@ -110,7 +141,7 @@ const PathNoiseExposures = ({
   unsetOpenedPath,
 }: PathExposureProps) => {
   return (
-    <div>
+    <Fragment>
       <PathRowFlex>
         <ClosePathBox handleClick={unsetOpenedPath} />
         <ExposureBarsFlex>
@@ -128,7 +159,7 @@ const PathNoiseExposures = ({
         </ExposureBarsFlex>
       </PathRowFlex>
       <OpenedPathNoiseExps path={path} travelMode={travelMode} />
-    </div>
+    </Fragment>
   )
 }
 

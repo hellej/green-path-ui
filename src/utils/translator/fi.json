@@ -86,6 +86,8 @@
   "compare-to-car-trip.with-car.label": "Autolla",
   "compare-to-car-trip.duration.label": "Kesto",
 
+  "opened_shortest_gvi_path.tooltip": "Kasvillisuuden vihernäkymien (%) osuudet valitulla (lyhyimmällä) reitillä:",
+  "opened_gvi_path.tooltip": "Kasvillisuuden vihernäkymien (%) osuudet valitulla (1) ja lyhyimmällä (2) reitillä:",
   "opened_shortest_quiet_path.tooltip": "Eri melutasojen osuudet valitulla (lyhyimmällä) reitillä:",
   "opened_quiet_path.tooltip": "Eri melutasojen osuudet valitulla (1) ja lyhyimmällä (2) reitillä:",
   "opened_shortest_clean_path.tooltip": "Eri ilmanlaatuvyöhykkeiden osuudet valitulla (lyhyimmällä) reitillä:",
