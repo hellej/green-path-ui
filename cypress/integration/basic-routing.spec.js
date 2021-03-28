@@ -5,10 +5,34 @@ describe('Page load', () => {
         localStorage.setItem('gp-lang', 'en')
       },
     })
-    cy.contains('Welcome')
+  })
+
+  it('shows welcome info modal', () => {
+    cy.get('[data-cy=welcome-info-content]').within(() => {
+      cy.contains('Welcome to Green Paths')
+      cy.contains('Problem')
+      cy.contains('Solution')
+    })
+  })
+
+  it('shows logos of the sponsors', () => {
+    cy.get('[data-cy=sponsor-logos]').children().first().children().should('have.length', 4)
+    cy.get('[data-cy=sponsor-logos]').should('have.css', 'position', 'sticky')
+  })
+
+  it('hides logos of the sponsors on scroll', () => {
+    cy.get('[data-cy=welcome-info-content').scrollTo(0, 20)
+    cy.get('[data-cy=sponsor-logos]').should('have.css', 'position', 'static')
   })
 
   it('closes welcome info', () => {
+    cy.get('[data-cy=hide-welcome-button]').contains('OK').click()
+  })
+
+  it('shows logos of the sponsors after re-opening the info', () => {
+    cy.get('[data-cy=show-info-button]').click()
+    cy.get('[data-cy=sponsor-logos]').children().first().children().should('have.length', 4)
+    cy.get('[data-cy=sponsor-logos]').should('have.css', 'position', 'sticky')
     cy.get('[data-cy=hide-welcome-button]').contains('OK').click()
   })
 })
@@ -59,9 +83,6 @@ describe('Select origin and destination', () => {
     cy.intercept(
       {
         url: 'geocoding',
-        // search: {
-        //   text: /Voi/, //the scope of this intercept is anyway just this it
-        // },
       },
       { fixture: 'geocode_voimala.json' },
     )
@@ -79,9 +100,6 @@ describe('Select origin and destination', () => {
     cy.intercept(
       {
         url: 'geocoding',
-        // search: {
-        //   text: '/Kes/', //the scope of this intercept is anyway just this it
-        // },
       },
       { fixture: 'geocode_kahvila.json' },
     )
