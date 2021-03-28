@@ -12,6 +12,7 @@ import { ExposureMode } from '../../services/paths'
 const gviLineColors = [
   'match',
   ['get', 'value'],
+  0, colorByGviClass[0],
   1, colorByGviClass[1],
   2, colorByGviClass[2],
   3, colorByGviClass[3],

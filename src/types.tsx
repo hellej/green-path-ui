@@ -48,7 +48,7 @@ export type OdCoords = [Coords, Coords]
 
 export type DbClass = 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75
 
-export type GviClass = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+export type GviClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 
 export type AqiClass = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
