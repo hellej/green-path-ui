@@ -26,7 +26,7 @@ const OrigDestPanel = (props: PropsFromRedux) => {
   const { showingPaths, waitingPaths } = props
 
   return (
-    <OdContainer id="od-container" hide={waitingPaths || showingPaths}>
+    <OdContainer data-cy="od-container" hide={waitingPaths || showingPaths}>
       <OriginInput />
       <DestinationInput />
     </OdContainer>

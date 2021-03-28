@@ -44,7 +44,7 @@ export const setSelectLocationsPopup = (lngLat: LngLat) => {
 
     mbPopup = new MapboxGl.Popup({ closeOnClick: true, closeButton: true, anchor: 'bottom' })
 
-    mbPopup.setLngLat(lngLat).setHTML('<div id="popup" </div>').addTo(mapRef)
+    mbPopup.setLngLat(lngLat).setHTML('<div data-cy="popup" </div>').addTo(mapRef)
 
     dispatch({ type: 'SET_POPUP' })
   }

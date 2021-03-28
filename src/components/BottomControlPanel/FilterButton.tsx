@@ -40,7 +40,7 @@ const FilterButton = (props: FilterButtonProps) => {
   const { onClick, envOptimizedPathCount, lengthLimit, lengthLimits } = props
   const disabled = lengthLimits.length <= 1
   return (
-    <StyledButton id="filter-by-length-button" disabled={disabled} onClick={onClick}>
+    <StyledButton data-cy="filter-by-length-button" disabled={disabled} onClick={onClick}>
       <Filter />
       <FilterCount>
         {lengthLimit.count}/{envOptimizedPathCount + 1}

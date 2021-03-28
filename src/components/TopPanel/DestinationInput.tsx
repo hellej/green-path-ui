@@ -122,16 +122,16 @@ class DestinationInput extends Component<PropsFromRedux> {
     } = this.props
 
     return (
-      <DestSelectorDiv id="destination-input-container" ref={this.wrapperRef}>
+      <DestSelectorDiv data-cy="destination-input-container" ref={this.wrapperRef}>
         <Input
-          id="destination-input"
+          data-cy="destination-input"
           placeholder={text(lang, 'od_inputs.to_label')}
           type="text"
           value={destInputText}
           onClick={toggleDestinationOptionsVisible}
           onChange={setDestinationInputText}
         />
-        <ResetLocButton id="reset-destination-button" onClick={resetDestinationInput}>
+        <ResetLocButton data-cy="reset-destination-button" onClick={resetDestinationInput}>
           <CloseIcon />
         </ResetLocButton>
         {destOptionsVisible && (

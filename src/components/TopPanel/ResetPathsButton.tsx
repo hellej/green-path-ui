@@ -33,7 +33,7 @@ const ArrowBack = styled(IoIosArrowBack)`
 const ResetPathsButton = ({ resetPaths, originObject, destObject }: PropsFromRedux) => {
   const odFc = turf.asFeatureCollection([originObject!, destObject!])
   return (
-    <ButtonContainer id="reset-paths-container" onClick={() => resetPaths(odFc)}>
+    <ButtonContainer data-cy="reset-paths-container" onClick={() => resetPaths(odFc)}>
       <ArrowBack />
     </ButtonContainer>
   )

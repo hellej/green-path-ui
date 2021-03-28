@@ -34,7 +34,7 @@ const Button = styled.button`
   -webkit-transition-duration: 0.2s; /* Safari */
   border: 2px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.22), 0 6px 20px 0 rgba(0, 0, 0, 0.14);
-  background-color: #10a538ed;
+  background-color: #0eb139;
   color: white;
   &:hover {
     background-color: #0fb93d;

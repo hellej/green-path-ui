@@ -81,7 +81,7 @@ const MaxLengthFilterSelector = ({
         <TooltipStyle>
           <T>filter_paths_by_distance.tooltip</T>
         </TooltipStyle>
-        <CloseButtonBox id="close-filter-panel">
+        <CloseButtonBox data-cy="close-filter-panel">
           <CloseButton size={50} onClick={showPathList} />
         </CloseButtonBox>
       </FlexRow>

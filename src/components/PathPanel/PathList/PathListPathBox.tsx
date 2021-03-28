@@ -148,7 +148,11 @@ const PathListPathBox = ({
   }
 
   return (
-    <StyledPathListPathBox selected={selected} onClick={handleClick}>
+    <StyledPathListPathBox
+      selected={selected}
+      data-cy={`path-box-selected-${selected}`}
+      onClick={handleClick}
+    >
       <TripInfo>
         <TravelTime>
           {utils.getDurationStringFromDist(path.properties.length, travelMode)}

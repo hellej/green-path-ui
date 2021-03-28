@@ -141,9 +141,9 @@ class OriginInput extends Component<PropsFromRedux> {
     } = this.props
 
     return (
-      <OrigSelectorDiv id="origin-input-container" ref={this.wrapperRef}>
+      <OrigSelectorDiv data-cy="origin-input-container" ref={this.wrapperRef}>
         <Input
-          id="origin-input"
+          data-cy="origin-input"
           placeholder={text(lang, 'od_inputs.from_label')}
           type="text"
           value={originInputText}
@@ -155,7 +155,7 @@ class OriginInput extends Component<PropsFromRedux> {
             <LoadAnimation size={25} />
           </WaitForUserLocContainer>
         )}
-        <ResetLocButton id="reset-origin-button" onClick={resetOriginInput}>
+        <ResetLocButton data-cy="reset-origin-button" onClick={resetOriginInput}>
           <CloseIcon />
         </ResetLocButton>
         {originOptionsVisible && (

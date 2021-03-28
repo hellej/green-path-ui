@@ -210,7 +210,7 @@ const WelcomeInfo = () => {
             </LogoFlex>
           </SponsorsDiv>
         </ContentContainer>
-        <ButtonDiv id='hide-welcome-button'>
+        <ButtonDiv data-cy='hide-welcome-button'>
           <Button small green onClick={() => dispatch(hideInfo())}>OK</Button>
         </ButtonDiv>
     </InfoContainer>

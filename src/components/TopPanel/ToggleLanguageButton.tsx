@@ -14,7 +14,7 @@ const StyledButton = styled.div`
 
 const ToggleLanguageButton = (props: PropsFromRedux) => {
   return (
-    <StyledButton id="toggle-lang-button" onClick={() => props.toggleLanguage(props.lang)}>
+    <StyledButton data-cy="toggle-lang-button" onClick={() => props.toggleLanguage(props.lang)}>
       {props.lang === Lang.EN ? 'FI' : props.lang === Lang.FI ? 'SV' : 'EN'}
     </StyledButton>
   )
