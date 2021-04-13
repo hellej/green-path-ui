@@ -156,7 +156,7 @@ const pathsReducer = (store: PathsReducer = initialPaths, action: PathsAction): 
         }
       } else {
         let selPath: PathFeature[]
-        if (action.selPathId === 'short') {
+        if (action.selPathId === 'fast') {
           selPath = store.shortPathFC.features
         } else {
           selPath = store.envOptimizedPathFC.features.filter(
@@ -405,10 +405,13 @@ export const setEnvOptimizedPaths = (
   return async (dispatch: any) => {
     dispatch({ type: 'CLOSE_PATHS' })
     const pathFeats: PathFeature[] = pathData.path_FC.features
-    const shortPath = pathFeats.filter(feat => feat.properties.type === 'short')
-    const envOptimizedPaths = pathFeats.filter(
-      feat => feat.properties.type === exposureMode && feat.properties.len_diff !== 0,
-    )
+    const shortPath = pathFeats.filter(feat => feat.properties.type === 'fast')
+    const envOptimizedPaths = pathFeats.filter(feat => {
+      return (
+        (feat.properties.type === exposureMode || feat.properties.type === ExposureMode.SAFE) &&
+        feat.properties.len_diff !== 0
+      )
+    })
     const lengthLimits = utils.getLengthLimits(pathFeats)
     const initialLengthLimit = utils.getInitialLengthLimit(
       lengthLimits,
@@ -429,7 +432,7 @@ export const setEnvOptimizedPaths = (
     if (bestPath) {
       dispatch({ type: 'SET_SELECTED_PATH', selPathId: bestPath.properties.id, routingId })
     } else if (envOptimizedPaths.length > 0) {
-      dispatch({ type: 'SET_SELECTED_PATH', selPathId: 'short', routingId })
+      dispatch({ type: 'SET_SELECTED_PATH', selPathId: 'fast', routingId })
     }
     if (envOptimizedPaths.length === 0) {
       const warn_key = noPathsErrorByExposureMode[exposureMode]

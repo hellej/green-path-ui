@@ -110,7 +110,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 1 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 1 },
         "type": "Feature"
       },
       {
@@ -151,7 +151,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 2 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 2 },
         "type": "Feature"
       },
       {
@@ -162,7 +162,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 1 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 1 },
         "type": "Feature"
       },
       {
@@ -203,7 +203,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 2 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 2 },
         "type": "Feature"
       },
       {
@@ -216,7 +216,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 1 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 1 },
         "type": "Feature"
       },
       {
@@ -229,7 +229,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 2 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 2 },
         "type": "Feature"
       },
       {
@@ -240,7 +240,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 1 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 1 },
         "type": "Feature"
       },
       {
@@ -281,7 +281,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 2 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 2 },
         "type": "Feature"
       },
       {
@@ -294,7 +294,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 1 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 1 },
         "type": "Feature"
       },
       {
@@ -317,7 +317,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 2 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 2 },
         "type": "Feature"
       },
       {
@@ -330,7 +330,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 1 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 1 },
         "type": "Feature"
       },
       {
@@ -404,7 +404,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "short", "value": 2 },
+        "properties": { "p_len_diff": 0, "p_length": 2394.05, "path": "fast", "value": 2 },
         "type": "Feature"
       }
     ],
@@ -749,7 +749,7 @@
           },
           "gvi_m": 0.29,
           "gvi_m_diff": null,
-          "id": "short",
+          "id": "fast",
           "len_diff": 0,
           "len_diff_rat": null,
           "length": 2394.05,
@@ -789,7 +789,7 @@
             "75": 47.906
           },
           "path_score": null,
-          "type": "short"
+          "type": "fast"
         },
         "type": "Feature"
       }

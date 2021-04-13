@@ -32,7 +32,7 @@ const BarsLabel = styled.div`
 
 const OpenedPathInfo = ({ paths, unsetOpenedPath }: PropsFromRedux) => {
   const { shortPathFC, openedPath, showingStatsType, showingPathsOfTravelMode } = paths
-  const openedIsShortest = openedPath!.properties.type === ExposureMode.SHORT
+  const openedIsShortest = openedPath!.properties.type === ExposureMode.FAST
   const shortPath = shortPathFC.features[0]
 
   switch (showingStatsType) {

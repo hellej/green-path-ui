@@ -101,7 +101,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 4 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 4 },
         "type": "Feature"
       },
       {
@@ -122,7 +122,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 3 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 3 },
         "type": "Feature"
       },
       {
@@ -134,7 +134,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 4 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 4 },
         "type": "Feature"
       },
       {
@@ -156,7 +156,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 3 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 3 },
         "type": "Feature"
       },
       {
@@ -170,7 +170,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 4 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 4 },
         "type": "Feature"
       },
       {
@@ -183,7 +183,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 3 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 3 },
         "type": "Feature"
       },
       {
@@ -196,7 +196,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 4 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 4 },
         "type": "Feature"
       },
       {
@@ -261,7 +261,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 3 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 3 },
         "type": "Feature"
       },
       {
@@ -764,7 +764,7 @@
           },
           "gvi_m": 0.33,
           "gvi_m_diff": null,
-          "id": "short",
+          "id": "fast",
           "len_diff": 0,
           "len_diff_rat": null,
           "length": 1747.25,
@@ -804,7 +804,7 @@
             "75": 143.51
           },
           "path_score": null,
-          "type": "short"
+          "type": "fast"
         },
         "type": "Feature"
       },

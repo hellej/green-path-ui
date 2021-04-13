@@ -135,10 +135,11 @@ export const bikeSpeed = 4.15
 export const clickTol = 12
 
 export const noPathsErrorByExposureMode: Record<ExposureMode, string> = {
-  [ExposureMode.SHORT]: 'notif.error.no_shortest_path_found',
   [ExposureMode.QUIET]: 'notif.warn.no_alternative_quiet_paths_found',
-  [ExposureMode.CLEAN]: 'notif.warn.no_alternative_clean_paths_found',
   [ExposureMode.GREEN]: 'notif.warn.no_alternative_green_paths_found',
+  [ExposureMode.CLEAN]: 'notif.warn.no_alternative_clean_paths_found',
+  [ExposureMode.FAST]: 'notif.error.no_shortest_path_found',
+  [ExposureMode.SAFE]: 'notif.error.no_safest_path_found',
 }
 
 export const initialMapCenter =
