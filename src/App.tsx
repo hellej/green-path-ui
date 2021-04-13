@@ -19,7 +19,7 @@ import PathsEdges from './components/Map/PathsEdges'
 import OrigDestPoints from './components/Map/OrigDestPoints'
 import WelcomeInfo from './scenes/WelcomeInfo/WelcomeInfo'
 import DimLayer from './scenes/Home/DimLayer'
-import HopeLink from './scenes/Home/HopeLink'
+import Attribution from './scenes/Home/Attribution'
 import { loadSelectedLanguage } from './reducers/uiReducer'
 import { testGreenPathServiceConnection, testCleanPathServiceStatus } from './reducers/pathsReducer'
 import {
@@ -71,7 +71,7 @@ class App extends Component<PropsFromRedux & RouteComponentProps, State> {
     return (
       <Fragment>
         <DimLayer />
-        <HopeLink />
+        <Attribution />
         {this.state.urlState && (
           <Map basemap={this.state.urlState.basemap}>
             <MapControl />

@@ -46,6 +46,7 @@ class Map extends Component<PropsType & Props & PropsFromRedux, State> {
       zoom: initialMapZoom,
       boxZoom: false,
       trackResize: true,
+      attributionControl: false,
     })
 
     this.map.on('style.load', () => {
