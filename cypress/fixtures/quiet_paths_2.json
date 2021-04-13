@@ -32,7 +32,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 60 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 60 },
         "type": "Feature"
       },
       {
@@ -64,7 +64,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 55 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 55 },
         "type": "Feature"
       },
       {
@@ -84,7 +84,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 60 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 60 },
         "type": "Feature"
       },
       {
@@ -108,7 +108,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 70 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 70 },
         "type": "Feature"
       },
       {
@@ -122,7 +122,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 60 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 60 },
         "type": "Feature"
       },
       {
@@ -138,7 +138,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 65 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 65 },
         "type": "Feature"
       },
       {
@@ -177,7 +177,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 70 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 70 },
         "type": "Feature"
       },
       {
@@ -203,7 +203,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 65 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 65 },
         "type": "Feature"
       },
       {
@@ -216,7 +216,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 60 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 60 },
         "type": "Feature"
       },
       {
@@ -271,7 +271,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 55 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 55 },
         "type": "Feature"
       },
       {
@@ -282,7 +282,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 50 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 50 },
         "type": "Feature"
       },
       {
@@ -295,7 +295,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 55 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 55 },
         "type": "Feature"
       },
       {
@@ -306,7 +306,7 @@
           ],
           "type": "LineString"
         },
-        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "short", "value": 50 },
+        "properties": { "p_len_diff": 0, "p_length": 1747.25, "path": "fast", "value": 50 },
         "type": "Feature"
       },
       {
@@ -1435,7 +1435,7 @@
           },
           "gvi_m": 0.33,
           "gvi_m_diff": null,
-          "id": "short",
+          "id": "fast",
           "len_diff": 0,
           "len_diff_rat": null,
           "length": 1747.25,
@@ -1475,7 +1475,7 @@
             "75": 143.51
           },
           "path_score": null,
-          "type": "short"
+          "type": "fast"
         },
         "type": "Feature"
       },
