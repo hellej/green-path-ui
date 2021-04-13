@@ -164,7 +164,9 @@ export interface NotificationReducer {
   look: string | null
 }
 
-export type EnvExposureMode = Exclude<ExposureMode, ExposureMode.SHORT>
+type BasicRoutingMode = ExposureMode.FAST | ExposureMode.SAFE
+
+export type EnvExposureMode = Exclude<ExposureMode, BasicRoutingMode>
 
 export interface PathsReducer {
   cleanPathsAvailable: boolean

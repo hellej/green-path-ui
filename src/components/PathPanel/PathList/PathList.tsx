@@ -21,7 +21,7 @@ class PathList extends React.Component<PropsFromRedux, State> {
     super(props)
     this.state = {
       linkVisible: true,
-      pathRefs: { short: createRef() },
+      pathRefs: { fast: createRef() },
     }
   }
 

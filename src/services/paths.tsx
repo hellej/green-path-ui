@@ -5,11 +5,12 @@ import { LngLat, PathData, RawPathProperties, PathProperties, PathDataResponse }
 
 const serverUrl = process.env.REACT_APP_GP_SERVER || 'http://localhost:5000/'
 
-export enum ExposureMode {
+export enum ExposureMode { // i.e. RoutingMode
   QUIET = 'quiet',
   GREEN = 'green',
   CLEAN = 'clean',
-  SHORT = 'short',
+  FAST = 'fast',
+  SAFE = 'safe',
 }
 
 export enum TravelMode {
