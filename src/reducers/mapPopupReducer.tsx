@@ -47,6 +47,14 @@ export const setSelectLocationsPopup = (lngLat: LngLat) => {
     // React uses id for rendering popup content
     mbPopup.setLngLat(lngLat).setHTML('<div data-cy="popup" id="popup" </div>').addTo(mapRef)
 
+    // prevent initial focus of close button
+    const closeEl = document.getElementsByClassName(
+      'mapboxgl-popup-close-button',
+    ) as HTMLCollectionOf<HTMLElement>
+    if (closeEl.length === 1) {
+      closeEl[0].blur()
+    }
+
     dispatch({ type: 'SET_POPUP' })
   }
 }
