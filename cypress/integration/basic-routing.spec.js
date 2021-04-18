@@ -226,7 +226,7 @@ describe('Find fresh air paths', () => {
     })
     cy.contains('Find fresh air paths').click()
     cy.contains('Air quality')
-    cy.contains('22 min')
+    cy.contains('23 min')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 3)
     cy.get('[data-cy=shortest-path-box').should('have.length', 1)
     cy.get('[data-cy=env-optimized-path-box').its('length').should('be.eq', 1)
@@ -267,7 +267,7 @@ describe('Toggle routing mode: walk -> bike -> walk', () => {
       fixture: 'quiet_paths_1.json',
     })
     cy.get('[data-cy=toggle-to-walk-button]').click()
-    cy.contains('22 min')
+    cy.contains('23 min')
     cy.get('[data-cy=path-panel-container]').children().its('length').should('be.eq', 4)
   })
 })
@@ -345,7 +345,7 @@ describe('Open path exposure info', () => {
   it('selects the opened shortest path', () => {
     cy.get('[data-cy=path-panel-container]').within(() => {
       cy.get('[data-cy=path-box-selected-true]').within(() => {
-        cy.contains('22 min')
+        cy.contains('23 min')
         cy.contains('1.7 km')
       })
     })
@@ -369,7 +369,7 @@ describe('Open path exposure info', () => {
   it('selects the opened env optimized path', () => {
     cy.get('[data-cy=path-panel-container]').within(() => {
       cy.get('[data-cy=path-box-selected-true]').within(() => {
-        cy.contains('23 min')
+        cy.contains('24 min')
         cy.contains('1.8 km')
       })
     })

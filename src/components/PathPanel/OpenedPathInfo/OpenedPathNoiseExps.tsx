@@ -67,7 +67,7 @@ const DBExposureRow = ({ path, dB, travelMode }: dBExposureRowProps) => {
     <KeyValueFlex>
       <DBKeyBox color={dBColors[dB]}>{dB}dB</DBKeyBox>
       <ExposureBox>
-        {utils.getDurationStringFromDist(dist ? dist : 0, travelMode, true)}
+        {utils.formatDuration(utils.getSecsFromLength(dist ? dist : 0, travelMode), true)}
       </ExposureBox>
     </KeyValueFlex>
   )

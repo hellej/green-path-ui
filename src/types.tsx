@@ -56,12 +56,13 @@ export interface RawPathProperties {
   aqc: number
   aqc_diff: number
   aqc_diff_rat: number
-  aqc_diff_score: number
   aqc_norm: number
   aqi_cl_exps: { [key in AqiClass]: number }
   aqi_m: number
   aqi_m_diff: number
   aqi_cl_pcts: { [key in AqiClass]: number }
+  bike_time_cost: number
+  bike_safety_cost: number
   gvi_m: number
   gvi_m_diff: number
   gvi_cl_exps: { [key in GviClass]: number }
@@ -71,6 +72,7 @@ export interface RawPathProperties {
   len_diff: number
   len_diff_rat: number
   length: number
+  mode_lengths: { walk: number; bike: number }
   mdB: number
   mdB_diff: number
   missing_aqi: boolean
@@ -83,7 +85,6 @@ export interface RawPathProperties {
   noise_pcts: { [key in DbClass]: number }
   noise_range_exps: { [key in DbClass]: number }
   noises: { [key: number]: number }
-  path_score: number
   type: ExposureMode
 }
 

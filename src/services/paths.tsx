@@ -48,10 +48,10 @@ export const getPaths = async (
   const queryUrl = `${serverUrl}/paths/${travelMode}/${exposureMode}/${coordString}`
   const cached = cache.getFromCache(queryUrl)
   if (cached) {
-    console.log('Found quiet paths from cache:', queryUrl)
+    console.log('Found paths from cache:', queryUrl)
     return processPathData(cached)
   }
-  console.log('Querying quiet paths from server:', queryUrl)
+  console.log('Requesting paths from server:', queryUrl)
   const response = await fetch(queryUrl)
   const data = await response.json()
   if (response.status >= 400 || data.error_key) {

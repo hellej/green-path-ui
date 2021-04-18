@@ -1,4 +1,4 @@
-import { walkSpeed, bikeSpeed } from './../constants'
+import { speedByTravelMode } from './../constants'
 import { MapMouseEvent, Map, PointLike } from 'mapbox-gl'
 import { LengthLimit, PathFeature } from '../types'
 import { ExposureMode, TravelMode } from '../services/paths'
@@ -11,14 +11,27 @@ const concatSign = (number: number): string => {
   } else return String(number)
 }
 
-export const getDurationStringFromDist = (
-  m: number,
-  travelMode: TravelMode,
+export const getSecsFromLength = (m: number, travelMode: TravelMode) => {
+  const speed = speedByTravelMode[travelMode]
+  return m / speed
+}
+
+export const getSecsFromModeLengths = (modeLengths: { walk: number; bike: number }) => {
+  let timeSecs = 0
+  if (modeLengths.walk > 0) {
+    timeSecs += modeLengths.walk / speedByTravelMode[TravelMode.WALK]
+  }
+  if (modeLengths.bike > 0) {
+    timeSecs += modeLengths.bike / speedByTravelMode[TravelMode.BIKE]
+  }
+  return timeSecs
+}
+
+export const formatDuration = (
+  timeSecs: number,
   showSeconds: boolean = false,
   withSign: boolean = false,
 ): string => {
-  const speed = travelMode === TravelMode.WALK ? walkSpeed : bikeSpeed
-  const timeSecs = m / speed
   const roundedSecs = Math.round(timeSecs)
   const timeMin = timeSecs / 60
   const roundedMins = Math.round(timeMin)
@@ -48,20 +61,6 @@ export const getLayersFeaturesAroundClickE = (
   ]
   const features = map.queryRenderedFeatures(bbox, { layers })
   return features
-}
-
-export const getBestPath = (greenPathFeatures: PathFeature[]): PathFeature | null => {
-  if (greenPathFeatures.length > 0) {
-    const goodPaths = greenPathFeatures.filter(
-      feat => feat.properties.path_score > 0.8 && feat.properties.cost_coeff <= 5,
-    )
-    if (goodPaths.length > 0) {
-      const maxPathScore = Math.max(...goodPaths.map(path => path.properties.path_score))
-      const bestPath = goodPaths.filter(feat => feat.properties.path_score === maxPathScore)[0]
-      return bestPath
-    }
-  }
-  return null
 }
 
 const getLengthLimit = (length: number, rounding: number) => Math.ceil(length / rounding) * rounding

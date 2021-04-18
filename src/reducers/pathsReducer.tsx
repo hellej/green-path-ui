@@ -428,10 +428,7 @@ export const setEnvOptimizedPaths = (
       envOptimizedPaths,
     })
     dispatch({ type: 'SET_EDGE_FC', pathEdgeFC: pathData.edge_FC, routingId })
-    const bestPath = utils.getBestPath(envOptimizedPaths)
-    if (bestPath) {
-      dispatch({ type: 'SET_SELECTED_PATH', selPathId: bestPath.properties.id, routingId })
-    } else if (envOptimizedPaths.length > 0) {
+    if (envOptimizedPaths.length > 0) {
       dispatch({ type: 'SET_SELECTED_PATH', selPathId: 'fast', routingId })
     }
     if (envOptimizedPaths.length === 0) {

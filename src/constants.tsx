@@ -1,5 +1,5 @@
 import hmaPoly from './HMA.json'
-import { ExposureMode } from './services/paths'
+import { ExposureMode, TravelMode } from './services/paths'
 import { AqiClass, GviClass, PolygonFeature } from './types'
 
 export const extentFeat = hmaPoly.features[0] as PolygonFeature
@@ -128,9 +128,14 @@ export const menu = {
   pathList: 'path_list',
 }
 
-export const walkSpeed = 1.33
+const walkSpeed = 1.25
 
-export const bikeSpeed = 4.15
+const bikeSpeed = 4.3
+
+export const speedByTravelMode: Record<TravelMode, number> = {
+  [TravelMode.WALK]: walkSpeed,
+  [TravelMode.BIKE]: bikeSpeed,
+}
 
 export const clickTol = 12
 

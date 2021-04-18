@@ -720,7 +720,6 @@
           "aqc": 305.47,
           "aqc_diff": null,
           "aqc_diff_rat": null,
-          "aqc_diff_score": null,
           "aqc_norm": 0.128,
           "aqi_cl_exps": { "1": 784.282, "2": 1609.767 },
           "aqi_cl_pcts": { "1": 32.76, "2": 67.24 },
@@ -753,7 +752,7 @@
           "len_diff": 0,
           "len_diff_rat": null,
           "length": 2394.05,
-          "length_b": 3340.49,
+          "mode_lengths": { "bike": 0, "walk": 2394.05 },
           "mdB": 61.8,
           "mdB_diff": null,
           "missing_aqi": false,
@@ -788,7 +787,6 @@
             "70": 67.78,
             "75": 47.906
           },
-          "path_score": null,
           "type": "fast"
         },
         "type": "Feature"

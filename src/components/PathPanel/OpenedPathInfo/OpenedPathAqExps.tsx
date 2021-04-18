@@ -70,7 +70,7 @@ const AqExposureRow = ({ aqiCl, aqiClExp, travelMode }: AqiExposureRowProps) => 
     <StyledAqiExposureRow>
       <AqiClLabelBox aqiCl={aqiCl} />
       <StyledAqiExposureBox>
-        {utils.getDurationStringFromDist(aqiClExp, travelMode, true)}
+        {utils.formatDuration(utils.getSecsFromLength(aqiClExp, travelMode), true)}
       </StyledAqiExposureBox>
     </StyledAqiExposureRow>
   )

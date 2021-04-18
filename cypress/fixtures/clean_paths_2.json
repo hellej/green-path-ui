@@ -737,7 +737,6 @@
           "aqc": 651.58,
           "aqc_diff": null,
           "aqc_diff_rat": null,
-          "aqc_diff_score": null,
           "aqc_norm": 0.373,
           "aqi_cl_exps": { "3": 702.255, "4": 1044.99 },
           "aqi_cl_pcts": { "3": 40.192, "4": 59.808 },
@@ -768,7 +767,7 @@
           "len_diff": 0,
           "len_diff_rat": null,
           "length": 1747.25,
-          "length_b": 2484.3,
+          "mode_lengths": { "bike": 0, "walk": 1747.25 },
           "mdB": 64.0,
           "mdB_diff": null,
           "missing_aqi": false,
@@ -803,7 +802,6 @@
             "70": 315.025,
             "75": 143.51
           },
-          "path_score": null,
           "type": "fast"
         },
         "type": "Feature"
@@ -1013,7 +1011,6 @@
           "aqc": 640.44,
           "aqc_diff": -11.14,
           "aqc_diff_rat": -1.7,
-          "aqc_diff_score": 2.0,
           "aqc_norm": 0.365,
           "aqi_cl_exps": { "3": 920.498, "4": 832.35 },
           "aqi_cl_pcts": { "3": 52.514, "4": 47.486 },
@@ -1044,7 +1041,7 @@
           "len_diff": 5.6,
           "len_diff_rat": 0.3,
           "length": 1752.85,
-          "length_b": 2491.26,
+          "mode_lengths": { "bike": 0, "walk": 1752.85 },
           "mdB": 65.8,
           "mdB_diff": 1.8,
           "missing_aqi": false,
@@ -1079,7 +1076,6 @@
             "70": 286.795,
             "75": 379.418
           },
-          "path_score": -43.6,
           "type": "clean"
         },
         "type": "Feature"

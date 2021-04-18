@@ -155,7 +155,7 @@ const PathListPathBox = ({
     >
       <TripInfo>
         <TravelTime>
-          {utils.getDurationStringFromDist(path.properties.length, travelMode)}
+          {utils.formatDuration(utils.getSecsFromModeLengths(path.properties.mode_lengths))}
         </TravelTime>
         <Distance>{getFormattedDistanceString(path.properties.length)}</Distance>
       </TripInfo>

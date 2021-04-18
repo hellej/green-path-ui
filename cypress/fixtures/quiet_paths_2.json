@@ -1408,7 +1408,6 @@
           "aqc": 225.66,
           "aqc_diff": null,
           "aqc_diff_rat": null,
-          "aqc_diff_score": null,
           "aqc_norm": 0.129,
           "aqi_cl_exps": { "1": 209.175, "2": 1538.071 },
           "aqi_cl_pcts": { "1": 11.972, "2": 88.028 },
@@ -1439,7 +1438,7 @@
           "len_diff": 0,
           "len_diff_rat": null,
           "length": 1747.25,
-          "length_b": 2484.3,
+          "mode_lengths": { "bike": 1747.25, "walk": 0 },
           "mdB": 64.0,
           "mdB_diff": null,
           "missing_aqi": false,
@@ -1474,7 +1473,6 @@
             "70": 315.025,
             "75": 143.51
           },
-          "path_score": null,
           "type": "fast"
         },
         "type": "Feature"
@@ -1661,7 +1659,6 @@
           "aqc": 229.45,
           "aqc_diff": 3.79,
           "aqc_diff_rat": 1.7,
-          "aqc_diff_score": -0.1,
           "aqc_norm": 0.128,
           "aqi_cl_exps": { "1": 498.791, "2": 1293.647 },
           "aqi_cl_pcts": { "1": 27.827, "2": 72.172 },
@@ -1694,7 +1691,7 @@
           "len_diff": 45.2,
           "len_diff_rat": 2.6,
           "length": 1792.44,
-          "length_b": 2167.38,
+          "mode_lengths": { "bike": 1792.44, "walk": 0 },
           "mdB": 59.6,
           "mdB_diff": -4.4,
           "missing_aqi": false,
@@ -1729,7 +1726,6 @@
             "70": 200.792,
             "75": 37.479
           },
-          "path_score": 7.0,
           "type": "quiet"
         },
         "type": "Feature"
@@ -1995,7 +1991,6 @@
           "aqc": 253.49,
           "aqc_diff": 27.83,
           "aqc_diff_rat": 12.3,
-          "aqc_diff_score": -0.1,
           "aqc_norm": 0.127,
           "aqi_cl_exps": { "1": 546.208, "2": 1452.079 },
           "aqi_cl_pcts": { "1": 27.334, "2": 72.666 },
@@ -2028,7 +2023,7 @@
           "len_diff": 251.0,
           "len_diff_rat": 14.4,
           "length": 1998.29,
-          "length_b": 2538.92,
+          "mode_lengths": { "bike": 1998.29, "walk": 0 },
           "mdB": 55.7,
           "mdB_diff": -8.3,
           "missing_aqi": false,
@@ -2063,7 +2058,6 @@
             "70": 18.166,
             "75": 37.479
           },
-          "path_score": 2.1,
           "type": "quiet"
         },
         "type": "Feature"
