@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import Root from './Root'
 import store from './store'
 import SelectLocationsPopup from './components/Map/SelectLocationsPopup'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import './index.css'
 
 const render = () => {
@@ -13,9 +14,9 @@ const render = () => {
   if (popupElement) {
     ReactDOM.render(
       <Provider store={store}>
-        <div>
+        <Fragment>
           <SelectLocationsPopup />
-        </div>
+        </Fragment>
       </Provider>,
       popupElement,
     )
@@ -24,3 +25,5 @@ const render = () => {
 
 render()
 store.subscribe(render)
+
+serviceWorkerRegistration.register()
