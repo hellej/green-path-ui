@@ -115,7 +115,7 @@
   "info_modal.method.content.otp.description_1": "and processed into street network graph with",
   "info_modal.method.content.otp.description_2": "",
   "info_modal.method.content.gvi.description_1": "Green view (i.e. greenery) layer is derived from",
-  "info_modal.method.content.gvi.gsv_link_label": "analyzing Google Street View images",
+  "info_modal.method.content.gvi.gsv_link_label": "analyzing Google Street View images (Toikka et al. 2020)",
   "info_modal.method.content.gvi.land_cover": "and openly available",
   "info_modal.method.content.gvi.land_cover_link_label": "land cover data by HRI",
 
