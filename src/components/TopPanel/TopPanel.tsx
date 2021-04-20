@@ -12,6 +12,7 @@ import GviMapLegend from './GviMapLegend'
 import { Basemap } from '../../constants'
 import { ReduxState } from '../../types'
 import { ExposureMode } from '../../services/paths'
+import ServiceWorkerWrapper from '../ServiceWorkerWrapper'
 
 const VisiblePanel = styled.div`
   background-color: rgba(255, 255, 255, 0.98);
@@ -47,6 +48,12 @@ const GreenPathsLabel = styled.div`
 `
 const LowerTransparentPanel = styled.div`
   position: relative;
+`
+const LowerWidePanel = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
 `
 const LowerLeftPanel = styled.div`
   position: absolute;
@@ -112,6 +119,9 @@ const TopPanel = (props: PropsFromRedux) => {
           <ShowInfoButton />
           <BasemapSelector />
         </LowerRightPanel>
+        <LowerWidePanel>
+          <ServiceWorkerWrapper />
+        </LowerWidePanel>
       </LowerTransparentPanel>
     </div>
   )

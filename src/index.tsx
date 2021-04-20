@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import Root from './Root'
 import store from './store'
 import SelectLocationsPopup from './components/Map/SelectLocationsPopup'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import './index.css'
 
 const render = () => {
@@ -25,5 +24,3 @@ const render = () => {
 
 render()
 store.subscribe(render)
-
-serviceWorkerRegistration.register()

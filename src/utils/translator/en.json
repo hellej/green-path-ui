@@ -131,5 +131,8 @@
   "info_modal.user_feedback.link_address": "https://forms.gle/sKDWpgcksEx5Qpbh7",
 
   "info_modal.code.title": "Code",
-  "info_modal.funded_by": "HOPE project is co-financed by the European Regional Development Fund through the Urban Innovative Actions Initiative."
+  "info_modal.funded_by": "HOPE project is co-financed by the European Regional Development Fund through the Urban Innovative Actions Initiative.",
+
+  "update_available_title": "A new version is available!",
+  "update_available_tooltip": "Click here to update"
 }

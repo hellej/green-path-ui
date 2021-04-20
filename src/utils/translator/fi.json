@@ -131,5 +131,8 @@
   "info_modal.user_feedback.link_address": "https://forms.gle/3q2FpTVAfA13bxkM9",
 
   "info_modal.code.title": "Koodi",
-  "info_modal.funded_by": "HOPE projekti saa osan rahoituksestaan Euroopan aluekehitysrahastolta Urban Innovative Actions Initiative (UIA) -projektin kautta."
+  "info_modal.funded_by": "HOPE projekti saa osan rahoituksestaan Euroopan aluekehitysrahastolta Urban Innovative Actions Initiative (UIA) -projektin kautta.",
+
+  "update_available_title": "Uusi versio on saatavilla!",
+  "update_available_tooltip": "Paina tästä päivittääksesi"
 }
