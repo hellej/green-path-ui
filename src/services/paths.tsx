@@ -55,10 +55,10 @@ export const getPaths = async (
   const response = await fetch(queryUrl)
   const data = await response.json()
   if (response.status >= 400 || data.error_key) {
-    analytics.logEvent(`routing_error_${travelMode}_${exposureMode}_paths`)
+    analytics.logEvent(`routing_error_${exposureMode}_${travelMode}_paths`)
     throw data.error_key ? data.error_key : 'notif.error.routing.general_routing_error'
   }
-  analytics.logEvent('routed_quiet_paths')
+  analytics.logEvent(`routed_${exposureMode}_${travelMode}_paths`)
   const cacheTtlSecs = exposureMode === ExposureMode.CLEAN ? 300 : 3600
   cache.setToCacheWithExpiry(queryUrl, data, cacheTtlSecs)
   return processPathData(data)
