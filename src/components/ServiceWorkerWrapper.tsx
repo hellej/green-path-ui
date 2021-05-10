@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import LoadAnimation from './LoadAnimation/LoadAnimation'
 import T from '../utils/translator/Translator'
 import * as serviceWorker from './../serviceWorkerRegistration'
 
@@ -37,8 +38,10 @@ const Container = styled.a`
 `
 
 const ServiceWorkerWrapper: FC = () => {
-  const [showReload, setShowReload] = useState(false)
   const [waitingWorker, setWaitingWorker] = useState<ServiceWorker | null>(null)
+  const [showReload, setShowReload] = useState(false)
+  const [updating, setUpdating] = useState(false)
+  const updated = useRef(false)
 
   const onSWUpdate = (registration: ServiceWorkerRegistration) => {
     setShowReload(true)
@@ -49,21 +52,44 @@ const ServiceWorkerWrapper: FC = () => {
     serviceWorker.register({ onUpdate: onSWUpdate })
   }, [])
 
-  const reloadPage = () => {
-    waitingWorker?.postMessage({ type: 'SKIP_WAITING' })
+  const updateServiceWorker = () => {
     setShowReload(false)
-    window.location.reload() // or reload(true) to force reload (deprecated)?
+    setUpdating(true)
+
+    if (waitingWorker) {
+      waitingWorker.postMessage({ type: 'SKIP_WAITING' })
+      // reload on service worker statechange -> activated
+      waitingWorker.addEventListener('statechange', (e: any) => {
+        if (e.target.state === 'activated') {
+          updated.current = true
+          setUpdating(false)
+          window.location.reload()
+        }
+      })
+    }
+
+    // reload after timeout if the statechange event did not fire
+    setTimeout(() => {
+      if (!updated.current) {
+        updated.current = true
+        setUpdating(false)
+        window.location.reload()
+      }
+    }, 2500)
   }
 
   return (
-    (showReload && (
+    ((showReload || updating) && (
       <Wrapper>
-        <Container onClick={reloadPage}>
-          <T>update_available_title</T>
-          <div>
-            <T>update_available_tooltip</T>
-          </div>
-        </Container>
+        {showReload && (
+          <Container onClick={updateServiceWorker}>
+            <T>update_available_title</T>
+            <div>
+              <T>update_available_tooltip</T>
+            </div>
+          </Container>
+        )}
+        {updating && <LoadAnimation size={30} color={'black'} />}
       </Wrapper>
     )) ||
     null
