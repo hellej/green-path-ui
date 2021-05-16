@@ -131,5 +131,8 @@
   "info_modal.user_feedback.link_address": "https://forms.gle/sKDWpgcksEx5Qpbh7",
 
   "info_modal.code.title": "Kod",
-  "info_modal.funded_by": "HOPE-projektet stöds till en del av den Europeiska regionala utvecklingsfonden via projektet Urban Innovative Actions Initiative (UIA)."
+  "info_modal.funded_by": "HOPE-projektet stöds till en del av den Europeiska regionala utvecklingsfonden via projektet Urban Innovative Actions Initiative (UIA).",
+
+  "update_available_title": "",
+  "update_available_tooltip": ""
 }
