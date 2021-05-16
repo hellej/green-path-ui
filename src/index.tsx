@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import Root from './Root'
@@ -13,9 +13,9 @@ const render = () => {
   if (popupElement) {
     ReactDOM.render(
       <Provider store={store}>
-        <div>
+        <Fragment>
           <SelectLocationsPopup />
-        </div>
+        </Fragment>
       </Provider>,
       popupElement,
     )

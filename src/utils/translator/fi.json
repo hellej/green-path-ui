@@ -115,7 +115,7 @@
   "info_modal.method.content.otp.description_1": "ja prosessoitu reititysgraafiksi",
   "info_modal.method.content.otp.description_2": " -sovelluksella",
   "info_modal.method.content.gvi.description_1": "Vihernäkymätieto perustuu ",
-  "info_modal.method.content.gvi.gsv_link_label": "Googlen katukuvista laskettuun katutason viherindeksiin",
+  "info_modal.method.content.gvi.gsv_link_label": "Googlen katukuvista laskettuun katutason viherindeksiin (Toikka et al. 2020)",
   "info_modal.method.content.gvi.land_cover": "ja kaupunkien avoimena datana julkaisemaan",
   "info_modal.method.content.gvi.land_cover_link_label": "maanpeiteaineistoon",
 
@@ -131,5 +131,8 @@
   "info_modal.user_feedback.link_address": "https://forms.gle/3q2FpTVAfA13bxkM9",
 
   "info_modal.code.title": "Koodi",
-  "info_modal.funded_by": "HOPE projekti saa osan rahoituksestaan Euroopan aluekehitysrahastolta Urban Innovative Actions Initiative (UIA) -projektin kautta."
+  "info_modal.funded_by": "HOPE projekti saa osan rahoituksestaan Euroopan aluekehitysrahastolta Urban Innovative Actions Initiative (UIA) -projektin kautta.",
+
+  "update_available_title": "Uusi versio on saatavilla!",
+  "update_available_tooltip": "Paina tästä päivittääksesi"
 }

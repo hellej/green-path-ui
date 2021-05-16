@@ -115,7 +115,7 @@
   "info_modal.method.content.otp.description_1": "and processed into street network graph with",
   "info_modal.method.content.otp.description_2": "",
   "info_modal.method.content.gvi.description_1": "Green view (i.e. greenery) layer is derived from",
-  "info_modal.method.content.gvi.gsv_link_label": "analyzing Google Street View images",
+  "info_modal.method.content.gvi.gsv_link_label": "analyzing Google Street View images (Toikka et al. 2020)",
   "info_modal.method.content.gvi.land_cover": "and openly available",
   "info_modal.method.content.gvi.land_cover_link_label": "land cover data by HRI",
 
@@ -131,5 +131,8 @@
   "info_modal.user_feedback.link_address": "https://forms.gle/sKDWpgcksEx5Qpbh7",
 
   "info_modal.code.title": "Code",
-  "info_modal.funded_by": "HOPE project is co-financed by the European Regional Development Fund through the Urban Innovative Actions Initiative."
+  "info_modal.funded_by": "HOPE project is co-financed by the European Regional Development Fund through the Urban Innovative Actions Initiative.",
+
+  "update_available_title": "A new version is available!",
+  "update_available_tooltip": "Click here to update"
 }

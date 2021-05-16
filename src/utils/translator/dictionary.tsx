@@ -12,15 +12,15 @@ const langs: Record<Lang, Record<string, string>> = {
 if (process.env.NODE_ENV === 'development') {
   Object.keys(langs[Lang.EN]).forEach(key => {
     if (!(key in langs[Lang.FI])) {
-      console.error('missing key from FI dict:', key)
+      console.error(`missing key "${key}" (FI)`)
     }
     if (!(key in langs[Lang.SV])) {
-      console.log(`missing key "${key}" from SV dict -> defaulting to EN`)
+      console.log(`missing key "${key}" (SV)`)
     }
   })
   Object.keys(langs[Lang.FI]).forEach(key => {
     if (!(key in langs[Lang.EN])) {
-      console.error('missing key from EN dict:', key)
+      console.warn(`missing key "${key}" (EN)`)
     }
   })
   Object.keys(langs[Lang.SV]).forEach(key => {
