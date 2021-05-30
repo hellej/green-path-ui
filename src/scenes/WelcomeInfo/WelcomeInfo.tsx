@@ -152,7 +152,7 @@ const WelcomeInfo = () => {
           <SubHeading><T>info_modal.method.title</T></SubHeading>
           <P>
             <T>info_modal.method.content.osm.description</T> <Link href='https://www.openstreetmap.org/copyright' target='_blank' rel='noopener noreferrer'>
-              OpenStreetMap</Link> <T>info_modal.method.content.osm.suffix</T>(CC-BY-SA) <T>info_modal.method.content.otp.description_1</T> <Link href='https://www.opentripplanner.org/' target='_blank' rel='noopener noreferrer'>
+              OpenStreetMap</Link><T>info_modal.method.content.osm.suffix</T>(CC-BY-SA) <T>info_modal.method.content.otp.description_1</T>{' '}<Link href='https://www.opentripplanner.org/' target='_blank' rel='noopener noreferrer'>
               OpenTripPlanner</Link><T>info_modal.method.content.otp.description_2</T>.
           </P>
           <P>
@@ -167,7 +167,7 @@ const WelcomeInfo = () => {
           </P>
           <P>
             <T>info_modal.method.content.gvi.description_1</T>{' '} <Link href='https://doi.org/10.1016/j.dib.2020.105601' target='_blank' rel='noopener noreferrer'>
-              <T>info_modal.method.content.gvi.gsv_link_label</T></Link> <T>info_modal.method.content.gvi.land_cover</T> <Link href='https://hri.fi/data/en_GB/dataset/paakaupunkiseudun-maanpeiteaineisto' target='_blank' rel='noopener noreferrer'>
+              <T>info_modal.method.content.gvi.gsv_link_label</T></Link> <T>info_modal.method.content.gvi.land_cover</T>{' '}<Link href='https://hri.fi/data/en_GB/dataset/paakaupunkiseudun-maanpeiteaineisto' target='_blank' rel='noopener noreferrer'>
             <T>info_modal.method.content.gvi.land_cover_link_label</T></Link>.
           </P>
           <SubHeading><T>info_modal.team.title</T></SubHeading>
