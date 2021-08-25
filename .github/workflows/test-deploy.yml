@@ -1,0 +1,73 @@
+name: Tests & Deploy
+on: [push]
+jobs:
+
+  cypress-tests:
+    name: E2E tests
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          browser: chrome
+          spec: cypress/integration/basic-routing.spec.js
+          start: npm start
+          # quote the url to be safe against YML parsing surprises
+          wait-on: "http://localhost:3000"
+        env:
+          REACT_APP_GP_SERVER: ${{ secrets.REACT_APP_GP_SERVER }}
+          REACT_APP_DEV_MAP_VIEW: "False"
+          REACT_APP_USE_DEFAULT_OD: "False"
+          REACT_APP_DEBUG_GRAPH: "False"
+          REACT_APP_MB_ACCESS: ${{ secrets.REACT_APP_MB_ACCESS }}
+          REACT_APP_FB_API_KEY: ${{ secrets.REACT_APP_FB_API_KEY }}
+          REACT_APP_FB_MSG_SENDER_ID: ${{ secrets.REACT_APP_FB_MSG_SENDER_ID }}
+          REACT_APP_FB_APP_ID: ${{ secrets.REACT_APP_FB_APP_ID }}
+          REACT_APP_FB_MEASUREMENT_ID: ${{ secrets.REACT_APP_FB_MEASUREMENT_ID }}
+
+  build-deploy:
+    name: Deploy
+    if: github.ref == 'refs/heads/master'
+    needs: [cypress-tests]
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+        env:
+          REACT_APP_GP_SERVER: ${{ secrets.REACT_APP_GP_SERVER }}
+          REACT_APP_DEV_MAP_VIEW: "False"
+          REACT_APP_USE_DEFAULT_OD: "False"
+          REACT_APP_DEBUG_GRAPH: "False"
+          REACT_APP_MB_ACCESS: ${{ secrets.REACT_APP_MB_ACCESS }}
+          REACT_APP_FB_API_KEY: ${{ secrets.REACT_APP_FB_API_KEY }}
+          REACT_APP_FB_MSG_SENDER_ID: ${{ secrets.REACT_APP_FB_MSG_SENDER_ID }}
+          REACT_APP_FB_APP_ID: ${{ secrets.REACT_APP_FB_APP_ID }}
+          REACT_APP_FB_MEASUREMENT_ID: ${{ secrets.REACT_APP_FB_MEASUREMENT_ID }}
+      - name: Deploy
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
