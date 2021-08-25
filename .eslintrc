@@ -1,16 +1,15 @@
 {
-  "plugins": [
-  ],
+  "plugins": ["cypress"],
   "env": {
     "browser": true,
     "commonjs": true,
     "es6": true
   },
-  "extends": [
-    "react-app",
-    "eslint:recommended"
-  ],
-  "parser": "babel-eslint",
+  "extends": ["react-app", "eslint:recommended", "plugin:cypress/recommended", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "globals": {
     "test": true,
     "expect": true,
@@ -21,29 +20,30 @@
     "afterAll": true
   },
   "rules": {
-    "indent": [
-      "off",
-      2
-    ],
-    "linebreak-style": [
+    "indent": ["off", 2],
+    "comma-dangle": ["error", "always-multiline"],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single", "avoid-escape"],
+    "semi": ["error", "never"],
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/semi": ["error", "never"],
+    "@typescript-eslint/member-delimiter-style": [
       "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single",
-      "avoid-escape"
-    ],
-    "semi": [
-      "error",
-      "never"
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        },
+        "multilineDetection": "brackets"
+      }
     ],
     "eqeqeq": "error",
     "no-trailing-spaces": "error",
-    "object-curly-spacing": [
-      "error",
-      "always"
-    ],
+    "object-curly-spacing": ["error", "always"],
     "arrow-spacing": [
       "error",
       {

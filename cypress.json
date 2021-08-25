@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:3000/",
+  "requestTimeout": 8000,
+  "defaultCommandTimeout": 8000,
+  "video": false,
+  "ignoreTestFiles": "**/examples/*.spec.js"
+}
