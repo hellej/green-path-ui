@@ -1,14 +1,14 @@
 # Quiet path UI (deprecated)
 
-An interactive route planner for finding quieter routes for walking using the [green paths route planner](https://github.com/DigitalGeographyLab/hope-green-path-server) project initiated as part of my master's thesis [(github.com/hellej/quiet-paths-msc)](https://github.com/hellej/quiet-paths-msc). Further development of this project is moved to [github.com/DigitalGeographyLab/hope-green-path-ui](https://github.com/DigitalGeographyLab/hope-green-path-ui) and this repository is deprecated. 
+An interactive route planner for finding quieter routes for walking using the [green paths route planner](https://github.com/DigitalGeographyLab/green-path-server) project initiated as part of my master's thesis [(github.com/hellej/quiet-paths-msc)](https://github.com/hellej/quiet-paths-msc). Further development of this project is moved to [github.com/DigitalGeographyLab/green-path-ui](https://github.com/DigitalGeographyLab/green-path-ui) and this repository is deprecated. 
 
 
 # Green path UI
-[![tests & deploy status](https://github.com/DigitalGeographyLab/hope-green-path-ui/workflows/Tests%20%26%20Deploy/badge.svg)](https://github.com/DigitalGeographyLab/hope-green-path-ui/actions)
+[![tests & deploy status](https://github.com/DigitalGeographyLab/green-path-ui/workflows/Tests%20%26%20Deploy/badge.svg)](https://github.com/DigitalGeographyLab/green-path-ui/actions)
 
 Live demo: [green-paths.web.app](https://green-paths.web.app/)
 
-A user interface for the [Green Paths](https://github.com/DigitalGeographyLab/hope-green-path-server/) route planner being developed within [UIA HOPE project](https://ilmanlaatu.eu/briefly-in-english/) – Healthy Outdoor Premises for Everyone. Its goal is to help people find routes of fresh air, less noise and more greenery for walking and cycling in the Helsinki capital region.
+A user interface for the [Green Paths](https://github.com/DigitalGeographyLab/green-path-server/) route planner being developed within [UIA HOPE project](https://ilmanlaatu.eu/briefly-in-english/) – Healthy Outdoor Premises for Everyone. Its goal is to help people find routes of fresh air, less noise and more greenery for walking and cycling in the Helsinki capital region.
 
 The route planner utilizes air quality index (AQI) data from the [FMI-ENFUSER](https://en.ilmatieteenlaitos.fi/environmental-information-fusion-service) modeling system (by the Finnish Meteorological Institute) and modeled [traffic noise data](www.syke.fi/en-US/Open_information/Spatial_datasets/Downloadable_spatial_dataset#E) from the Helsinki capital region. AQI is based on real-time hourly data as a composite measure of NO2, PM2.5, PM10, SO2 and O3. Green view (i.e. greenery) data is derived from [analyzing Google Street View images](https://www.sciencedirect.com/science/article/pii/S2352340920304959?via%3Dihub) and openly available [land cover data by HRI](https://hri.fi/data/en_GB/dataset/paakaupunkiseudun-maanpeiteaineisto).
 
